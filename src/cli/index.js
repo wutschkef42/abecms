@@ -33,6 +33,7 @@ import Manager from './core/manager/Manager'
 import Page from './cms/Page'
 
 import config from './core/config/config'
+import mongo from './core/databases/mongo'
 
 import * as cmsData from './cms/data'
 import * as cmsEditor from './cms/editor'
@@ -87,3 +88,7 @@ export {
 }
 
 export {compileAbe}
+
+export {
+  mongo,
+}

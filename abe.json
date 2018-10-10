@@ -1,0 +1,24 @@
+{
+    "deployers": {
+      "git": {
+        "active": true,
+        "repository": "https://github.com/gregorybesson/abegittest.git",
+        "branch": "master",
+        "username": "gregorybesson",
+        "email": "mymail@domain.com"
+      }
+    },
+    "database": {
+        "type": "mongo",
+        "mongo": {
+          "url": "mongodb://localhost:27017/abecms_dev"
+        }
+    },
+    "users": {
+      "enable": false
+    },
+    "plugins": [
+     
+    ]
+}
+  

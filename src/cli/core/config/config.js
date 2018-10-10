@@ -13,6 +13,40 @@ if (process.env.ROOT) {
 
 var hintAbeJson = false
 
+/*
+var loadLocalConfig_Mongo = result => {
+  
+}*/
+
+var loadLocalConfig_File = result => {
+  if (result.root !== '') {
+    try {
+      var stat = fse.statSync(result.root)
+      if (stat && stat.isDirectory()) {
+        try {
+          stat = fse.statSync(path.join(result.root, 'abe.json'))
+          if (stat) {
+            var json = fse.readJsonSync(path.join(result.root, 'abe.json'))
+            result = extend(true, result, json)
+          }
+        } catch (e) {
+          if (!hintAbeJson) {
+            hintAbeJson = true
+            // console.log(
+            //   clc.green('[ Hint ]'),
+            //   'you can create a specific config file named abe.json to customize your abe install',
+            //   clc.cyan.underline('https://github.com/abecms/abecms/blob/master/docs/abe-config.md')
+            // )
+          }
+        }
+      }
+    } catch (e) {
+      console.log('LoadConfig Error')
+      console.log(e)
+    }
+  }
+}
+
 var loadLocalConfig = result => {
   if (result.root !== '') {
     try {

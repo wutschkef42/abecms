@@ -177,5 +177,11 @@
     "text": "text",
     "rich": "rich",
     "textarea": "textarea"
+  },
+  "database": {
+    "type": "mongo",
+    "mongo": {
+      "url": "mongodb://localhost:27017/abecms_dev"
+    }
   }
 }

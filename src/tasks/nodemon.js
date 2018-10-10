@@ -5,7 +5,7 @@ var clc = require('cli-color')
 // ROOT=/path/to/my/abesite node src/tasks/nodemon.js
 
 nodemon({
-  script: __dirname + '/../../src/server/app.js',
+  script: __dirname + '/../../src/server/index.js',
   options: {
     exec: __dirname + '/../../node_modules/.bin/babel-node --presets env'
   },
@@ -55,3 +55,4 @@ nodemon
     console.log('------------------------------------------------------------')
     console.log(clc.green('App restarted due to: '), files[0])
   })
+
