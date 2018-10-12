@@ -4,8 +4,22 @@ import xss from 'xss'
 import path from 'path'
 
 import {config} from '../../'
+var { mongo } = require('../../');
 
-export function saveJson(jsonPath, json) {
+export async function saveJson(jsonPath, json) {
+
+  let result = false;
+  if (config.database.type == "file") {
+    result = saveJsonFile(jsonPath, json);
+  }
+  else if (config.database.type == "mongo") {
+    result = await saveJsonMongo(jsonPath, json);
+  }
+
+  return result
+}
+
+export function saveJsonFile(jsonPath, json) {
   mkdirp.sync(path.dirname(jsonPath))
 
   if (json.abe_source != null) delete json.abe_source
@@ -36,6 +50,42 @@ export function saveJson(jsonPath, json) {
 
   return true
 }
+
+export async function saveJsonMongo (jsonPath, json) {
+  var { mongo } = require('../../');
+  var db = mongo.getDb();
+  var JSONs = db.collection('jsons');
+
+  var pathArray = jsonPath.split('/').slice(0, -1);
+  var filename = pathArray[pathArray.length - 1];
+
+  try {
+    var mtime = Date.now();
+    var jsonUpdate = await JSONs.updateOne({
+      jsonPath
+    },
+    {
+      $set: {
+        json,
+        jsonPath,
+        mtime,
+        pathArray,
+        filename 
+      }
+    },
+    {
+      upsert: true
+    });
+  }
+  catch (e) {
+    console.error(e);
+    return false;
+  }
+  console.log('saved', jsonPath, json);
+  return true;
+}
+
+// create mongo function
 
 export function saveHtml(pathFile, html) {
   mkdirp.sync(path.dirname(pathFile))

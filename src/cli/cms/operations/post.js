@@ -11,7 +11,7 @@ import {
   Manager
 } from '../../'
 
-export function draft(postUrl, json, workflow = 'draft', user) {
+export async function draft(postUrl, json, workflow = 'draft', user) {
   var p = new Promise(resolve => {
     abeExtend.hooks.instance.trigger('beforeDraft', json, postUrl)
 
@@ -24,18 +24,18 @@ export function draft(postUrl, json, workflow = 'draft', user) {
     cmsData.metas.add(json, workflow, date, user)
 
     const template = cmsTemplates.template.getTemplate(
-      json.abe_meta.template,
+      json.abe_meta.template, // id template why json *2 ? 
       json
     )
 
-    cmsData.source.getDataList(template, json).then(() => {
-      json['abe_meta'].complete = cmsData.utils.getPercentOfRequiredTagsFilled(
+    cmsData.source.getDataList(template, json).then(async () => {
+      json['abe_meta'].complete = cmsData.utils.getPercentOfRequiredTagsFilled( // force required fields
         template,
         json
       )
 
       var result
-      if (!cmsOperations.save.saveJson(revisionPath, json)) {
+      if (!await cmsOperations.save.saveJson(revisionPath, json)) {
         result = {
           success: 0,
           error: 'cannot json save file'
@@ -67,7 +67,7 @@ export function publish(postUrl, json, user) {
       json
     )
 
-    cmsData.source.getDataList(template, json).then(() => {
+    cmsData.source.getDataList(template, json).then(async () => {
       json['abe_meta'].complete = cmsData.utils.getPercentOfRequiredTagsFilled(
         template,
         json
@@ -82,7 +82,7 @@ export function publish(postUrl, json, user) {
           error: 'cannot save html file'
         }
       } else {
-        if (!cmsOperations.save.saveJson(docPath, json)) {
+        if (!await cmsOperations.save.saveJson(docPath, json)) {
           result = {
             success: 0,
             error: 'cannot save json file'
@@ -141,7 +141,7 @@ export function unpublish(postUrl, user) {
     const docPath = cmsData.utils.getDocPathFromPostUrl(postUrl)
     const postPath = path.join(Manager.instance.pathPublish, postUrl)
     if (coreUtils.file.exist(docPath)) {
-      var json = JSON.parse(JSON.stringify(cmsData.file.get(docPath)))
+      var json = cmsData.file.get(docPath)
       if (json.abe_meta.publish != null) {
         delete json.abe_meta.publish
       }
@@ -150,8 +150,8 @@ export function unpublish(postUrl, user) {
 
       p
         .then(result => {
-          cmsOperations.remove.removeFile(docPath)
-          cmsOperations.remove.removeFile(postPath)
+          cmsOperations.remove.removeRevision(docPath)
+          cmsOperations.remove.removePost(postPath)
           // are there additional templates to export?
           if (result.json.abe_meta.relatedTemplates) {
             Object.keys(result.json.abe_meta.relatedTemplates).map(function(

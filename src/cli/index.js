@@ -29,7 +29,7 @@ import {
   printConfig
 } from './cms/editor/index'
 
-import Manager from './core/manager/Manager'
+import Manager from './core/manager/ManagerMongo'
 import Page from './cms/Page'
 
 import config from './core/config/config'
