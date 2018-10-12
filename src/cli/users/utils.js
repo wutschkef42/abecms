@@ -388,6 +388,7 @@ export function getActivity() {
 
   if (config.users.enable && config.users.activity.active) {
     if (fse.existsSync(path.join(pathToActivity, 'activity.json'))) {
+      // TODO: Mongo - fs refactoring
       const acArray= cmsData.file.get(path.join(pathToActivity, 'activity.json'))
       return acArray
     }
