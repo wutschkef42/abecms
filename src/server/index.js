@@ -1,6 +1,6 @@
-import { mongo } from '../cli'
+import { mongo, config } from '../cli'
 
-if (config.default.database && config.default.database.type == "mongo") {
+if (config.database && config.database.type == "mongo") {
   mongo.connectToServer(function (err) {
       if (err) {
         console.error(err);
