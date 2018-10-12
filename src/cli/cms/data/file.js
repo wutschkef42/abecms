@@ -37,8 +37,32 @@ export function getAbeMeta(fileObject, json) {
   return fileObject
 }
 
-export function getAllWithKeys(withKeys) {
+// TODO: Mongo - Facade - getAllWithKeys_mongo & _file
+
+export async function getAllWithKeys(withKeys) {
+    let filesArr;
+
+    if (config.database.type == "file") {
+      filesArr = getAllWithKeys_fs(withKeys);
+
+    }
+    else if (config.database.type == "mongo") {
+      filesArr = await getAllWithKeys_mongo(withKeys);
+    }
+  
+  console.log('test')
+  console.log(filesArr)
+  var merged = cmsData.revision.getFilesMerged(filesArr)
+  // #DEBUG console.log(merged)
+  abeExtend.hooks.instance.trigger('afterGetAllFiles', merged)
+
+  return merged
+}
+
+
+export function getAllWithKeys_fs(withKeys) {
   const extension = '.json'
+
   const files = coreUtils.file.getFilesSync(
     Manager.instance.pathData,
     true,
@@ -47,10 +71,12 @@ export function getAllWithKeys(withKeys) {
 
   let filesArr = []
 
-  Array.prototype.forEach.call(files, pathFile => {
-    const json = cmsData.file.get(pathFile)
-    let fileObject = cmsData.file.getFileObject(pathFile)
-    fileObject = cmsData.file.getAbeMeta(fileObject, json)
+  Array.prototype.forEach.call(files, async pathFile => {
+    const json = cmsData.file.get(pathFile);
+
+    let fileObject = cmsData.file.getFileObject(pathFile) // name, path, date
+    fileObject = cmsData.file.getAbeMeta(fileObject, json) // add meta to fileObject
+
     Array.prototype.forEach.call(withKeys, key => {
       fileObject[key] = json[key]
     })
@@ -58,15 +84,57 @@ export function getAllWithKeys(withKeys) {
     filesArr.push(fileObject)
   })
 
-  var merged = cmsData.revision.getFilesMerged(filesArr)
-  abeExtend.hooks.instance.trigger('afterGetAllFiles', merged)
-
-  return merged
+  return filesArr
 }
 
-export function get(pathJson) {
+export async function getAllWithKeys_mongo(withKeys) {
+  var { mongo } = require('../../');
+  var db = mongo.getDb();
+  var JSONs = db.collection('jsons');
+
+  let files = await JSONs.find({
+    jsonPath: new RegExp(`^${Manager.instance.pathData}`)
+  }).toArray();
+
+  let filesArr = [];
+
+  for (var i in files) {
+    let fjson = files[i].json;
+    let fileObject = {
+      date: '' + (files[i].mtime).toString() + '',
+      name: fjson.name + '.json',
+      path: files[i].jsonPath
+    }
+    console.log(fjson);
+    fileObject = cmsData.file.getAbeMeta(fileObject, fjson)
+    console.log('fileobject',fileObject)
+
+    filesArr.push(fileObject)
+  }
+
+  return filesArr
+}
+
+// TODO: Mongo - facade it
+export async function get(pathJson) {
   let json
   pathJson = abeExtend.hooks.instance.trigger('beforeGetJson', pathJson)
+
+  if (config.database.type == "file") {
+    json = getFile(pathJson);
+  }
+  else if (config.database.type == "mongo") {
+    json = await getMongo(pathJson);
+  }
+
+  console.log('get json', json)
+
+  json = abeExtend.hooks.instance.trigger('afterGetJson', json)
+  return json
+}
+
+export function getFile (pathJson) {
+  let json
 
   try {
     var stat = fse.statSync(pathJson)
@@ -77,7 +145,39 @@ export function get(pathJson) {
     json = {}
   }
 
-  json = abeExtend.hooks.instance.trigger('afterGetJson', json)
+  return json
+}
+
+export async function getMongo(pathJson) {
+  let json
+
+  var { mongo } = require('../../');
+  var db = mongo.getDb();
+  var JSONs = db.collection('jsons');
+
+  var pathArray = pathJson.split('/').slice(0, -1);
+  var filename = pathArray[pathArray.length - 1];
+
+  try {
+    var docJson = await JSONs.findOne({
+      jsonPath: pathJson,
+    });
+    console.log('pathJson', pathJson)
+    console.log(docJson)
+    if (docJson) {
+      json = docJson.json;
+      json.path = pathJson;
+    } else {
+      json = {err: true};
+    }
+  }
+  catch (e) {
+    console.error(e);
+    return {};
+  }
+
+  console.log(json)
+
   return json
 }
 

@@ -155,6 +155,7 @@ export function urlList(obj, match, jsonPage) {
   return p
 }
 
+// TODO: Mongo - fs refactoring
 export function fileList(obj, match, jsonPage) {
   var p = new Promise(resolve => {
     jsonPage['abe_source'][obj.key] = cmsData.file.get(
@@ -187,6 +188,7 @@ export function nextSourceData(jsonPage, match) {
       if (_.get(jsonPage, obj.key) != null) {
         let newJson = {}
         if (coreUtils.file.exist(file)) {
+          // TODO: Mongo - fs refactoring
           newJson = cmsData.file.get(file)
           if(_.get(newJson, obj.key) !== _.get(jsonPage, obj.key)) {
             _.set(newJson, obj.key, _.get(jsonPage, obj.key));
@@ -205,6 +207,7 @@ export function nextSourceData(jsonPage, match) {
       // Or do I have to only read data
       } else {
         if (coreUtils.file.exist(file)) {
+          // TODO: Mongo - fs refactoring
           const newJson = cmsData.file.get(file)
           console.log('newjson', newJson)
           if (_.get(newJson, obj.key) != null) {

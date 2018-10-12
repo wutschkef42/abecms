@@ -15,6 +15,7 @@ export function getVersions(docPath) {
     dataPath,
     docPath.replace('.' + config.files.templates.extension, '.json')
   )
+
   if (files != null) {
     Array.prototype.forEach.call(files, file => {
       if (file.path.indexOf(dataFile) > -1) {
@@ -22,6 +23,7 @@ export function getVersions(docPath) {
       }
     })
   }
+  console.log(result);
   return result
 }
 
@@ -87,7 +89,7 @@ export function filePathInfos(pathFolder) {
 
 export function mergeRevisions(files) {
   let merged = {}
-
+  console.log(files)
   Array.prototype.forEach.call(files, file => {
     const docRelativePath = cmsData.utils.getDocRelativePath(file.path)
 
@@ -111,14 +113,17 @@ export function sortRevisions(merged) {
     revisions.sort(coreUtils.sort.predicatBy('date', -1))
     merged[key].revisions = revisions
 
+
     if (revisions[0] != null) {
-      merged[key].name = revisions[0].name
+      merged[key].name = revisions[0].name + ".json"
       merged[key].date = revisions[0].date
       merged[key].abe_meta = revisions[0].abe_meta
     }
 
+
     let newStatuses = []
     Array.prototype.forEach.call(revisions, revision => {
+      console.log('revision', revision);
       const revisionStatus = revision.abe_meta.status
 
       if (
