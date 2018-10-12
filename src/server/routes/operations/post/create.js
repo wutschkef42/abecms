@@ -3,7 +3,9 @@ import {Manager, cmsOperations, abeExtend} from '../../../../cli'
 const route = function(req, res, next) {
   abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
 
+  
   const postUrl = req.originalUrl.replace('/abe/operations/create', '')
+  
   const p = cmsOperations.create(
     req.body.abe_meta.template,
     postUrl,

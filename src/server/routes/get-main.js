@@ -112,6 +112,8 @@ function renderAbeAdmin(EditorVariables, obj, filePath) {
  * @param  {Function} next [description]
  * @return {[type]}        [description]
  */
+
+ // TODO: Mongo - L185
 var route = function(req, res, next) {
   var filePath = req.originalUrl.replace('/abe/editor', '')
   if (filePath === '' || filePath === '/') {
@@ -160,7 +162,7 @@ var route = function(req, res, next) {
     abeVersion: pkg.version
   }
 
-  let p = new Promise(resolve => {
+  let p = new Promise(async resolve => {
     if (filePath != null) {
       fileName = path.basename(filePath)
       folderPath = path.dirname(filePath)
@@ -173,15 +175,29 @@ var route = function(req, res, next) {
         template = filePathTest.abe_meta.template
       }
 
-      if (jsonPath === null || !coreUtils.file.exist(jsonPath)) {
-        res.redirect('/abe/editor')
-        return
+      if (config.database.type == "file") {
+        if (jsonPath === null || !coreUtils.file.exist(jsonPath)) {
+          res.redirect('/abe/editor')
+          return
+        }
       }
 
       var json = {}
-      if (coreUtils.file.exist(jsonPath)) {
-        json = cmsData.file.get(jsonPath, 'utf8')
+      if (config.database.type == "file") {
+        if (coreUtils.file.exist(jsonPath)) {
+          json = cmsData.file.get(jsonPath, 'utf8')
+        }
       }
+      else if (config.database.type == "mongo") {
+        var { mongo } = require('../../cli');
+        var db = mongo.getDb();
+        var JSONs = db.collection('jsons');
+        let docJson = await JSONs.findOne({ jsonPath });
+        if (docJson) {
+          json = docJson.json;
+        }
+      }
+      console.log('proof json', json)
       var text = cmsTemplates.template.getTemplate(template, json)
       cmsEditor.editor
         .create(text, json)

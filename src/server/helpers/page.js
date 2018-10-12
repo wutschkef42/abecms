@@ -1,7 +1,7 @@
 import path from 'path'
 import {cmsData, config, Page, cmsTemplates, coreUtils} from '../../cli'
 
-var page = function(req, res) {
+var page = async function(req, res) {
   var html = req.query.html ? true : false
   var json = null
   var editor = false
@@ -26,13 +26,25 @@ var page = function(req, res) {
       linkPath = filePathTest.abe_meta.link
     }
 
-    if (jsonPath === null || !coreUtils.file.exist(jsonPath)) {
-      res.status(404).send('Not found')
-      return
+    if (config.database.type == "file") {
+      if (jsonPath === null || !coreUtils.file.exist(jsonPath)) {
+        res.status(404).send('Not found')
+        return
+      }
     }
 
     if (typeof json === 'undefined' || json === null) {
-      json = cmsData.file.get(jsonPath)
+      if (config.database.type == "file") {
+        json = cmsData.file.get(jsonPath)
+      }
+      else if (config.database.type == "mongo") {
+        var { mongo } = require('../../cli');
+        var db = mongo.getDb();
+        var JSONs = db.collection('jsons');
+
+        json = await JSONs.findOne({ jsonPath })
+      }
+      console.log('get page json', json)
     }
 
     let meta = config.meta.name
