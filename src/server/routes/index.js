@@ -34,6 +34,9 @@ var router = express.Router()
 abeExtend.hooks.instance.trigger('afterHandlebarsHelpers', Handlebars)
 abeExtend.hooks.instance.trigger('beforeAddRoute', router)
 
+/* New REST routes */
+router.get('/abe/rest/templates', rest.getTemplates)
+
 router.get('/abe/rest/posts*', rest.posts)
 router.get('/abe/rest/post*', rest.post)
 router.get('/abe/rest/activity-stream', rest.activityStream)
