@@ -32,11 +32,14 @@ var router = express.Router()
 abeExtend.hooks.instance.trigger('afterHandlebarsHelpers', Handlebars)
 abeExtend.hooks.instance.trigger('beforeAddRoute', router)
 
+/* New UNPROTECTED REST routes */
+router.get('/abe/rest/templates', rest.getTemplates)
+router.get('/abe/rest/page*', rest.getPage)
+
 router.get('/abe/rest/posts*', rest.posts)
 router.get('/abe/rest/post*', rest.post)
 router.get('/abe/rest/activity-stream', rest.activityStream)
 router.post('/abe/rest/authenticate', rest.authenticate)
-router.get('/abe/rest/templates', rest.getTemplates)
 
 router.get('/abe/users/forgot', users.getForgot)
 router.get('/abe/users/list', users.getList)

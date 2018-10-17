@@ -8,8 +8,8 @@ import {config, abeExtend, Manager} from '../../../cli'
  * @return {[type]}        [description]
  */
 var route = function(req, res, next) {
-    var list = Manager.instance.getStructureAndTemplates();
-    var templates = [...list.templates];
+    const list = Manager.instance.getStructureAndTemplates();
+    const templates = [...list.templates];
     res.json(templates);
 }
 
