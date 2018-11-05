@@ -8,7 +8,19 @@ Here comes the version 4
 ## AbeCMS rest
 ## AbeCMS client
 
-## Roadmap of the next 3.x releases
+## ED
+- Créer une vraie documentation "a la Gatsby"
+- Refactor the REST layer: cf. https://github.com/Madmous/madClones/tree/develop/server/trello-microservice/src
+- Usage of oAuth2 for REST routes
+- Plugin system enhancement #107 opened on 4 Jan 2017 by opompilius   1
+- can't abe create name.io bug #183 opened on 28 Mar 2017 by gonzalezemmanuel
+- Checkbox + date + datetime type new feature #64 opened on 2 Dec 2016 by GG31 
+- We must be able to chose a theme (composed by templates) from the admin
+- Rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research
+- Compatible MongoDB
+- On peut déployer des micro-services (mail / form / moteur de recherche...)
+
+## Roadmap of the next 4.x releases
 
 # Plan
 - Un gestionnaire de projet "a la Trello" qui permet d'assigner à un membre / une équipe
@@ -19,23 +31,23 @@ Here comes the version 4
 - ~~On peut créer des templates depuis des blocs~~
 - ~~On peut générer plusieurs types de page à partir de la même data~~
 - ~~Une data dans le json peut provenir d'un autre json (factorisation)~~
-- Compatible MongoDB !!!
+- Compatible MongoDB
 - On peut abifier un html via un outil dédié
 - Créer une vraie documentation "a la Gatsby"
 
 ## BUGS / Refactor
 - ~~Retirer openCV du core~~
 - ~~Retirer un max de dépendances du Core~~
-- Essayer de rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research
+- Rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research
 - components oriented
 - ~~It will be possible to create filtered views on the manager frontend~~
 - since Abe has become stateful, clustering has been removed. Implement a solution to permit clusters of Abe
 - add the date field
-TAM - Add template creation from partials
+- Add template creation from partials
 - templates and partials will be uploadable
 - Video training will be produced
 - Create an Electron version
-TAM - Refactor the REST layer: cf. https://github.com/Madmous/madClones/tree/develop/server/trello-microservice/src
+- Refactor the REST layer: cf. https://github.com/Madmous/madClones/tree/develop/server/trello-microservice/src
 - Usage of oAuth2 for REST routes
 - Add robots.txt + URL redirection features in Abe
 - ~~A JSON document could be associated with more than 1 template: AMP template, mobile, template, instant article template, desktop template...~~
