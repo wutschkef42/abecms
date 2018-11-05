@@ -9,16 +9,16 @@ Here comes the version 4
 ## AbeCMS client
 
 ## ED
-- Créer une vraie documentation "a la Gatsby"
-- Refactor the REST layer: cf. https://github.com/Madmous/madClones/tree/develop/server/trello-microservice/src
-- Usage of oAuth2 for REST routes
-- Plugin system enhancement #107 opened on 4 Jan 2017 by opompilius   1
-- can't abe create name.io bug #183 opened on 28 Mar 2017 by gonzalezemmanuel
-- Checkbox + date + datetime type new feature #64 opened on 2 Dec 2016 by GG31 
-- We must be able to chose a theme (composed by templates) from the admin
-- Rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research
-- Compatible MongoDB
-- On peut déployer des micro-services (mail / form / moteur de recherche...)
+- Créer une vraie documentation "a la Gatsby" (5d)
+- Refactor the REST layer: cf. https://github.com/Madmous/madClones/tree/develop/server/trello-microservice/src (5d)
+- Usage of oAuth2 for REST routes (3d)
+- Plugin system enhancement #107 opened on 4 Jan 2017 by opompilius (1d)
+- can't abe create name.io bug #183 opened on 28 Mar 2017 by gonzalezemmanuel (0,5d)
+- Checkbox + date + datetime type new feature #64 opened on 2 Dec 2016 by GG31 (1d)
+- We must be able to chose a theme (composed by templates) from the admin (5d)
+- Rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research (10d)
+- Compatible MongoDB (5d)
+- On peut déployer des micro-services (mail / form / moteur de recherche...) (5d)
 
 ## Roadmap of the next 4.x releases
 
