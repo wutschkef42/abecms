@@ -6,6 +6,31 @@
 * Add oauth2
 * Refactor some parts with Mongo (part touchable from the REST layer) but not directly Mongo operation
 
+## Live Todo
+
+Wed 7 nov 2018
+- [x] {User} List all
+- [x] {User} Create
+- [x] {User} Update
+- [x] {User} Delete
+- [x] {User} Activate
+- [x] {User} Deactivate
+.
+- [ ] {Page} List all
+- [ ] {Page} Create
+- [ ] {Page} Get
+- [ ] {Page} Update
+- [ ] {Page} Delete
+.
+- [ ] {Template} List all
+- [ ] {Template} Create
+- [ ] {Template} Get
+- [ ] {Template} Update
+- [ ] {Template} Delete
+.
+- [ ] {Role} List
+
+
 ## How to process
 ### 1) Define which routes are needed
 
