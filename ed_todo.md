@@ -21,6 +21,7 @@ Wed 7 nov 2018
 - [ ] {Page} Get
 - [ ] {Page} Update
 - [ ] {Page} Delete
+- [ ] {Page} Unpublish
 .
 - [ ] {Template} List all
 - [ ] {Template} Create
@@ -168,6 +169,16 @@ Request:
 
 ##### Delete a page
 * DELETE /page/:name
+
+##### Unpublish a page
+* POST /page/unpublish
+
+Request:
+```
+{
+	"link": "link of page"
+}
+```
 
 
 #### Resource "User"
