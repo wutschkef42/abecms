@@ -74,6 +74,7 @@ Response:
 ##### Add a template
 * POST /template
 
+Request:
 ```
 {
 	"id": "id",
