@@ -6,7 +6,7 @@ import { promisify } from 'util'
 const statAsync = promisify(stat);
 const readFileAsync = promisify(readFile)
 
-import { User, config } from '../../../cli'
+import { Manager, config } from '../../../cli'
 const Joi = require('joi');
 
 export const getTemplate = async (req, res) => {
@@ -40,4 +40,9 @@ export const getTemplate = async (req, res) => {
 			})
 		}
 	}
+}
+
+export const getTemplatesList = async (req, res) => {
+	const list = Manager.instance.getStructureAndTemplates();
+    res.json([...list.templates]);
 }
