@@ -9,7 +9,6 @@
 ## Live Todo
 
 UPDATE Fri 9 nov 2018
-- [ ] {User} List all
 - [x] {User} Create
 - [x] {User} Update
 - [x] {User} Delete
@@ -17,23 +16,26 @@ UPDATE Fri 9 nov 2018
 - [x] {User} Deactivate
 - [x] {User} Get (me)
 - [ ] {User} Get by id
+- [ ] {User} List all
 
 .
 - [x] {Page} Paginate
 - [x] {Page} Create
 - [x] {Page} Get
 - [x] {Page} Update
-- [ ] {Page} Delete
 - [x] {Page} Publish
 - [x] {Page} Unpublish
+- [ ] {Page} Get Fields
+- [ ] {Page} Delete
+- [ ] {Page} Get for editor
 .
-- [ ] {Template} List all
+- [x] {Template} List all
+- [x] {Template} Get by name
 - [ ] {Template} Create
-- [ ] {Template} Get
 - [ ] {Template} Update
 - [ ] {Template} Delete
 .
-- [ ] {Role} List
+- [x] {Role} List
 
 
 ## How to process
@@ -54,24 +56,34 @@ A template is defined by:
 
 * id
 * name
-* filename
+* path
 * template
 
 ##### Get list of templates
 * GET /templates
 
+Response: (direct json array)
+```
+[
+	{
+		"path":"/yourpath/my-abe/themes/default/templates/blog.html",
+		"name":"blog"
+	},
+	...
+]
+```
+
+
+##### Get a template by name
+* GET /template/:name
+
 Response:
 ```
 {
-	"list": {
-		"id": {
-			"id": "id",
-			"filename": "file.html",
-			"name": "blog-post",
-			"template": "THE TEMPLATE",
-		}
-	},
-	"count": 10,
+	"templateData": {
+		"type": "Buffer",
+		"data": "[Array of bytes]"
+	}
 }
 ```
 
@@ -88,20 +100,6 @@ Request:
 }
 ```
 
-##### Get a template by id
-* GET /template/:id
-
-Response:
-```
-{
-	"id": "id",
-	"filename": "file.html",
-	"template": "THE TEMPLATE",
-}
-```
-
-Get a template by filename
-* GET /template/:filename
 
 
 #### Resource "Page"
