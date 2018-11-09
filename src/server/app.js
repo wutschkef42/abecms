@@ -322,7 +322,7 @@ app.use(routes.default)
 
 import userRoutes from './rest/users/userRoutes'
 import pageRoutes from './rest/pages/pageRoutes'
-import roleRoutes from './rest/pages/roleRoutes'
+import roleRoutes from './rest/roles/roleRoutes'
 app.use('/abe/restx/users', userRoutes)
 app.use('/abe/restx/pages', pageRoutes)
 app.use('/abe/restx/roles', roleRoutes)
