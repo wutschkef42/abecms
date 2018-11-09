@@ -8,20 +8,24 @@
 
 ## Live Todo
 
-Wed 7 nov 2018
-- [x] {User} List all
+UPDATE Fri 9 nov 2018
+- [ ] {User} List all
 - [x] {User} Create
 - [x] {User} Update
 - [x] {User} Delete
 - [x] {User} Activate
 - [x] {User} Deactivate
+- [x] {User} Get (me)
+- [ ] {User} Get by id
+
 .
-- [ ] {Page} List all
-- [ ] {Page} Create
-- [ ] {Page} Get
-- [ ] {Page} Update
+- [x] {Page} Paginate
+- [x] {Page} Create
+- [x] {Page} Get
+- [x] {Page} Update
 - [ ] {Page} Delete
-- [ ] {Page} Unpublish
+- [x] {Page} Publish
+- [x] {Page} Unpublish
 .
 - [ ] {Template} List all
 - [ ] {Template} Create
@@ -113,85 +117,114 @@ A **page** is defined by:
 * workflow (draft / published)
 
 ##### Get a page for the editor
-* GET /page/:page_name
+* GET /pages?page=page_url
+
+> Example : http://localhost:3000/abe/rest/pages?page=/blog.html
+
+Response:
+```
+html page requested ex: /blog.html
+```
+
+##### Get list of pages by pagination
+* GET /pages/paginate
 
 Response:
 ```
 {
-	"template": {
-		id, name, filename, template
-	},
-	"data": {
-		"title_text": "Title of...",
-		=> data for fullfil abe tags
-	},
-}	
-```
-
-##### Get list of pages
-* GET /pages (/:count/:page)
-
-Response:
-```
-{
-	"list": [
-		page1-object,
-		page2-object,
-	],
-	"count": 10,
-}
+	"recordsTotal":4,
+	"recordsFiltered":4,
+	"data":[
+		{
+			"path":"/yourpath/my-abe/data/posts/blog3.json",
+			"revisions":[
+				{
+					"name":"blog3",
+					"path":"/yourpath/my-abe/data/posts/blog3.json","date":"2018-11-09T11:35:57.704Z",
+					"abe_meta": {
+						"date":"2018-11-09T11:35:57.704Z",
+						"link":"/blog3.html",
+						"template":"blog",
+						"status":"publish"
+					},
+					"link":"/blog3.html"
+				},
+				...
+			],
+			"name":"blog3",
+			"date":"2018-11-09T11:35:57.704Z",
+			"abe_meta":{
+				"date":"
 ```
 
 ##### Create a page from a template
-* POST /page
+* POST /pages
 
 Request:
 ```
 {
-	"template_id": "id",
-	"page_name": "name",
-	"page_url": "name.html",
+	"template": "blog",
+	"name": "name of the page (url is  'name + .html')",
 }
 ```
 
 ##### Update the data of a page from the editor
-* POST /page/data
+* PUT /pages
 
 Request:
 ```
 {
-	"page_id": "id",
-	"data": {
-		"title_text": "Title of...",
-		=> new data
+	"name": "/blog3.html",
+	"json": {
+		"abe_meta": {...}
+		"my-title-tag": "My Title",
+	}
+}
+```
+
+##### Publish a page
+* PUT /pages/publish
+
+Request:
+```
+{
+	"url": "/blog3.html",
+	"json": {
+		"abe_meta": {...}
+		"my-title-tag": "My Title",
+	}
+}
+```
+
+##### Unpublish a page
+* PUT /pages/unpublish
+
+Request:
+```
+{
+	"url": "/blog3.html",
+	"json": {
+		"abe_meta": {...}
+		"my-title-tag": "My Title",
 	}
 }
 ```
 
 ##### Delete a page
-* DELETE /page/:name
+* DELETE /pages/:name
 
-##### Unpublish a page
-* POST /page/unpublish
-
-Request:
-```
-{
-	"link": "link of page"
-}
-```
 
 
 #### Resource "User"
 
 A **User** is defined by:
 
-* Full Name
-* Username
-* Email
-* Password
-* Role
-* Actif
+* name
+* username
+* email
+* password
+* role
+* actif
 
 ##### Create a user
 * POST /users
@@ -199,7 +232,7 @@ A **User** is defined by:
 Request:
 ```
 {
-	"fullname": "Full Name",
+	"name": "Full Name",
 	"username": "username",
 	"email": "email@dot.com",
 	"password": "****",
