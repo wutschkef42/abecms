@@ -3,10 +3,8 @@
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="en">
-<!--<![endif]-->
-
-<head>
+<html lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +36,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
+<style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
 
 <body>
 
@@ -68,7 +66,7 @@
             <div class="row">
 
                 <div class="col-md-3">
-                    <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
+                    <nav class="docs-sidebar affix" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
                         <ul class="nav">
                             <li><a href="#welcome">Getting Started #Fast</a></li>
                             <li><a href="#howtoinstall">How to Install Abe</a></li>
@@ -93,8 +91,8 @@
                                     <li><a href="#template_import">Import &amp; Partials</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#generatepages">Generate Pages & Posts</a></li>
-                            <li><a href="#userspermissions">Users & Permissions</a></li>
+                            <li><a href="#generatepages">Generate Pages &amp; Posts</a></li>
+                            <li><a href="#userspermissions">Users &amp; Permissions</a></li>
                             <li><a href="#internationalization">Internationalization</a></li>
                             <li><a href="#plugins">Plugins</a>
                                 <ul class="nav">
@@ -103,9 +101,23 @@
                                     <li><a href="#devplugins">Dev Plugins</a></li>
                                 </ul>
                             </li>
+                            <li class="active"><a href="#developers">Developers Stuff</a>
+                                <ul class="nav">
+                                    <li class="active"><a href="#dev_logs">Logs</a></li>
+                                    <li><a href="#dev_hooks">Hooks</a></li>
+                                    <li><a href="#dev_process">Process</a></li>
+                                    <li><a href="#dev_smtp">SMTP</a></li>
+                                    <li><a href="#dev_ssl">SSL</a></li>
+                                    <li><a href="#dev_handlebars_helper">Handlebars Helpers</a></li>
+                                    <li><a href="#dev_handlebars_variables">Handlebars Helpers</a></li>
+                                    <li><a href="#dev_engine_override">Engine Override</a></li>
+                                    <li><a href="#dev_formcreate_override">Form Create Override</a></li>
+                                    <li><a href="#dev_linux_cmd">Linux Commands</a></li>
+                                </ul>
+                            </li>
                             <li><a href="#links">Links</a></li>
                         </ul>
-                    </nav >
+                    </nav>
                 </div>
                 <div class="col-md-9">
                     <section class="welcome" id="welcome">
@@ -119,8 +131,10 @@
                                         <!--<div class="intro1"></div>-->
                                         <div>
                                             <p>
-                                                <br />
-                                                This quick start is intended for intermediate to advanced developers. For a gentler intro to Abe, head to our tutorial!
+                                                <br>
+                                                This quick start is 
+intended for intermediate to advanced developers. For a gentler intro to
+ Abe, head to our tutorial!
                                             </p>
 
                                             <h4>Install Abe's command line tool</h4>
@@ -138,7 +152,7 @@
 
                                                 <pre class="">cd my-project</pre>
 
-                                                <li><strong>Your CMS is available on <a href="http://localhost:3000">localhost:3000</a></strong></li>
+                                                <li><strong>Your CMS is available on <a href="http://localhost:3000/">localhost:3000</a></strong></li>
                                             
                                                 <pre class="">abe serve (-i for open the web browser)</pre>
                                             </ol>
@@ -183,8 +197,8 @@
                                     <h4>Automatic NPM installation</h4>
                                     <p>Install abe command line tools with : </p>
                                     <pre class="">npm install -g abecms</pre>
-
-                                    <h4>Compile it yourself</h4>
+                                    <hr>
+                                    <h4>[If you want] Compile it yourself</h4>
 
                                     <p>Download the github repository </p>
                                     <pre class="">git clone https://github.com/abecms/abecms.git</pre>
@@ -193,7 +207,7 @@
                                     <pre class="">npm install</pre>
                                     <pre class="">npm run distribute</pre>
 
-                                    <p>After that you get the compiled & usable verison of abe in the <strong>dist folder</strong>.<br />
+                                    <p>After that you get the compiled &amp; usable verison of abe in the <strong>dist folder</strong>.<br>
                                     For start your project with the compiled version :
                                     </p>
                                     <pre class="">ROOT=/your/project/folder node dist/index.js serve</pre>
@@ -222,7 +236,7 @@
 
                                 <pre class="">cd my-project</pre>
 
-                                <li><strong>Your CMS is available on <a href="http://localhost:3000">localhost:3000</a></strong></li>
+                                <li><strong>Your CMS is available on <a href="http://localhost:3000/">localhost:3000</a></strong></li>
                             
                                 <pre class="">abe serve (-i for open the web browser)</pre>
                             </ol>
@@ -246,61 +260,7 @@
 
                                 <p>Create a file abe.json at the root of your abe project.</p>
 
-                                <pre class="brush: html">
-                                        {
-                                            "localeFolder": "locale",
-                                            "intlData": {
-                                                "locales": "en-US"
-                                            },
-                                            "upload": {
-                                                "image": "image",
-                                                "fileSizelimit": 10485760
-                                            },
-                                            "csp": {
-                                                "scriptSrc": [],
-                                                "styleSrc": [],
-                                                "imgSrc": [],
-                                                "childSrc": [],
-                                                "frameAncestors": [],
-                                                "mediaSrc": [],
-                                                "fontSrc": [],
-                                                "connectSrc": []
-                                            },
-                                            "security": true,
-                                            "htmlWhiteList": {
-                                                "blockquote": ["style"],
-                                                "span": ["style"],
-                                                "font": ["style", "color"],
-                                                "div": ["style"],
-                                                "sup": ["style"],
-                                                "sub": ["style"],
-                                                "ul": ["style"],
-                                                "li": ["style"],
-                                                "p": ["style"],
-                                                "b": ["style"],
-                                                "strong": ["style"],
-                                                "i": ["style"],
-                                                "u": ["style"],
-                                                "a": ["style", "href"],
-                                                "br": [],
-                                                "h1": ["style"],
-                                                "h2": ["style"],
-                                                "h3": ["style"],
-                                                "h4": ["style"]
-                                            },
-                                            "files": {
-                                                "templates": {
-                                                    "extension": "html",
-                                                    "assets": "_files"
-                                                }
-                                            },
-                                            "cookie": {
-                                                "secure": false
-                                            },
-                                            "siteUrl": false,
-                                            "sitePort": false
-                                        }
-                                </pre>
+                                <div><div id="highlighter_764170" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"localeFolder": "locale",</code></div><div class="line number3 index2 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"intlData": {</code></div><div class="line number4 index3 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"locales": "en-US"</code></div><div class="line number5 index4 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number6 index5 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"upload": {</code></div><div class="line number7 index6 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"image": "image",</code></div><div class="line number8 index7 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"fileSizelimit": 10485760</code></div><div class="line number9 index8 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number10 index9 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"csp": {</code></div><div class="line number11 index10 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"scriptSrc": [],</code></div><div class="line number12 index11 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"styleSrc": [],</code></div><div class="line number13 index12 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"imgSrc": [],</code></div><div class="line number14 index13 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"childSrc": [],</code></div><div class="line number15 index14 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"frameAncestors": [],</code></div><div class="line number16 index15 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"mediaSrc": [],</code></div><div class="line number17 index16 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"fontSrc": [],</code></div><div class="line number18 index17 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"connectSrc": []</code></div><div class="line number19 index18 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number20 index19 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"security": true,</code></div><div class="line number21 index20 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"htmlWhiteList": {</code></div><div class="line number22 index21 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"blockquote": ["style"],</code></div><div class="line number23 index22 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"span": ["style"],</code></div><div class="line number24 index23 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"font": ["style", "color"],</code></div><div class="line number25 index24 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"div": ["style"],</code></div><div class="line number26 index25 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"sup": ["style"],</code></div><div class="line number27 index26 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"sub": ["style"],</code></div><div class="line number28 index27 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"ul": ["style"],</code></div><div class="line number29 index28 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"li": ["style"],</code></div><div class="line number30 index29 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"p": ["style"],</code></div><div class="line number31 index30 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"b": ["style"],</code></div><div class="line number32 index31 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"strong": ["style"],</code></div><div class="line number33 index32 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"i": ["style"],</code></div><div class="line number34 index33 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"u": ["style"],</code></div><div class="line number35 index34 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"a": ["style", "href"],</code></div><div class="line number36 index35 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"br": [],</code></div><div class="line number37 index36 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"h1": ["style"],</code></div><div class="line number38 index37 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"h2": ["style"],</code></div><div class="line number39 index38 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"h3": ["style"],</code></div><div class="line number40 index39 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"h4": ["style"]</code></div><div class="line number41 index40 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number42 index41 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"files": {</code></div><div class="line number43 index42 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"templates": {</code></div><div class="line number44 index43 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"extension": "html",</code></div><div class="line number45 index44 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"assets": "_files"</code></div><div class="line number46 index45 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">}</code></div><div class="line number47 index46 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number48 index47 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"cookie": {</code></div><div class="line number49 index48 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"secure": false</code></div><div class="line number50 index49 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number51 index50 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"siteUrl": false,</code></div><div class="line number52 index51 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"sitePort": false</code></div><div class="line number53 index52 alt2"><code class="html plain">}</code></div></div></td></tr></tbody></table></div></div>
 
                                 <p>This config can override a premade config file in the root folder</p>
 
@@ -320,8 +280,7 @@
                                 <!-- end col -->
                             </div>
                             <!-- end row -->
-                        <pre>
-- mysite
+                        <pre>- mysite
     |_ data/posts (contains your json documents)
     |_ site (contains published files, this is your static website)
     |_ structure (add as many folders and subfolders to create your website structure)
@@ -346,34 +305,30 @@
                             You can add Abe tag to you template following simple rules.    
                         </h4>
 
-                        <h4>List of tags & example</h4>
+                        <h4>List of tags &amp; example</h4>
 
                         <ul>
                             <li>Tag Text</li>
                             <pre>{{abe type='text' key='text_key' desc='give some tips' tab='default'}}</pre>
                             <li>Tag Link</li>
-                            <pre class="brush: html"><a href="{{abe type='link' key='link_key' desc='give some tips' title='html title' tab='default'}}">
-    my link
-</a></pre>
+                            <div><div id="highlighter_979790" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">a</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">"{{abe type='link' key='link_key' desc='give some tips' title='html title' tab='default'}}"</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">my link</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">a</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             <li>Tag Image</li>
-                            <pre class="brush: html"><img src="{{abe type='image' key='image_key' desc='give some tips' tab='default'}}" /></pre>
+                            <div><div id="highlighter_354793" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">img</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"{{abe type='image' key='image_key' desc='give some tips' tab='default'}}"</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                         
                             <li>Tag Textarea</li>
-                            <pre class="brush: html">{{abe type='textarea' key='textarea_key' desc='give some tips' tab='default'}}</pre>
+                            <div><div id="highlighter_42525" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{abe type='textarea' key='textarea_key' desc='give some tips' tab='default'}}</code></div></div></td></tr></tbody></table></div></div>
                         
                             <li>Tag File</li>
-                            <pre class="brush: html">{{abe type='file' filetype='file_type' key='file_key' desc='give some tips' tab='default'}}</pre>
+                            <div><div id="highlighter_581044" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{abe type='file' filetype='file_type' key='file_key' desc='give some tips' tab='default'}}</code></div></div></td></tr></tbody></table></div></div>
                         
                             <li>Tag Rich</li>
-                            <pre class="brush: html">{{abe type="rich" key="rich_key" desc="give some description" tab='default'}}</pre>
+                            <div><div id="highlighter_971728" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{abe type="rich" key="rich_key" desc="give some description" tab='default'}}</code></div></div></td></tr></tbody></table></div></div>
                         
                             <li>Tag Data</li>
-                            <pre class="brush: html">{{abe type='data' key='colors' desc='Pick a color' source='["red", "green", "yellow"]'}}</pre>
+                            <div><div id="highlighter_90575" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{abe type='data' key='colors' desc='Pick a color' source='["red", "green", "yellow"]'}}</code></div></div></td></tr></tbody></table></div></div>
 
                             <li>Loop each items</li>
-                            <pre class="brush: html">{{#each key_name}}
-    {{abe type="text" key="key_name.text" desc='give some tips' tab='default'}}                        
-{{/each}}</pre>
+                            <div><div id="highlighter_928290" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{#each key_name}}</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type="text" key="key_name.text" desc='give some tips' tab='default'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code></div><div class="line number3 index2 alt2"><code class="html plain">{{/each}}</code></div></div></td></tr></tbody></table></div></div>
                         </ul>
 
                         <section id="tags_text" class="section">
@@ -386,7 +341,7 @@
                             <h4>Tag Rich</h4>
                             <pre>{{abe type="rich" key="abe_text" desc="Enter text"}}</pre>
                             <p>A rich editor is given on the backoffice for write rich-text
-                            <h3>Optional parameters</h3>
+                            </p><h3>Optional parameters</h3>
                             <h6>toolbar</h6>
                             <pre>{{abe type="rich" key="abe_text" desc="Enter text" toolbar='bold,italic'}}</pre>
                                 
@@ -405,8 +360,8 @@
     removeFormat
     insertLink
     code
-    list (ordered & unordered)
-    media (upload image & video)
+    list (ordered &amp; unordered)
+    media (upload image &amp; video)
     format (h1, h2 ...)
     font (font-family)
     fontsize
@@ -421,9 +376,9 @@
 
                         <section id="tags_image" class="section">
                             <h4>Tag Image</h4>
-                            <pre class="brush: html"><img src="{{abe type='image' key='abe_image' desc='Upload an image'}}" /></pre>
+                            <div><div id="highlighter_904046" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">img</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"{{abe type='image' key='abe_image' desc='Upload an image'}}"</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             <p>This tag give you the possibility to upload an image from the backoffice.
-                                <h3>Required</h3>
+                                </p><h3>Required</h3>
                             <ol>
                                 <li>type = image</li>
                                 <li>key = references key to use into your HTML</li>
@@ -436,18 +391,27 @@
                                 <li>reload = (Boolean)</li>
                                 <li>thumbs = (Array[WIDTHxHEIGHT] separated with ",")</li>
                             </ol>
-                            </p>
+                            <p></p>
                             <h3>Thumbs</h3>
                             <p>If thumbs is used on your tag you can create thumbnails from the image you upload.</p>
                             <h4>Example</h4>
                             <p>Uploading a image named my_image.jpg will create a thumbs by default named my_image_thumb.jpg.
-                                <br /><br />
-                                If the tag contains thumbs='250x250,350x350' this will also create my_image_thumb_250x250.jpg and my_image_thumb_350x350.jpg.
-                                <br /><br />
-                                If the tag contains thumbs='250x' or thumbs='x250' this will create an image that have the with / height specified and the other side no specified will be resized to keep the same ratio as the original image.
+                                <br><br>
+                                If the tag contains 
+thumbs='250x250,350x350' this will also create 
+my_image_thumb_250x250.jpg and my_image_thumb_350x350.jpg.
+                                <br><br>
+                                If the tag contains thumbs='250x' or 
+thumbs='x250' this will create an image that have the with / height 
+specified and the other side no specified will be resized to keep the 
+same ratio as the original image.
                             </p>
                             <h3>Important</h3>
-                            <p>Thumb are created using https://github.com/jwagner/smartcrop-cli which require to have imagemagick installed on your computer, if you don't a fallback library full JS is used (https://github.com/oliver-moran/jimp) but doesn't crop in a smart way your images.</p>
+                            <p>Thumb are created using 
+https://github.com/jwagner/smartcrop-cli which require to have 
+imagemagick installed on your computer, if you don't a fallback library 
+full JS is used (https://github.com/oliver-moran/jimp) but doesn't crop 
+in a smart way your images.</p>
                         </section>
 
                         <section id="tags_data" class="section">
@@ -489,11 +453,13 @@
                             <strong>Inline JSON</strong>
                             <pre>{{abe type='data' key='titles' desc='Pick a title' source='[{"title":"My article"},{"title":"My website"},{"title":"My blog"}]' display="title" editable="true"}}</pre>
                             <p>
-                                This will display (because editable is true) an input select with 3 choices ("My article", "My website", "My blog" are values of title choosed with diplay parameter).
+                                This will display (because editable is 
+true) an input select with 3 choices ("My article", "My website", "My 
+blog" are values of title choosed with diplay parameter).
                             </p>
                             <strong>Relative JSON file reference path</strong>
                             <p>
-                                I have a JSON file inside my AbeCMS website.<br />
+                                I have a JSON file inside my AbeCMS website.<br>
                                 <i>reference/titles.json</i>
                             </p>
                             <pre>[
@@ -527,8 +493,9 @@
                             <p>Inside index.html template I'll add the request below:</p>
                             <pre>{{abe type='data' key='articles' desc='articles' source="select * from articles" editable="true"}}</pre>
                             <p>This will return a input select with all the 3 articles I have inside my website.
-                            <br /><br />
-                            If inside article.html template we have an attribute AbeCMS key="title" you can only select the title if you want.
+                            <br><br>
+                            If inside article.html template we have an 
+attribute AbeCMS key="title" you can only select the title if you want.
                             </p>
                             <pre>{{abe type='data' key='articles' desc='articles' source="select title from articles" editable="true"}}</pre>
                             <strong>Use the display parameters</strong>
@@ -541,16 +508,16 @@
                             <p>(select from folder articles with an absolute path)</p>
                             <ul>
                                 <li>if start with "/" path absolute from mywebsite/site/articles</li>
-                                <li>if doesn't start with "/" path absolute from articles (if the template is inside blog. And blog is at the same level as articles no result can be found)</li>
+                                <li>if doesn't start with "/" path 
+absolute from articles (if the template is inside blog. And blog is at 
+the same level as articles no result can be found)</li>
                                 <li>if start with "../" same as relative</li>
                             </ul>
                             Notes: You can use variables on from like this.
                             <pre>{{abe type='data' key='articles' desc='articles' source="select name from /{{some_json_key}}/{{some_other}}" display="title" editable='true'"}}</pre>
                         
                             <h3>Use it</h3>
-                            <pre class="brush: html">{{#each articles}}
-    <span classs="author">{{this.title}}</span>
-{{/each}}</pre>
+                            <div><div id="highlighter_592762" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{#each articles}}</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">span</code> <code class="html color1">classs</code><code class="html plain">=</code><code class="html string">"author"</code><code class="html plain">&gt;{{this.title}}&lt;/</code><code class="html keyword">span</code><code class="html plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="html plain">{{/each}}</code></div></div></td></tr></tbody></table></div></div>
                             <h3>Other parameters</h3>
                             <ul>
                                 <li><strong>editable="true"</strong> will allow user to select from the data source otherwise all data will be used as value.</li>
@@ -570,39 +537,35 @@
                             <h4>Type each</h4>
                             Group elements.
                             <h3>Basic example</h3>
-                            <pre class="brush: html">{{#each myblock}}
-    <div>
-        {{abe type='text' key='myblock.text' desc='text item of the block'}}
-    </div>
-    <img src="{{abe type='image' key='myblock.image' desc='image item of the block'}}" />
-    <button>
-        {{abe type='text' key='button' desc='this button label is not part of this each statement'}}
-    </button>
-{{/each}}</pre>
+                            <div><div id="highlighter_335662" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">{{#each myblock}}</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type='text' key='myblock.text' desc='text item of the block'}}</code></div><div class="line number4 index3 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;/</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div><div class="line number5 index4 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">img</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"{{abe type='image' key='myblock.image' desc='image item of the block'}}"</code><code class="html plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">button</code><code class="html plain">&gt;</code></div><div class="line number7 index6 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type='text' key='button' desc='this button label is not part of this each statement'}}</code></div><div class="line number8 index7 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;/</code><code class="html keyword">button</code><code class="html plain">&gt;</code></div><div class="line number9 index8 alt2"><code class="html plain">{{/each}}</code></div></div></td></tr></tbody></table></div></div>
                             <p>Result:</p>
-                            <img src="images/abe/abe-each.png" alt="image abe-each.png" />
+                            <img src="index2_files/abe-each.png" alt="image abe-each.png">
                             <p>We have now a block each myblock that can be repeated as many time as we want with the '+' icon.
-                                <br /><br />
-                                Notice that since the button doesn't have key='myblock.button' but instead key='button' it won't be part of the each statement.
-                                <br /><br />
-                                When the input button will have some content, any item each from myblock will have the same text for the element button.
-                                <br /><br />
+                                <br><br>
+                                Notice that since the button doesn't 
+have key='myblock.button' but instead key='button' it won't be part of 
+the each statement.
+                                <br><br>
+                                When the input button will have some 
+content, any item each from myblock will have the same text for the 
+element button.
+                                <br><br>
                                 Use case:
-                                <br /><br />
-                                Each statement are usefull for exemple for Carousel, list of element with un unknow number of item, etc.</p>
+                                <br><br>
+                                Each statement are usefull for exemple 
+for Carousel, list of element with un unknow number of item, etc.</p>
                             <h3>Grouped element</h3>
                             <p>Sometime we want to have a group of element but not inside of each statement because this group won't be repeated.
-                                <br /><br />
-                                To do that, just use the same syntaxe as each block element but without wrapping them inside {{#each}} ... {{/each}} tag:</p>
-                            <pre class="brush: html"><div>
-    {{abe type='text' key='myblock.text' groupdesc='description for my group' desc='text item of the block'}}
-</div>
-<img src="{{abe type='image' key='myblock.image' groupdesc='description for my group' desc='image item of the block'}}" /></pre>
+                                <br><br>
+                                To do that, just use the same syntaxe as
+ each block element but without wrapping them inside {{#each}} ... 
+{{/each}} tag:</p>
+                            <div><div id="highlighter_740434" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type='text' key='myblock.text' groupdesc='description for my group' desc='text item of the block'}}</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="html plain">&lt;</code><code class="html keyword">img</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"{{abe type='image' key='myblock.image' groupdesc='description for my group' desc='image item of the block'}}"</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             
-                            <p>Notice groupdesc attribut that is use to write a description for our single grouped element.<br />
-                            <br />
+                            <p>Notice groupdesc attribut that is use to write a description for our single grouped element.<br>
+                            <br>
                             Result:</p>
-                            <img src="images/abe/single-group.png" alt="image - groupdesc example" />
+                            <img src="index2_files/single-group.png" alt="image - groupdesc example">
                         </section>
 
                         <section id="tags_import" class="section">
@@ -629,20 +592,13 @@
                             
                             <div class="col-md-6">
                                 <h5>Template</h5>
-                                <pre class="brush: html">
-                                    <p>
-                                        {{abe type='text' key='text_dom'}}
-                                    </p>
-                                </pre>
+                                <div><div id="highlighter_51347" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type='text' key='text_dom'}}</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             </div>
                             <!-- end col -->
 
                             <div class="col-md-6">
                                 <h5>Render</h5>
-                                <pre class="brush: html">
-                                <p>
-                                    Hello
-                                </p></pre>
+                                <div><div id="highlighter_337189" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">Hello</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             </div>
                         </div>
                         <!-- end row -->
@@ -653,22 +609,13 @@
                             
                             <div class="col-md-6">
                                 <h5>Template</h5>
-                                <pre class="brush: html">
-                                    <p>
-                                        {{abe type='text' key='text_dom'}}
-                                        <span>{{ text_dom }}</span>
-                                    </p>
-                                </pre>
+                                <div><div id="highlighter_382049" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{{abe type='text' key='text_dom'}}</code></div><div class="line number3 index2 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">span</code><code class="html plain">&gt;{{ text_dom }}&lt;/</code><code class="html keyword">span</code><code class="html plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="html plain">&lt;/</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             </div>
                             <!-- end col -->
 
                             <div class="col-md-6">
                                 <h5>Render</h5>
-                                <pre class="brush: html">
-                                <p>
-                                    Hello
-                                    <span>Hello</span>
-                                </p></pre>
+                                <div><div id="highlighter_38852" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">Hello</code></div><div class="line number3 index2 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">&lt;</code><code class="html keyword">span</code><code class="html plain">&gt;Hello&lt;/</code><code class="html keyword">span</code><code class="html plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="html plain">&lt;/</code><code class="html keyword">p</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                             </div>
                         </div>
                         <!-- end row -->
@@ -678,17 +625,13 @@
                                 
                                 <div class="col-md-6">
                                     <h5>Template</h5>
-                                    <pre class="brush: html"><div class="{{abe type='text' key='text_class'}}">
-    Content
-</div></pre>
+                                    <div><div id="highlighter_479961" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">div</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"{{abe type='text' key='text_class'}}"</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">Content</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                                 </div>
                                 <!-- end col -->
     
                                 <div class="col-md-6">
                                     <h5>Render</h5>
-                                    <pre class="brush: html"><div class="class-hello">
-    Content
-</div></pre>
+                                    <div><div id="highlighter_394209" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">div</code> <code class="html color1">class</code><code class="html plain">=</code><code class="html string">"class-hello"</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">Content</code></div><div class="line number3 index2 alt2"><code class="html plain">&lt;/</code><code class="html keyword">div</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                                 </div>
                             
                                 <!-- end col -->
@@ -712,7 +655,7 @@
                         <h3>Import</h3>
                         <p>Use the partial into Abe template :</p>
                         <pre>{{abe type='import' file='head.html'}}</pre>
-                        <p>this will replace the '{{abe type='import' file='head.html'}}' with file content of head.html<br />
+                        <p>this will replace the '{{abe type='import' file='head.html'}}' with file content of head.html<br>
                         <i>if the key doesn't exist this will replace '{{abe type='import' file='head.html'}}' with nothing</i></p>
                         <!-- end row -->
                     </section>
@@ -723,7 +666,7 @@
 
                         <div class="row">
                             <div class="col-md-12 left-align">
-                                <h2 class="dark-text">Generate Pages & Posts <a href="#top">#back to top</a><hr></h2>
+                                <h2 class="dark-text">Generate Pages &amp; Posts <a href="#top">#back to top</a><hr></h2>
                             </div>
                             <!-- end col -->
                         </div>
@@ -734,14 +677,14 @@
                             <div class="col-md-12">
                                 <p>
                                     Abe commands :
-                                    <pre>abe generate-posts --path=be --destination=publish --type=publish</pre>
+                                    </p><pre>abe generate-posts --path=be --destination=publish --type=publish</pre>
                                     Options : 
                                     <ul>
                                         <li>--path= [ path to site/some/json/folder ]</li>
                                         <li>--destination= [ path to some/folder ]</li>
                                         <li>--type= [ draft / review / approve]</li>
                                     </ul>
-                                </p>
+                                <p></p>
                             </div>
 
                         </div>
@@ -754,13 +697,13 @@
 
                         <div class="row">
                             <div class="col-md-12 left-align">
-                                <h2 class="dark-text">Users & Permissions <a href="#top">#back to top</a><hr></h2>
+                                <h2 class="dark-text">Users &amp; Permissions <a href="#top">#back to top</a><hr></h2>
                             </div>
                             <!-- end col -->
 
                             <h3>Default user</h3>
-                            <p>By default Abe only have one user, admin user that have full right over Abe.<br />
-                                Inside <strong>/abe/src/cli/config/abe-config.js</strong> there are two important things to manage users & actions.
+                            <p>By default Abe only have one user, admin user that have full right over Abe.<br>
+                                Inside <strong>/abe/src/cli/config/abe-config.js</strong> there are two important things to manage users &amp; actions.
                             </p>
                             <ul>
                                 <li>A list of actions : actions: ['read', 'write', 'publish', 'unpublish', 'delete', 'config']</li>
@@ -774,7 +717,10 @@
                                 <h3>Adding new user with restricted rights</h3>
                             <div class="col-md-12">
                                 
-                                <p>Create a file abe.json inside the root folder of your website (this file is merged with abe default config file, you can merge OR override anything from the default config with it):</p>
+                                <p>Create a file abe.json inside the 
+root folder of your website (this file is merged with abe default config
+ file, you can merge OR override anything from the default config with 
+it):</p>
                             
                                 <pre>{
     "roles": {
@@ -793,15 +739,18 @@
                             <h3>How does it works?</h3>
 
                             <div class="col-md-12">
-                                <p>Inside /abe/src/server/views/template-engine.html which is redered server side with HandlebarsJS templating engine there are {{#if}} statements that disable some features if the user has no right to use them.
-                                    <br />
+                                <p>Inside 
+/abe/src/server/views/template-engine.html which is redered server side 
+with HandlebarsJS templating engine there are {{#if}} statements that 
+disable some features if the user has no right to use them.
+                                    <br>
                                 For example:
-                                      <br />  
+                                      <br>  
                                 Contributor cannot publish page, here is the code inside template-engine.html.</p>
                                 <pre><xmp>{{#if @root.allowedActions.publish}}
-<button class='btn btn-default btn-save' data-action="publish">
+&lt;button class='btn btn-default btn-save' data-action="publish"&gt;
     ...
-</button>
+&lt;/button&gt;
 {{/if}}</xmp></pre>
                                 <p>This means HandlebarsJS won't render this button and publish actions won't be possible for this user.</p>
                             </div>
@@ -811,8 +760,7 @@
                             <h3>Adding new actions</h3>
                             <div class="col-md-12">
                                 <p>Just like roles, to add new actions just add actions array inside abe.json:</p>
-                                <pre>
-{
+                                <pre>{
     "actions": ["custom"],
     "roles": {
         "contributor": {
@@ -836,11 +784,13 @@
                         </div>
 
                         <div class="row">
-                            <h3>User & workflow</h3>
+                            <h3>User &amp; workflow</h3>
                             <div class="col-md-12">
                                 <p>
-                                    To restrict workflow step to some user, just add or not those actions step to their actions array to allow/disallow them to use them.
-                                    <br /><br />For example:
+                                    To restrict workflow step to some 
+user, just add or not those actions step to their actions array to 
+allow/disallow them to use them.
+                                    <br><br>For example:
                                 </p>
                                 <pre>{
 "actions": ["validate"],
@@ -908,19 +858,24 @@
                             <div class="col-md-12">
                                 <h3>Create a multilingual website in 2 minutes</h3>
                                 <p>
-                                    1. Create a "structure" directory (at your website root) and create dirctories of your locales. Example:
-                                    <ul>
+                                    1. Create a "structure" directory 
+(at your website root) and create dirctories of your locales. Example:
+                                    </p><ul>
                                         <li>/en</li>
                                         <li>/fr</li>
                                     </ul>
-                                    2. When you will create your post, select the language in which you want to create it and give it a name (ex. myPost). The url will be /fr/myPost.html
-                                    <br />
-                                    3. the attribute level-1 will contain the directory name in your json document.<br />
-                                    4. You can then use this attribute to select your translation file:  - {{abe type="translate" source="myKey" locale="{{level-1}}"}}<br />
+                                    2. When you will create your post, 
+select the language in which you want to create it and give it a name 
+(ex. myPost). The url will be /fr/myPost.html
+                                    <br>
+                                    3. the attribute level-1 will contain the directory name in your json document.<br>
+                                    4. You can then use this attribute 
+to select your translation file:  - {{abe type="translate" 
+source="myKey" locale="{{level-1}}"}}<br>
                                     <ul>
                                         <li>Abe will search the key 'myKey' in the file /locales/fr.json and return the corresponding value</li>
                                     </ul>
-                                </p>
+                                <p></p>
                             </div>
                         </div>
 
@@ -939,8 +894,11 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Abe plugin system is based on npm modules: You can install a plugin which has been deployed on npm or resides on GitHub with a proper package.json.
-                                Furthermore, you can create your own scripts without having to register it in npm (see below).</p>
+                                <p>Abe plugin system is based on npm 
+modules: You can install a plugin which has been deployed on npm or 
+resides on GitHub with a proper package.json.
+                                Furthermore, you can create your own 
+scripts without having to register it in npm (see below).</p>
                             </div>
                         </div>
                         <!-- end row -->
@@ -950,7 +908,9 @@
                             <div class="col-md-12">
                                 <p>Run:</p>
                                 <pre>abe install some-plugin-name</pre>
-                                <p>This will install the plugin in the node_modules directory and add a new entry inside abe.json file (it will create abe.json if it doesn't exist):</p>
+                                <p>This will install the plugin in the 
+node_modules directory and add a new entry inside abe.json file (it will
+ create abe.json if it doesn't exist):</p>
                                 <pre>{
     "plugins": [
         "some-plugin-name"
@@ -964,13 +924,20 @@
         "some-plugin-name@1.0.0"
     ]
 }</pre>
-                                <p>You can also install a module hosted on GitHub. This is particularly useful for modules you don't want to make public and don't have a private npm repo.
-                                    The syntax is abe install user_or_org/repo#branch.
-                                    user_or_org being your user or organization GitHub ID, repo being the repo and branch being the branch or the tag.
+                                <p>You can also install a module hosted 
+on GitHub. This is particularly useful for modules you don't want to 
+make public and don't have a private npm repo.
+                                    The syntax is abe install 
+user_or_org/repo#branch.
+                                    user_or_org being your user or 
+organization GitHub ID, repo being the repo and branch being the branch 
+or the tag.
                                 </p>
                                 <p>Run:</p>
                                 <pre>abe install user_or_org/myrepo</pre>
-                                <p>This will install the plugin in the node_modules directory and add a new entry inside abe.json file (it will create abe.json if it doesn't exist):</p>
+                                <p>This will install the plugin in the 
+node_modules directory and add a new entry inside abe.json file (it will
+ create abe.json if it doesn't exist):</p>
                                 <pre>{
     "plugins": [
         "user_or_org/myrepo"
@@ -991,7 +958,9 @@
                         <div class="row" id="usecustomscripts">
                             <h3>Use custom scripts</h3>
                             <div class="col-md-12">
-                                <p>Custom scripts are created under scripts directory. Follow the same structure as for a plugin. Example for a module abe-hint under scripts:</p>
+                                <p>Custom scripts are created under 
+scripts directory. Follow the same structure as for a plugin. Example 
+for a module abe-hint under scripts:</p>
                                 <p>Example from abe-hint plugins:</p>
                                 <pre>website/
     |_ scripts/
@@ -1004,7 +973,9 @@
         | - ...
         |_ routes/
             - my_route.js ...</pre>
-                                <p>This way, you'll be able to create custom scripts which you don't want to share between your different Abe projects. You can name your module as you want.</p>
+                                <p>This way, you'll be able to create 
+custom scripts which you don't want to share between your different Abe 
+projects. You can name your module as you want.</p>
                                 <p>You'll have to add npm i --save babel-preset-env to your script or plugin package.json to make it work properly.</p>
                             
                                 
@@ -1015,10 +986,12 @@
                                 <h3>Dev Plugins</h3>
                                 <p>How to create plugins.</p>
                                 <div class="col-md-12">
-                                    <p>Inside website (under scripts folder) create a directory with the name of your choice (this name will be the name of your plugin).
-                                    <br /><br />
-                                    You can then add hooks or template override.<br />
-                                    <br />
+                                    <p>Inside website (under scripts 
+folder) create a directory with the name of your choice (this name will 
+be the name of your plugin).
+                                    <br><br>
+                                    You can then add hooks or template override.<br>
+                                    <br>
                                     Example from abe-hint plugins:</p>
                                     <pre>website/
     |_ node_modules/
@@ -1031,15 +1004,18 @@
         | - ...
         |_ routes/
             - my_route.js ...</pre>
-                                    <p>Once you'll be satisfied with the way your module works, you'll then be able to create a regular npm module and install it on your project with the command Abe install my_module.</p>
+                                    <p>Once you'll be satisfied with the
+ way your module works, you'll then be able to create a regular npm 
+module and install it on your project with the command Abe install 
+my_module.</p>
                                 
                                     <h4>Frontend javascript</h4>
                                     <p>
-                                        Your partial can import css/js file.<br />
+                                        Your partial can import css/js file.<br>
 
-                                        You can register some event to alter Abe.<br />
+                                        You can register some event to alter Abe.<br>
                                         
-                                        For example:<br />
+                                        For example:<br>
                                     </p>
                                     <pre>website/
     |_ node_modules/
@@ -1048,12 +1024,9 @@
         - styles.html
         - my-scripts.js</pre>
                                     <p>Content of styles.html:</p>
-                                    <pre class="brush: html"><script src="/my-scripts.js"></script></pre>
+                                    <div><div id="highlighter_527333" class="syntaxhighlighter  html"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"/my-scripts.js"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
                                     <p>Content of my-scripts.js:</p>
-                                    <pre class="brush: jscript">
-                                    abe.json.saving(function (e) {
-                                        abe.json.data.someVariable = 'test'
-                                    })</pre>
+                                    <div><div id="highlighter_996064" class="syntaxhighlighter  jscript"><table cellspacing="0" cellpadding="0" border="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript plain">abe.json.saving(</code><code class="jscript keyword">function</code> <code class="jscript plain">(e) {</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">abe.json.data.someVariable = </code><code class="jscript string">'test'</code></div><div class="line number3 index2 alt2"><code class="jscript plain">})</code></div></div></td></tr></tbody></table></div></div>
                                     <p>someVariable will be saved into content JSON file, because the JSON was changed before saving.</p>
                                 
                                     <h4>Add route</h4>
@@ -1062,8 +1035,10 @@
                   |_ my-plugin/
                     |_ routes/
                         - my_route.js ...</pre>
-                                    <p>You now get a new route at http://localhost:8000/plugin/my-plugin/my_route (this is created fron plugin name my-plugin and my_route.js.
-                                    <br /><br />Example file:</p>
+                                    <p>You now get a new route at 
+http://localhost:8000/plugin/my-plugin/my_route (this is created fron 
+plugin name my-plugin and my_route.js.
+                                    <br><br>Example file:</p>
                                     <pre>'use strict';
 
 var route = function route(req, res, abe) {
@@ -1080,6 +1055,631 @@ exports.default = route;</pre>
 
                     </section>
                     <!-- end section -->
+
+                    <section id="developers" class="section">
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Developers Stuff <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                        </div>
+                        <!--
+                            <li><a href="#dev_logs">Logs</a></li>
+                            <li><a href="#dev_hooks">Hooks</a></li>
+                            <li><a href="#dev_process">Process</a></li>
+                            <li><a href="#dev_smtp">SMTP</a></li>
+                            <li><a href="#dev_ssl">SSL</a></li>
+                            <li><a href="#dev_handlebars_helper">Handlebars Helpers</a></li>
+                            <li><a href="#dev_engine_override">Engine Override</a></li>
+                            <li><a href="#dev_formcreate_override">Form Create Override</a></li>
+                            <li><a href="#dev_linux_cmd">Linux Commands</a></li>
+                        -->
+                        <section id="dev_logs" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Logs <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-logs"><h1 id="abe-logs">Abe logs</h1>
+<blockquote>
+<p>Append logs to file (and can be visible on the browser).</p>
+</blockquote>
+<h2 id="create">Create</h2>
+<p>Use <code>log.write(filename, 'some', 'log', 'to', 'append')</code>:</p>
+<pre><code class="language-javascript">import {
+    log
+} from '../../cli'
+log.write('test', 'my test')
+
+// Or from hook
+
+abe.log.write('test', 'my test')</code></pre>
+<h2 id="run">Run</h2>
+<p>Navigate into logs.</p>
+<blockquote>
+<p>Go to <a href="http://localhost:8000/abe/logs">http://localhost:8000/abe/logs</a></p>
+</blockquote>
+<h2 id="enable-disable-logs">Enable/Disable logs</h2>
+<p>To enable logs add <code>?logs=true</code> to any URL.</p>
+<p>Exemple:</p>
+<blockquote>
+<p>Go to <a href="http://localhost:8000/abe/?logs=true">http://localhost:8000/abe/?logs=true</a></p>
+</blockquote>
+<p>To disable logs add <code>?logs=false</code> to any URL.</p>
+<p>Exemple:</p>
+<blockquote>
+<p>Go to <a href="http://localhost:8000/abe/?logs=false">http://localhost:8000/abe/?logs=false</a></p>
+</blockquote>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_hooks" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Hooks <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-hooks"><h1 id="abe-hooks">Abe hooks</h1>
+<blockquote>
+<p>How to create hooks.</p>
+</blockquote>
+<p>Inside website (create hooks folders) then <code>hook.js</code> file.</p>
+<p>Example from <code>abe-hint</code> plugins:</p>
+<pre><code class="language-javascript">'use strict';
+
+var hooks = {
+    afterAbeAttributes: function afterAbeAttributes(obj, str, json, abe) {
+        obj.hint = abe.getAttr(str, 'hint')
+        return obj
+    },
+    afterEditorInput: function afterEditorInput(htmlString, params, abe) {
+        if(typeof params.hint !== 'undefined' &amp;&amp; params.hint !== null &amp;&amp; params.hint !== '') {
+            htmlString = htmlString + '&lt;span class="abe-hint help-block"&gt;&lt;span class="glyphicon glyphicon-info-sign"&gt;&lt;/span&gt;' + params.hint + '&lt;/span&gt;'
+        }
+
+        return htmlString;
+    }
+};
+
+exports.default = hooks;</code></pre>
+<h2 id="available-hooks">Available hooks</h2>
+<table>
+<thead>
+<tr>
+<th>function</th>
+<th>params</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeSave</td>
+<td>(obj, abe)</td>
+<td>Change data <strong>before</strong> it's written on file system</td>
+</tr>
+<tr>
+<td>afterSave</td>
+<td>(obj, abe)</td>
+<td>Change data <strong>after</strong> it's written on file system</td>
+</tr>
+<tr>
+<td>beforeEditorInput</td>
+<td>(params, abe)</td>
+<td>Change params before admin form is made</td>
+</tr>
+<tr>
+<td>afterEditorInput</td>
+<td>(htmlString, params, abe)</td>
+<td>Change HTML before admin form is rendered</td>
+</tr>
+<tr>
+<td>beforeAbeAttributes</td>
+<td>(str, json, abe)</td>
+<td>Change Abe tag string before get attributes</td>
+</tr>
+<tr>
+<td>afterAbeAttributes</td>
+<td>(obj, str, json, abe)</td>
+<td>Add attribute to Abe tag</td>
+</tr>
+<tr>
+<td>beforeEditorFormBlocks</td>
+<td>(json, abe)</td>
+<td>Add Tab and Input to Abe admin</td>
+</tr>
+<tr>
+<td>afterEditorFormBlocks</td>
+<td>(blocks, json, abe)</td>
+<td>Add Tab and Input to Abe admin</td>
+</tr>
+<tr>
+<td>beforeGetJson</td>
+<td>(path, abe)</td>
+<td>Change JSON path before it load</td>
+</tr>
+<tr>
+<td>afterGetJson</td>
+<td>(json, abe)</td>
+<td>Change JSON data after load</td>
+</tr>
+<tr>
+<td>beforeGetTemplate</td>
+<td>(file, abe)</td>
+<td>Change HTML template path</td>
+</tr>
+<tr>
+<td>afterGetTemplate</td>
+<td>(text, abe)</td>
+<td>Change text of template</td>
+</tr>
+<tr>
+<td>beforePageJson</td>
+<td>(json, abe)</td>
+<td>Change JSON before page render</td>
+</tr>
+<tr>
+<td>beforeAddWorkflow</td>
+<td>(flows, userFlow, currentFlow, text, abe)</td>
+<td>Allow to add stuff <strong>before</strong> to the toolbar</td>
+</tr>
+<tr>
+<td>afterAddWorkflow</td>
+<td>(flows, userFlow, currentFlow, text, abe)</td>
+<td>Allow to add stuff <strong>after</strong> to the toolbar</td>
+</tr>
+<tr>
+<td>beforeListPage</td>
+<td>(file, workflow, index, action, text, abe)</td>
+<td>Call <strong>before</strong> each row is created on table list</td>
+</tr>
+<tr>
+<td>afterListPage</td>
+<td>(res, file, workflow, index, action, text, abe)</td>
+<td>Call <strong>before</strong> each row is created on table list, <strong>res</strong> equal the html of the row</td>
+</tr>
+</tbody></table>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_process" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Process <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-process"><h1 id="abe-process">Abe process</h1>
+<blockquote>
+<p>run child process from Abe (node child_process.fork).</p>
+</blockquote>
+<h2 id="create">Create</h2>
+<p>Create process <code>src/cli/process/my_process.js</code>.</p>
+<h2 id="run">Run</h2>
+<p>Test from CLI:</p>
+<pre><code class="language-shell">./node_modules/.bin/babel-node src/cli/process/my_process.js ABE_WEBSITE=/path/to/website SOME_PROCESS_VAR=something_text</code></pre>
+<p>Run from Abe:</p>
+<pre><code class="language-javascript">import {
+    abeProcess
+} from '../../cli'
+
+abeProcess('my_process', [`SOME_PROCESS_VAR=something_text`])
+
+// Or hook
+
+abe.abeProcess('my_process', [`SOME_PROCESS_VAR=something_text`])</code></pre>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_smtp" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">SMTP <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-smtp"><h1 id="configure-your-smtp-server">Configure your SMTP server</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Abe includes configuration to send emails. You can use:</p>
+<ul>
+<li>direct smtp</li>
+<li>SMTP configuration</li>
+<li>Amazon SES</li>
+<li>Mailchimp (mandrill)</li>
+<li>Sendgrid</li>
+<li>Mailgun</li>
+</ul>
+<h2 id="how-to">How to</h2>
+<p>In the <code>abe.json</code> "smtp" entry, update the configuration with the infos of your mail provider:</p>
+<h3 id="direct-smtp">Direct SMTP</h3>
+<pre><code>"smtp": null</code></pre><p>It will send direct mails. This configuration is perfect for development.</p>
+<h3 id="smtp">SMTP</h3>
+<pre><code class="language-json">"smtp": {
+    "service": "smtp",
+    "options": {
+    }
+}</code></pre>
+<h3 id="amazon-ses">Amazon SES</h3>
+<pre><code class="language-json">"smtp": {
+    "service": "ses",
+    "options": {
+        "host": "your host (ie. email-smtp.eu-west-1.amazonaws.com)",
+        "secureConnection": true,
+        "port": 465,
+        "auth": {
+            "user": "your_user",
+            "pass": "your_password"
+        }
+    }
+}</code></pre>
+<h3 id="mailchimp-mandrill-">Mailchimp (Mandrill)</h3>
+<pre><code class="language-json">"smtp": {
+    "service": "mandrill",
+    "options": {
+        "auth": {
+            "apiKey": "your_mandrill_api_key"
+        }
+    }
+}</code></pre>
+<h3 id="sendgrid">Sendgrid</h3>
+<pre><code class="language-json">"smtp": {
+    "service": "sendgrid",
+    "options": {
+        "auth": {
+            "api_key": "SENDGRID_APIKEY"
+        }
+    }
+}</code></pre>
+<h3 id="mailgun">Mailgun</h3>
+<pre><code class="language-json">"smtp": {
+    "service": "mailgun",
+    "options": {
+        "auth": {
+            "api_key" : "your_API_key",
+            "domain": "your_domain"
+        }
+    }
+}</code></pre>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_ssl" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">SSL <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-ssl"><h1 id="create-localhost-ssl-website">Create localhost SSL website</h1>
+<pre><code class="language-bash">openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365</code></pre>
+<p>You will be asked a couple of questions… </p>
+<pre><code class="language-bash">openssl rsa -in key.pem -out newkey.pem &amp;&amp; mv newkey.pem key.pem</code></pre>
+<p>Move files into website folder:</p>
+<ul>
+<li>cert.pem</li>
+<li>key.pem</li>
+</ul>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_handlebars_helper" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Handlebars Helpers <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-handlebars-helpers"><h1 id="abe-handlebars-helpers">Abe handlebars helpers</h1>
+<blockquote>
+<p>Abe handlebars helpers will make your template designer life easy!</p>
+</blockquote>
+<p>Abe, by default, contains more than 150 provided by this project: <a href="https://github.com/helpers/handlebars-helpers">https://github.com/helpers/handlebars-helpers</a>.</p>
+<p>So you can use each one of these helpers. Refer to their documentation for their usage.</p>
+<p>Additionally, the following Abe helpers have been developped for you:</p>
+<h2 id="attrabe">attrAbe</h2>
+<h2 id="classname">className</h2>
+<h3 id="description">Description</h3>
+<p>This helper replaces unwanted characters from a string to make it ressemble a className.</p>
+<p>e.g. <code>My string !</code> =&gt; <code>my_string</code></p>
+<h2 id="cleantab">cleanTab</h2>
+<h2 id="slugify">slugify</h2>
+<h2 id="ifcond">ifCond</h2>
+<h3 id="description">Description</h3>
+<p>This helper checks if a condition is true and return the block if it's the case.</p>
+<h2 id="ifin">ifIn</h2>
+<h3 id="description">Description</h3>
+<p>This helper checks if a string is contained inside an array and returns the bloc, if it's  the case.</p>
+<h2 id="raw">raw</h2>
+<h3 id="usage-in-template-">usage (in template)</h3>
+<pre><code class="language-html">{{{{raw}}}}
+    {{someVariable}}
+{{{{/raw}}}}</code></pre>
+<p>You'll find <code>{{someVariable}}</code> in your HTML. This helper is for you if you want to use handlebars on your html generated static pages.</p>
+<h3 id="use-case">Use case</h3>
+<p>For example <a href="http://www.bjornblog.com/web/jquery-store-locator-plugin">http://www.bjornblog.com/web/jquery-store-locator-plugin</a> is a jquery plugin which uses handlebars as its dynamic templating language.</p>
+<p><code>template.html</code></p>
+<pre><code class="language-html">&lt;div id="infoTemplate" style="display:none"&gt;
+  {{{{raw}}}}
+  {{#location}}
+    {{name}}
+    {{address}}
+    {{address2}}
+    {{city}}{{#if city}},{{/if}} {{state}} {{postal}}
+    {{hours1}}{{hours2}}{{hours3}}
+    {{phone}}
+    {{niceURL web}}
+  {{/location}}
+  {{{{/raw}}}}
+  &lt;/div&gt;
+
+&lt;div id="listTemplate" style="display:none"&gt;
+  {{{{raw}}}}
+  {{#location}}
+    &lt;li data-markerid="{{markerid}}"&gt;
+      &lt;div class="list-label"&gt;{{marker}}&lt;/div&gt;
+      &lt;div class="list-details"&gt;
+        &lt;div class="list-content"&gt;
+          &lt;div class="loc-name"&gt;{{name}}&lt;/div&gt;
+          &lt;div class="loc-addr"&gt;{{address}}&lt;/div&gt;
+          &lt;div class="loc-addr2"&gt;{{address2}}&lt;/div&gt;
+          &lt;div class="loc-addr3"&gt;{{city}}{{#if city}},{{/if}} {{state}} {{postal}}&lt;/div&gt;
+          &lt;div class="loc-phone"&gt;{{phone}}&lt;/div&gt;
+          &lt;div class="loc-web"&gt;&lt;a href="{{web}}" target="_blank"&gt;{{niceURL web}}&lt;/a&gt;&lt;/div&gt;
+          {{#if distance}}
+            &lt;div class="loc-dist"&gt;{{distance}} {{length}}&lt;/div&gt;
+            &lt;div class="loc-directions"&gt;
+              &lt;a href="https://maps.google.com/maps?saddr={{origin}}&amp;amp;daddr={{address}} {{address2}} {{city}}, {{state}} {{postal}}" target="_blank" style="color: lightskyblue"&gt;Directions&lt;/a&gt;
+            &lt;/div&gt;
+          {{/if}}
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;hr&gt;
+    &lt;/li&gt;
+  {{/location}}
+  {{{{/raw}}}}
+&lt;/div&gt;
+&lt;script src="https://code.jquery.com/jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;script src="/js/handlebars-v4.0.5.js"&gt;&lt;/script&gt;
+&lt;script src="https://maps.google.com/maps/api/js?key=AIzaSyCo_h54Rp4-1ygvmTSWgebLYz6hlcjLO7w&amp;region=FRANCE"&gt;&lt;/script&gt;
+&lt;script src="/js/jquery.storelocator.js"&gt;&lt;/script&gt;
+&lt;script src="/js/jquery.tinycarousel.js"&gt;&lt;/script&gt;
+&lt;script&gt;//var jsonData = {{stores}}&lt;/script&gt;
+&lt;script&gt;//console.log({{stores}})&lt;/script&gt;
+&lt;script&gt;
+  $(function() {
+    $('#bh-sl-map-container').storeLocator({
+      debug                      : false,
+      fullMapStart               : true,
+      mapSettings : {
+        zoom                   : 5,
+        mapTypeId              : google.maps.MapTypeId.ROADMAP,
+        disableDoubleClickZoom : true,
+        scrollwheel            : false,
+        navigationControl      : false,
+        draggable              : true
+      },
+      lengthUnit               : 'km',
+      storeLimit               : 5,
+      // Data
+      dataType                 : 'json',
+      dataLocation             : 'https://raw.githubusercontent.com/bjorn2404/jQuery-Store-Locator-Plugin/master/dist/data/locations.json',
+      //dataLocation           : '/stores.html',
+      //dataRaw                : jsonData,
+      infowindowTemplateID     : 'infoTemplate',
+      listTemplateID           : 'listTemplate',
+      distanceAlert            : -1
+    });
+  });
+&lt;/script&gt;</code></pre>
+<p>Everything inside raw blocks will be left as is and ready to be 
+compiled client side by handlebars. In this example, it's used to have 
+templates of infowindow and list of stores found on a googlemap.</p>
+<h2 id="lowercase">lowercase</h2>
+<h3 id="example">Example</h3>
+<pre><code class="language-html">{{lowercase 'my Text IS THERE'}}</code></pre>
+<p>Result: <code>my text is there</code></p>
+<h3 id="description">Description</h3>
+<p>This helper... lowercases your text.</p>
+<h2 id="uppercase">uppercase</h2>
+<h3 id="example">Example</h3>
+<pre><code class="language-html">{{uppercase 'my Text IS THERE'}}</code></pre>
+<p>Result: <code>MY TEXT IS THERE</code></p>
+<h3 id="description">Description</h3>
+<p>This helper... uppercases your text.</p>
+<h2 id="truncate">truncate</h2>
+<h3 id="example">Example</h3>
+<pre><code class="language-html">{{truncate 'my Text which is quite long' 10}}</code></pre>
+<h3 id="description">Description</h3>
+<p>This helper remove html tags and truncate it.</p>
+<h3 id="parameters">Parameters</h3>
+<pre><code class="language-html">{{truncate text len}}</code></pre>
+<blockquote>
+<p><strong>text</strong> = The text to truncate</p>
+<p><strong>len</strong> = the length of the text to keep</p>
+</blockquote>
+<h3 id="usage">Usage</h3>
+<p>The text to pass can of course be a handlebars variable:</p>
+<pre><code class="language-html">{{truncate nbVariable 10}}</code></pre>
+<h2 id="istrue">isTrue</h2>
+<h3 id="example">Example</h3>
+<pre><code class="language-html">{{#if (isTrue (isTrue (isTrue top_things_night '||' top_things_cafe) '||' top_things_restaurant_sofitel) '||' top_things_restaurant)}}</code></pre>
+<h3 id="description">Description</h3>
+<p>This helper returns a boolean depending on the test it does. The available tests:</p>
+<ul>
+<li>'==' : test equality between 2 values</li>
+<li>'===' : test strict equality between 2 values</li>
+<li>'&lt;' : test if value1 is strictly less than value2</li>
+<li>'&lt;=' : test if value1 is less or equal  than value2</li>
+<li>'&gt;' : test if value1 is strictly more than value2</li>
+<li>'&gt;=' : test if value1 is equal or more than value2</li>
+<li>'&amp;&amp;' : test if value1 and value 2 are true</li>
+<li>'||' : test if value1 or value2 is true</li>
+</ul>
+<h3 id="parameters">Parameters</h3>
+<pre><code class="language-html">{{isTrue value1 operator value2}}</code></pre>
+<blockquote>
+<p><strong>value1</strong> = The first value to be tested</p>
+<p><strong>operator</strong> = the operator (see above)</p>
+<p><strong>value2</strong> = The second value to be tested</p>
+</blockquote>
+<h3 id="usage">Usage</h3>
+<h3 id="usage">Usage</h3>
+<p>You can use ifTrue after a <code>{{#if }}</code> statement:</p>
+<pre><code class="language-html">{{#if (isTrue object1 '||' object2)}}</code></pre>
+<p>You can chain ifTrue tests if you want to test multiple parameters:</p>
+<pre><code class="language-html">{{#if (isTrue (isTrue 4 '==' 5) '||' object1)}}</code></pre>
+<p><strong>CAUTION</strong>: If you want to test a handlebars variable like geocode.code, you'll have to use "../" to access the parent properties.</p>
+<pre><code class="language-html">{{#if (isTrue (isTrue (lowercase hotelCityCodeGeo) "==" ../geocode.code)}}</code></pre>
+<h2 id="math">math</h2>
+<h2 id="moduloif">moduloIf</h2>
+<h2 id="notempty">notEmpty</h2>
+<h2 id="printjson">printJson</h2>
+<h2 id="testobj">testObj</h2>
+<h2 id="i18nabe">i18nAbe</h2>
+<h2 id="times">times</h2>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_handlebars_variables" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Handlebars Variables  <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-handlebars-variables"><h1 id="abe-handlebars-variable">Abe handlebars variable</h1>
+<blockquote>
+<p>Abe admin is rendered with handlebar engine, global variables are added inside template rendering.</p>
+</blockquote>
+<h2 id="editor">Editor</h2>
+<p>When on the admin edit view <code>abeEditor</code> is set to <code>true</code> otherwise set to <code>false</code>.</p>
+<pre><code class="language-html">{{#if abeEditor}}
+    Html rendered inside post when user edit the post
+{{else}}
+    Html rendered when user "publish" the post (final output)
+{{/if}}</code></pre>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_engine_override" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Engine override <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-engine-override"><h1 id="abe-admin-override">Abe admin override</h1>
+<blockquote>
+<p>Customize Abe engine.</p>
+</blockquote>
+<h2 id="override">Override</h2>
+<p>Abe admin engine is in this <a href="http://localhost:5000/src/server/views/partials">directory</a> if you want to override one or multiple admin template, you need to override the path in your <strong>abe.json</strong> config file.</p>
+<p>Like this:</p>
+<pre><code class="language-json">"partials": "path/to/my/partialsOverride"</code></pre>
+<p>This path will be relative from your abe website, then just copy the html file from <a href="http://localhost:5000/src/server/views/partials">here</a> to your path to override the template and then customize them!</p>
+<p>Inside the HTML file there are handlebarJS tag which can be combined with custom actions for custom users, see <a href="http://localhost:5000/docs/abe-users.md">doc abe user, custom actions &amp; workflow</a>.</p>
+<p>For example if you have a custom action restricted to some user:</p>
+<pre><code class="language-json">{
+    "actions": ["custom"],
+    "roles": {
+        "user_1": {
+            "actions": ["read", "write"]
+        },
+        "user_2": {
+            "actions": ["custom"]
+        }
+    }
+}</code></pre>
+<p>And inside your html template override:</p>
+<pre><code class="language-html">{{#if @root.allowedActions.custom}}
+  &lt;a href="#"&gt;click me !&lt;/a&gt;
+{{/if}}</code></pre>
+<p>Only <code>user_2</code> will be able to see and click on this link.</p>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_formcreate_override" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Form Create Override <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-formcreate-override"><h1 id="override-default-form-create-file">Override default form create file</h1>
+<p>create a folder name "custom"</p>
+<p>and create a new file named "create.html"</p>
+<blockquote>
+<p>info : <a href="https://github.com/abecms/abecms/blob/master/dist/server/views/partials/create.html">https://github.com/abecms/abecms/blob/master/dist/server/views/partials/create.html</a></p>
+</blockquote>
+<p>if you add the form attributes <code>data-form-abe-create="true"</code> default abecms javascript file will perform action on your custom form</p>
+<h1 id="create-a-new-file">create a new file</h1>
+<h2 id="save">Save</h2>
+<p>Ajax call (GET)</p>
+<blockquote>
+<p>/abe/create/?tplName=my-file-name&amp;filePath=some/folder/path&amp;selectTemplate=template-name.html</p>
+</blockquote>
+<p>mandatory parameters:</p>
+<ul>
+<li>tplName: name of the file</li>
+<li>filePath: path where the file will be created</li>
+<li>selectTemplate: name of the template used</li>
+</ul>
+<p>Optionnal:
+you can add many parameter and use beforeSave hook to perform action</p>
+<p>#Redirect</p>
+<p>When the request is done and the status code <code>"success": 1</code> redirect</p>
+<pre><code class="language-javascript">var jsonRes = JSON.parse(response);
+if (jsonRes.success == 1 &amp;&amp; typeof jsonRes.json.abe_meta !== 'undefined' &amp;&amp; jsonRes.json.abe_meta !== null) {
+    window.location.href = window.location.origin + '/abe/' + jsonRes.json.abe_meta.template + '?filePath=' + jsonRes.json.abe_meta.link
+}else {
+    alert('error')
+}</code></pre>
+<h2 id="duplicate">Duplicate</h2>
+<p>Same as create</p>
+<blockquote>
+<p>/abe/duplicate/</p>
+</blockquote>
+<p>mandatory parameters:</p>
+<ul>
+<li>tplName: name of the file</li>
+<li>filePath: path where the file will be created</li>
+<li>selectTemplate: name of the template used</li>
+<li>oldFilePath: file to copy</li>
+</ul>
+</div>
+                                </div>
+                        </section>
+
+                        <section id="dev_linux_cmd" class="section">
+                                <div class="row">
+                                    <div class="col-md-12 left-align">
+                                        <h2 class="dark-text">Linux commands <a href="#developers">#back to developers stuff</a><hr></h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" id="md-linux-commands"><h1 id="replace-some-text-in-all-your-data-directory">Replace some text in all your data directory</h1>
+<p>In a Nutshell:</p>
+<ul>
+<li>Write the regex between single quotes.</li>
+<li>Use ''' to end up with a single quote in the regex.</li>
+<li>Put a backslash before $.*/[]^ and only those characters.</li>
+</ul>
+<h2 id="mac">Mac</h2>
+<pre><code class="language-bash">find . -type f -name '*.json' -exec sed -i '' 's/My text to replace/My text replaced/g' {} \;</code></pre>
+<h2 id="linux">Linux</h2>
+<pre><code class="language-bash">find . -type f -name "*.json" -exec sed -i 's/My text to replace/My text replaced/g' {} \;</code></pre>
+</div>
+                                </div>
+                        </section>
+                    </section>
 
                     <section id="links" class="section">
                         <div class="row">
@@ -1124,6 +1724,9 @@ exports.default = route;</pre>
     <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
     <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-</html>
+
+
+</body></html>
