@@ -314,9 +314,16 @@ var cleanup = function() {
 process.on('SIGINT', cleanup)
 process.on('SIGTERM', cleanup)
 
+
+
 // important : require here so config.root is defined
 var routes = require('./routes')
 app.use(routes.default)
+
+import userRoutes from './rest/users/userRoutes'
+import pageRoutes from './rest/pages/pageRoutes'
+app.use('/abe/restx/users', userRoutes)
+app.use('/abe/restx/pages', pageRoutes)
 
 // This static path is mandatory for relative path to statics in templates
 app.use('/abe/editor', express.static(publish))
