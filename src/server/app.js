@@ -322,8 +322,10 @@ app.use(routes.default)
 
 import userRoutes from './rest/users/userRoutes'
 import pageRoutes from './rest/pages/pageRoutes'
+import roleRoutes from './rest/pages/roleRoutes'
 app.use('/abe/restx/users', userRoutes)
 app.use('/abe/restx/pages', pageRoutes)
+app.use('/abe/restx/roles', roleRoutes)
 
 // This static path is mandatory for relative path to statics in templates
 app.use('/abe/editor', express.static(publish))
