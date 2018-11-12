@@ -16,7 +16,7 @@ UPDATE Fri 9 nov 2018
 - [x] {User} Deactivate
 - [x] {User} Get (me)
 - [ ] {User} Get by id
-- [ ] {User} List all
+- [x] {User} List all
 
 .
 - [x] {Page} Paginate
