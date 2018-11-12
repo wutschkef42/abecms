@@ -25,6 +25,7 @@ UPDATE Fri 9 nov 2018
 - [x] {Page} Update
 - [x] {Page} Publish
 - [x] {Page} Unpublish
+- [ ] {Page} Save Page (with helper)
 - [ ] {Page} Get Fields
 - [ ] {Page} Delete
 - [ ] {Page} Get for editor
@@ -36,7 +37,40 @@ UPDATE Fri 9 nov 2018
 - [ ] {Template} Delete
 .
 - [x] {Role} List
+.
+##### Mon 12 Nov
+Themes
+- [x] {Themes} Get Theme
+- [x] {Themes} Post Theme
+- [x] {Themes} Delete Theme
+.
+- [ ] {User} ask Password Reset
+- [ ] {User} reset Password
+.
+Autres
+- [x] {Other} Get Activities
+- [x] {Other} Save Config
+- [x] {Other} Get list hooks
+- [x] {Other} Get list workflow
+- [x] {Other} Get References
+- [x] {Other} Save References
+- [x] {Other} Get Image
+- [x] {Other} Get structure
+- [x] {Other} Get Thumbs
+- [x] {Other} Get Themes
+- [x] {Other} Post Upload
 
+- [x] {Other} Post Structure
+
+- [ ] {Other} Post list url save
+- [ ] {Other} Post build template
+
+##### TODO - from Mon 12 2018
+- Validate all functions (is it working)
+- Tests
+- Data / params validations
+- Check check check
+- Add oAuth2
 
 ## How to process
 ### 1) Define which routes are needed
