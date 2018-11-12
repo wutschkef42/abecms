@@ -7,6 +7,7 @@ import {
 	Manager,
 	config,
 	User,
+	cmsData,
 
 } from '../../../cli'
 
@@ -269,4 +270,59 @@ export const paginate = (req, res, next) => {
 
 export const listAll = (req, res, next) => {
 	
+}
+
+export const savePage = (req, res) => {
+	if (typeof res._header !== 'undefined' && res._header !== null) return
+
+	pageHelper(req, res, next, true)
+}
+
+export const reject = (req, res) => {
+	if (typeof res._header !== 'undefined' && res._header !== null) return
+
+	var operation = {
+		workflow: 'draft',
+		postUrl: req.body.url,
+	}
+
+	var p = cmsOperations.post.reject(
+		operation.postUrl,
+		req.body.json,
+		operation.workflow,
+		res.user
+	)
+
+	p.then(
+		result => {
+			Manager.instance.events.activity.emit('activity', {
+				operation: 'reject',
+				post: operation.postUrl,
+				user: res.user
+			})
+			res.set('Content-Type', 'application/json')
+			res.send(JSON.stringify(result))
+		},
+		result => {
+			res.set('Content-Type', 'application/json')
+			res.send(JSON.stringify(result))
+		}
+	)
+	.catch(function(e) {
+		console.error('[ERROR] post-reject.js', e)
+	})
+}
+
+export function getWorkflowFromOperationsUrl(str) {
+	let regUrl = /\/abe\/restx\/reject\/(.*?)\/(.*?)\//
+	var workflow = 'draft'
+	var match = str.match(regUrl)
+	if (match != null && match[2] != null) {
+	  	workflow = match[2]
+	}
+	var postUrl = str.replace(regUrl, '')
+	return {
+		workflow: workflow,
+		postUrl: postUrl
+	}
 }

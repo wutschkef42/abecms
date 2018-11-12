@@ -9,20 +9,31 @@ import {
 import {
 	updateUser,
 	removeUser,
-	getUser,
+	getMe,
 	createUser,
 	activateUser,
 	deactivateUser,
+	tryLogin,
+	getProfile,
+	postProfile,
+	logout,
+	getUsers,
 } from './userController';
 
 const router = express.Router();
 
-router.get('/', getUser)
-router.get('/:id', getUser);
+router.get('/', getUsers)
+router.get('/me', getMe)
 router.post('/', createUser)
 router.put('/', updateUser)
 router.delete('/', removeUser)
 router.put('/activate', activateUser)
 router.put('/deactivate', deactivateUser)
+router.post('/login', tryLogin)
+
+router.get('/profile', getProfile)
+router.post('/profile', postProfile)
+
+router.get('/logout', logout)
 
 export default router

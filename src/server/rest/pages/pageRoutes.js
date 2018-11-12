@@ -9,6 +9,7 @@ import {
 	paginate,
 	unpublish,
 	publish,
+	savePage,
 } from './pageController';
 
 const router = express.Router();
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get('/', listAll)
 router.get('/', getPage)
 router.post('/', createPage)
+router.post('/save', savePage)
 router.put('/', updatePage) // = /operations/edit/draft
 router.delete('/', removePage)
 
