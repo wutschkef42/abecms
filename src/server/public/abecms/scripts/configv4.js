@@ -1,0 +1,1 @@
+var REST_URL = '/abe/restx'
