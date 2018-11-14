@@ -1,7 +1,6 @@
 var template = $('#hds-workflows').html();
 
 function mountWorkflows (data) {
-	console.log(data)
 	for (var i in data.roles) {
 		let role = data.roles[i]
 
@@ -17,7 +16,6 @@ function mountWorkflows (data) {
 		var divWorkflowActifs = []
 		for (var i in data.workflowUrl.draft) {
 			var wurl = data.workflowUrl.draft[i]
-			console.log(wurl)
 			if (wurl.action == "edit") {
 				divWorkflowActifs.push($(`<div class="workflow-actif">edit in <b>${wurl.workflow}</b></div>`))
 			}
@@ -40,7 +38,6 @@ function mountWorkflows (data) {
 
 		for (var i in data.workflowUrl.publish) {
 			var xurl = data.workflowUrl.publish[i]
-			console.log(wurl)
 			if (xurl.action == "edit") {
 				divWorkflowActifsPublish.push($(`<div class="workflow-actif">edit in <b>${xurl.workflow}</b></div>`))
 			}
