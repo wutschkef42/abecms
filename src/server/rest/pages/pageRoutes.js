@@ -14,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', listAll)
+//router.get('/', listAll)
 router.get('/', getPage)
 router.post('/', createPage)
 router.post('/save', savePage)

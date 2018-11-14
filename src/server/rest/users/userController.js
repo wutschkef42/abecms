@@ -218,7 +218,8 @@ export const postProfile = (req, res) => {
 }
 
 export const getUsers = (req, res) => {
-	const users = User.utils.getAll()
+  const users = User.utils.getAll()
+  console.log(users)
 	return res.status(200).json({ users })
 }
 
