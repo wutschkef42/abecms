@@ -15,10 +15,12 @@ import {abeExtend, coreUtils, config} from '../../cli'
 var route = function(router, req, res, next) {
   abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
   var routes = router.stack
+
   var urls = []
   var html = ''
 
   Array.prototype.forEach.call(routes, function(route) {
+    if (!route.route || !route.route.path) { return ; }
     urls.push({
       url: route.route.path,
       method: Object.keys(route.route.methods)[0].toUpperCase(),

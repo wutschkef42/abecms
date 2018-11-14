@@ -25,6 +25,7 @@ var route = function(router, req, res, next) {
   })
 
   Array.prototype.forEach.call(routes, function(route) {
+    if (!route.route || !route.route.path) { return ; }
     urls.push({
       url: route.route.path,
       method: Object.keys(route.route.methods)[0].toUpperCase(),
