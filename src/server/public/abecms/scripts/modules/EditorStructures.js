@@ -28,13 +28,13 @@ export default class EditorStructures {
     folder.setAttribute('data-daddy', daddy)
 
     var span = document.createElement('span')
-    var html = `<span class="glyphicon glyphicon-chevron-right arrow" aria-hidden="true"></span>
+    var html = `<span class="fas fa-arrow-right arrow" aria-hidden="true"></span>
                 ${folderName} 
                 <div class="structure-tool">
-                  <span class="glyphicon glyphicon-plus folder-action" data-init="0" data-action="add" aria-hidden="true"></span>`
+                  <span class="fas fa-plus folder-action" data-init="0" data-action="add" aria-hidden="true"></span>`
     if (level !== 0)
       html +=
-        '<span class="glyphicon glyphicon-minus folder-action" data-init="0" data-action="remove" aria-hidden="true"></span>'
+        '<span class="fas fa-minus folder-action" data-init="0" data-action="remove" aria-hidden="true"></span>'
     html += '</div>'
     span.innerHTML = html
     folder.appendChild(span)
@@ -134,7 +134,7 @@ export default class EditorStructures {
   }
 
   remove(element) {
-    this.save(
+    this.deleteStructure(
       qs.stringify({
         type: 'remove',
         folderPath: element.getAttribute('data-path')
@@ -143,9 +143,16 @@ export default class EditorStructures {
     element.parentNode.removeChild(element)
   }
 
+  deleteStructure (body) {
+    this._ajax(
+      {url: '/abe/api/structures', body: body, cors: true, method: 'delete'},
+      () => {}
+    )
+  }
+
   save(body) {
     this._ajax(
-      {url: '/abe/structure/', body: body, cors: true, method: 'post'},
+      {url: '/abe/api/structures', body: body, cors: true, method: 'post'},
       () => {}
     )
   }
