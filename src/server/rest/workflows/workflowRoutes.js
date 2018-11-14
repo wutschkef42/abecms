@@ -1,5 +1,5 @@
 import express from 'express';
-import { getWorkflows } from './workflowController';
+import { getWorkflows, getFullWorkflows } from './workflowController';
 
 const router = express.Router();
 

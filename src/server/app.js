@@ -320,20 +320,28 @@ process.on('SIGTERM', cleanup)
 var routes = require('./routes')
 app.use(routes.default)
 
+import apiRoutes from './rest/indexRoutes'
+app.use('/abe/api', apiRoutes)
+/* V4 ROUTES
 import userRoutes from './rest/users/userRoutes'
 import pageRoutes from './rest/pages/pageRoutes'
 import roleRoutes from './rest/roles/roleRoutes'
 import templateRoutes from './rest/templates/templateRoutes'
 import themeRoutes from './rest/theme/themeRoutes'
 import structureRoutes from './rest/structures/structureRoutes'
+import workflowRoutes from './rest/workflows/workflowRoutes'
 app.use('/abe/api/users', userRoutes)
 app.use('/abe/api/pages', pageRoutes)
 app.use('/abe/api/roles', roleRoutes)
 app.use('/abe/api/templates', templateRoutes)
 app.use('/abe/api/theme', themeRoutes)
 app.use('/abe/api/structures', structureRoutes)
+app.use('/abe/api/workflows', workflowRoutes)
+*/
 
 // This static path is mandatory for relative path to statics in templates
 app.use('/abe/editor', express.static(publish))
 app.use('/abe/page', express.static(publish))
 app.get('/abe*', getHome)
+
+
