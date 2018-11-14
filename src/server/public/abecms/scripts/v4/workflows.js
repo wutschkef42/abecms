@@ -10,9 +10,9 @@ function mountWorkflows (data) {
 		var divWorkflowFlex = $(`<div class="workflow-flex">`)
 
 		var divWorkflowWrapper = $(`<div class="workflow-wrapper"></div>`)
-		var divWorkflowBox = $(`<div class="workflow-box"></div>`)
+		var divWorkflowBoxDraft = $(`<div class="workflow-box"></div>`)
 
-		var divWorkflowTitle = $(`<div class="workflow-title">draft :</div>`)
+		var divWorkflowTitleDraft = $(`<div class="workflow-title">draft :</div>`)
 
 		var divWorkflowActifs = []
 		for (var i in data.workflowUrl.draft) {
@@ -27,12 +27,46 @@ function mountWorkflows (data) {
 			else if (wurl.action == "submit") {
 				divWorkflowActifs.push($(`<div class="workflow-actif">to <b>${wurl.next}</b> status</div>`))
 			}
+			else if (wurl.action == "delete") {
+				divWorkflowActifs.push($(`<div class="workflow-actif">delete</div>`))
+			}
 		}
 
-		divWorkflowBox.append(divWorkflowTitle, divWorkflowActifs)
-		divWorkflowWrapper.append(divWorkflowBox)
+		var divWorkflowTitlePublish = $(`<div class="workflow-title">publish :</div>`)
+
+		var divWorkflowBoxPublish = $(`<div class="workflow-box"></div>`)
+
+		var divWorkflowActifsPublish = []
+
+		for (var i in data.workflowUrl.publish) {
+			var xurl = data.workflowUrl.publish[i]
+			console.log(wurl)
+			if (xurl.action == "edit") {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">edit in <b>${xurl.workflow}</b></div>`))
+			}
+			else if (xurl.action == "reject") {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">reject to <b>${xurl.previous}</b> status</div>`))
+			}
+			else if (xurl.action == "submit") {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">submit to <b>${xurl.next}</b> status</div>`))
+			}
+			else if (xurl.action == "delete") {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">delete</div>`))
+			}
+		}
+
+		divWorkflowActifsPublish.push($(`<div class="workflow-actif">unpublish</div>`))
+
+
+		// DRAFT
+		divWorkflowBoxDraft.append(divWorkflowTitleDraft, divWorkflowActifs)
+		divWorkflowWrapper.append(divWorkflowBoxDraft)
 		divWorkflowFlex.append(divWorkflowWrapper)
 		divRoleWrapper.append(divContentWorkflows, divWorkflowFlex)
+
+		// PUBLISH
+		divWorkflowBoxPublish.append(divWorkflowTitlePublish, divWorkflowActifsPublish)
+		divWorkflowWrapper.append(divWorkflowBoxPublish)
 
 		$('#content-workflows').append(divRoleWrapper);
 
