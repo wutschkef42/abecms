@@ -21,73 +21,91 @@
 
   {{#content "body"}}
   <div class="manager-tab-content user-list row">
-    <div class="workflow-users">
-      {{#each @root.roles}}
-        <div class="role-wrapper">
-          <div class="role-name">{{this.name}}</div>
-          <div class="workflow-flex">
-          {{&setVariable "previousWorkflow" 'draft'}}
-          {{#each @root.workflowUrl}}
-
-              <div class="workflow-wrapper">
-                <div class="workflow-box">
-                {{#ifCond @key 'draft'}}
-                {{else}}
-                  {{#isAuthorized (concat '/abe/operations/reject/' @key) ../workflow}}
-                    <span class="glyphicon glyphicon-arrow-left icon-allowed icon-reject"
-                    title="{{@key}} - reject" aria-hidden="true"></span>
+    <div class="workflow-users col-md-8">
+        {{#each @root.roles}}
+          <div class="role-wrapper">
+            <div class="role-name">{{this.name}}</div>
+            <div class="workflow-flex">
+            {{&setVariable "previousWorkflow" 'draft'}}
+            {{#each @root.workflowUrl}}
+  
+                <div class="workflow-wrapper">
+                  <div class="workflow-box">
+                  {{#ifCond @key 'draft'}}
                   {{else}}
-                    <span class="glyphicon glyphicon-remove icon-not-allowed icon-reject"
-                    title="{{@key}} - reject" aria-hidden="true"></span>
-                  {{/isAuthorized}}
-                {{/ifCond}}
-
-                <div class="workflow-title">{{@key}} :</div>
-                {{#each this}}
-                  {{#isAuthorized this.url ../../workflow}}
-                  <div class="workflow-actif">
-                    {{this.action}}
-                    {{#ifCond this.action "edit"}} in <b>{{this.workflow}}</b>{{/ifCond}}
-                    {{#ifCond this.action "reject"}} to <b>{{this.previous}}</b> status{{/ifCond}}
-                    {{#ifCond this.action "submit"}} to <b>{{next}}</b> status{{/ifCond}}
-                  </div>
+                    {{#isAuthorized (concat '/abe/operations/reject/' @key) ../workflow}}
+                      <span class="fas fa-arrow-left icon-allowed icon-reject"
+                      title="{{@key}} - reject" aria-hidden="true"></span>
+                    {{else}}
+                      <span class="fas fa-remove icon-not-allowed icon-reject"
+                      title="{{@key}} - reject" aria-hidden="true"></span>
+                    {{/isAuthorized}}
+                  {{/ifCond}}
+  
+                  <div class="workflow-title">{{@key}} :</div>
+                  {{#each this}}
+                    {{#isAuthorized this.url ../../workflow}}
+                    <div class="workflow-actif">
+                      {{this.action}}
+                      {{#ifCond this.action "edit"}} in <b>{{this.workflow}}</b>{{/ifCond}}
+                      {{#ifCond this.action "reject"}} to <b>{{this.previous}}</b> status{{/ifCond}}
+                      {{#ifCond this.action "submit"}} to <b>{{next}}</b> status{{/ifCond}}
+                    </div>
+                    {{else}}
+                    <div class="workflow-inactif">
+                      {{this.action}}
+                      {{#ifCond this.action "edit"}} in <b>{{this.workflow}}</b>{{/ifCond}}
+                      {{#ifCond this.action "reject"}} to <b>{{this.previous}}</b> status{{/ifCond}}
+                      {{#ifCond this.action "submit"}} to <b>{{next}}</b> status{{/ifCond}}
+                    </div>
+                    {{/isAuthorized}}
+                  {{/each}}
+  
+                  {{#ifCond @key 'publish'}}
+                    {{#isAuthorized '/abe/operations/unpublish' ../workflow}}
+                      <div class="workflow-actif">unpublish</div>
+                    {{else}}
+                      <div class="workflow-inactif">unpublish</div>
+                    {{/isAuthorized}}
                   {{else}}
-                  <div class="workflow-inactif">
-                    {{this.action}}
-                    {{#ifCond this.action "edit"}} in <b>{{this.workflow}}</b>{{/ifCond}}
-                    {{#ifCond this.action "reject"}} to <b>{{this.previous}}</b> status{{/ifCond}}
-                    {{#ifCond this.action "submit"}} to <b>{{next}}</b> status{{/ifCond}}
-                  </div>
-                  {{/isAuthorized}}
-                {{/each}}
-
-                {{#ifCond @key 'publish'}}
-                  {{#isAuthorized '/abe/operations/unpublish' ../workflow}}
-                    <div class="workflow-actif">unpublish</div>
-                  {{else}}
-                    <div class="workflow-inactif">unpublish</div>
-                  {{/isAuthorized}}
-                {{else}}
-                  
-                  {{#isAuthorized (concat '/abe/operations/submit/' @key) ../workflow}}
-                    <span class="glyphicon glyphicon-arrow-right icon-allowed icon-submit"
+                    
+                    {{#isAuthorized (concat '/abe/operations/submit/' @key) ../workflow}}
+                      <span class="fas fa-arrow-right icon-allowed icon-submit"
+                        title="{{@key}} - submit" aria-hidden="true"></span>
+                    {{else}}
+                      <span class="fas fa-remove icon-not-allowed icon-submit"
                       title="{{@key}} - submit" aria-hidden="true"></span>
-                  {{else}}
-                    <span class="glyphicon glyphicon-remove icon-not-allowed icon-submit"
-                    title="{{@key}} - submit" aria-hidden="true"></span>
-                  {{/isAuthorized}}
-                  
-                {{/ifCond}}
+                    {{/isAuthorized}}
+                    
+                  {{/ifCond}}
+                  </div>
                 </div>
-              </div>
-
-            {{&setVariable "previousWorkflow" @key}}
-          {{/each}}
+  
+              {{&setVariable "previousWorkflow" @key}}
+            {{/each}}
+            </div>
           </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      </div>
+  </div>
+  <div class="manager-tab-content user-list row"></div>
+    <div class="workflow-users col-md-8" id="content-workflows">
+      
     </div>
   </div>
+  {{/content}}
+
+  {{#content "bottom-scripts"}}
+    <script type="text/javascript" src="/abecms/libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/6e9b081f7f.js"></script>
+    <script type="text/javascript" src="/abecms/libs/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/admin-compiled.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/template-engine-compiled.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/v4/workflows.js"></script>
+
   {{/content}}
 
 {{/extend}}
