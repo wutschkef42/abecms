@@ -1,4 +1,6 @@
+
 {{#extend "layout"}}
+  {{#content ""}}
   {{#content "body"}}
   <div class="manager-tab structure-folders">
     <div class="text-uppercase">
@@ -6,41 +8,24 @@
     </div>
     <div class="structure-editor manager-tab-content">
       <input type="hidden" class="structure-json" value='{{@root.structure}}'>
-      <input type="text" class="form-control folder-name" id="inputStructure" value="" placeholder="folder name" data-folder="">
+      <input type="text" class="form-control folder-name" id="inputStructure" value="" placeholder="folder name" data-folder="" disabled>
       <div class="help-info">
         hit <span>ENTER</span> to create folder
       </div>
-      <div class="structure-wrapper row">
-        <ul class="list-group col-md-5 col-sm-12" id="list-structures" >
-          
-        </ul>
-        <div class="col-md-6 col-sm-12">
-          Subfolders of&nbsp;:&nbsp;<span id="selected-structure"></span>
-          <ul class="list-group " id="sub-structures" >
+      <div class="structure-wrapper">
             
-          </ul>
-        </div>
       </div>
     </div>
   </div>
   {{/content}}
 
   {{#content "bottom-scripts"}}
-    <script src="/abecms/libs/jquery-2.1.0.min.js"></script>
-    <script src="/abecms/scripts/configv4.js"></script>
-    <script src="/abecms/scripts/v4/structures.js"></script>
-    <script>
-      getStructures();
-
-      $('#inputStructure').keypress(function(e) {
-        if (e.keyCode === 13) {
-          postStructure($('#inputStructure').val())
-        }
-      })
-
-      $('#list-structures').click(function(c) {
-        console.log(c);
-      })
-    </script>
+    <script type="text/javascript" src="/abecms/libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/6e9b081f7f.js"></script>
+    <script type="text/javascript" src="/abecms/libs/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/admin-compiled.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/template-engine-compiled.js"></script>      
   {{/content}}
 {{/extend}}
