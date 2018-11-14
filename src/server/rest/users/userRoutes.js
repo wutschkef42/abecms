@@ -18,6 +18,8 @@ import {
 	postProfile,
 	logout,
 	getUsers,
+	askPasswordReset,
+	resetPassword,
 } from './userController';
 
 const router = express.Router();
@@ -35,5 +37,8 @@ router.get('/profile', getProfile)
 router.post('/profile', postProfile)
 
 router.get('/logout', logout)
+
+router.post('/askreset', askPasswordReset)
+router.post('/reset', resetPassword)
 
 export default router

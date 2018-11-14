@@ -176,7 +176,6 @@ export const postProfile = (req, res) => {
     body['repeat-password'] != ''
   ) {
     if (body.password !== body['repeat-password']) {
-      req.flash('error', 'password must be the same')
       return res.status(400).json({
 				message: 'password & confirmation password must be the same',
 				error: 'passwordconfirm'
@@ -184,7 +183,6 @@ export const postProfile = (req, res) => {
     }
 
     if (!User.utils.isValid(user, body.oldpassword)) {
-      req.flash('error', '')
       return res.status(400).json({
 				message: 'Wrong password',
 				error: 'badpassword'
@@ -231,13 +229,134 @@ export const logout = (req, res) => {
 	cookies.set('x-access-token', null)
 
 	req.logout()
-	res.redirect('/abe/users/login')
+	res.status(200).json({ success: 1 })
 }
 
 export const askPasswordReset = (req, res) => {
+  if (!req.body || !req.body.email) {
+    return res.status(400).json({
+      error: 'badrequest', message: 'No email in body'
+    })
+  }
+  User.utils.findByEmail(req.body.email, function(err, user) {
+    if (err) {
+      return res.status(500).json({ error: 'internalerror', message: '#ERR0001' })
+    }
 
+    if (!user) {
+      return res.status(404).json({ error: 'usernotfound', message: 'User not found' })
+    }
+
+    crypto.randomBytes(20, function(err, buf) {
+      var resetPasswordToken = buf.toString('hex')
+      var forgotExpire = config.forgotExpire
+
+      User.operations.update({
+        id: user.id,
+        resetPasswordToken: resetPasswordToken,
+        resetPasswordExpires: Date.now() + forgotExpire * 60 * 1000
+      })
+
+      var requestedUrl =
+        req.protocol +
+        '://' +
+        req.get('Host') +
+        '/abe/users/reset?token=' +
+        resetPasswordToken
+
+      var emailConf = config.users.email
+      html = emailConf.html || ''
+
+      if (
+        typeof emailConf.templateHtml !== 'undefined' &&
+        emailConf.templateHtml !== null
+      ) {
+        var fileHtml = path.join(config.root, emailConf.templateHtml)
+        if (coreUtils.file.exist(fileHtml)) {
+          html = fs.readFileSync(fileHtml, 'utf8')
+        }
+      }
+
+      var template = Handlebars.compile(html, {noEscape: true})
+
+      html = template({
+        express: {
+          req: req,
+          res: res
+        },
+        forgotUrl: requestedUrl,
+        siteUrl: req.protocol + '://' + req.get('Host'),
+        user: user
+      })
+
+      var from = emailConf.from
+      var to = user.email
+      var subject = emailConf.subject
+      var text = emailConf.text.replace(/\{\{forgotUrl\}\}/g, requestedUrl)
+      var html = html.replace(/\{\{forgotUrl\}\}/g, requestedUrl)
+
+      coreUtils.mail.send(from, to, subject, text, html)
+      return res.status(200).json({ success: true })
+    })
+  })
 }
 
 export const resetPassword = (req, res) => {
+  if (
+    typeof req.body.token !== 'undefined' &&
+    req.body.token !== null &&
+    typeof req.body.password !== 'undefined' &&
+    req.body.password !== null &&
+    typeof req.body['repeat-password'] !== 'undefined' &&
+    req.body['repeat-password'] !== null
+  ) {
+    if (req.body.password !== req.body['repeat-password']) {
+      return res.status(400).json({
+        error: 'passwordconfirmation',
+        message: 'Your passwords are not the same'
+      })
+    }
+    User.utils.findByResetPasswordToken(req.body.token, function(err, userToReset)
+    {
+      var msg = ''
+      if (err) {
+        msg = 'Error'
+      } else if (typeof userToReset === 'undefined' || userToReset === null) {
+        msg = 'Invalid token'
+      } else {
+        var d = new Date().getTime()
+        d = (d - userToReset.resetPasswordExpires) / 1000 / 60
+        if (d > 0) {
+          msg = 'Token expired'
+        }
+      }
+      if (msg !== '') {
+        return res.status(400).json({
+          csrfToken: res.locals.csrfToken,
+          token: req.body.token,
+          message: msg,
+          error: 'badrequest'
+        })
+      }
 
+      userToReset.password = req.body.password
+      var resUpdatePassword = User.operations.updatePassword(
+        userToReset,
+        req.body.password
+      )
+      if (resUpdatePassword.success === 1) {
+        var login = config.users.login
+        return res.status(200).json({
+          reset: resUpdatePassword,
+          login: login,
+        })
+      } else {
+        return res.status(500).json({
+          reset: resUpdatePassword
+        })
+      }
+    })
+  } else {
+    return res.status(400).json({ error: 'badrequest', message: 'Fields token, password and repeat-password are needed', fields: Object.keys(req.body) })
+  }
 }
