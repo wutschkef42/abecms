@@ -110,3 +110,110 @@
 .fa-plus {
 	margin-right: 5px;
 }
+
+
+
+.role-wrapper {
+	background: #fafafa;
+	padding: 10px 0px 10px 24px
+}
+
+.workflow-users {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial
+}
+
+.workflow-users .role-name {
+	font-weight: bold
+}
+
+.workflow-users .workflow-title {
+	text-transform: capitalize;
+	font-weight: bold;
+	color: #4078c0
+}
+
+.workflow-users .workflow-flex {
+	display: flex
+}
+
+.workflow-users .workflow-wrapper {
+	display: flex;
+	flex: 1;
+	vertical-align: top;
+	margin-left: -4px
+}
+
+.workflow-users .workflow-box {
+	background: #fff;
+	border-radius: 3px;
+	border: 1px #e5e5e5 solid !important;
+	margin: 5px 30px 5px 0px;
+	padding: 5px;
+	position: relative;
+	width: 100%;
+	height: 100%
+}
+
+.workflow-users .icon-allowed {
+	color: #6cc644
+}
+
+.workflow-users .icon-not-allowed {
+	color: #ee0701
+}
+
+.workflow-users .workflow-actif {
+	color: #767676
+}
+
+.workflow-users .workflow-actif:before {
+	content: "-";
+	margin-right: 6px
+}
+
+.workflow-users .workflow-inactif {
+	text-decoration: line-through;
+	color: #e5e5e5
+}
+
+.workflow-users .workflow-inactif:before {
+	content: "-";
+	margin-right: 6px
+}
+
+.workflow-users .icon-reject {
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	transform: translate(-24px, -10px);
+	padding: 2px
+}
+
+.workflow-users .icon-submit {
+	position: absolute;
+	right: 0px;
+	top: 50%;
+	transform: translate(21px, 10px)
+}
+
+.manager-tab-content {
+	padding-top: 20px;
+	padding-left: 20px
+}
+
+
+.user-list .table .glyphicon {
+	cursor: pointer
+}
+
+.user-list table {
+	margin-bottom: 0px
+}
+
+.user-list table .form-group {
+	margin-bottom: 0px
+}
+
+.user-list .table>tbody>tr>td.no-border {
+	border: 0px
+}
