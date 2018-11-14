@@ -1,0 +1,112 @@
+.hidden {
+	display: none!important
+}
+
+.structure-editor {
+	display: inline-block
+}
+
+.structure-editor .help-info {
+	transition: all 150ms ease-in-out;
+	font-size: 11px;
+	color: #e6e6e6;
+	padding: 2px
+}
+
+.structure-editor .help-info span {
+	color: #ccc
+}
+
+.structure-editor [disabled="disabled"]~.help-info {
+	opacity: 0.1
+}
+
+.folder-name {
+	transition: all 350ms ease-in-out;
+	display: inline-block;
+	width: 100%;
+	opacity: 1
+}
+
+.folder-name[disabled] {
+	opacity: 0.4
+}
+
+.folder-name.error {
+	border-color: red
+}
+
+.structure-folder {
+	margin: 5px;
+	position: relative
+}
+
+.structure-folder>span:hover {
+	cursor: pointer
+}
+
+.structure-folder .fa-arrow-right {
+	transition: all 100ms ease-in-out;
+	font-size: 20px
+}
+
+.structure-folder.open>span .fa-arrow-right {
+	transform: rotate(45deg)
+}
+
+.structure-folder.open:before {
+	background: #eee;
+	content: " ";
+	position: absolute;
+	bottom: 3px;
+	left: 6px;
+	width: 1px;
+	height: calc(100% - 34px)
+}
+
+.structure-folder .structure-folder {
+	margin-left: 20px
+}
+
+.structure-folder .fa-minus,
+.structure-folder .fa-plus {
+	transition: all 100ms ease-in-out;
+	opacity: 0.5
+}
+
+.structure-folder .fa-minus:hover,
+.structure-folder .fa-plus:hover {
+	opacity: 1
+}
+
+.structure-folder .structure-tool {
+	display: inline-block;
+	transition: all 100ms ease-in-out;
+	opacity: 0.2;
+	padding: 0px 5px
+}
+
+.structure-folder .structure-tool:hover {
+	opacity: 1
+}
+
+.structure-folder .fa-minus {
+	font-size: 15px
+}
+
+.structure-folder .fa-minus:hover {
+	color: #ff1371
+}
+
+.structure-folder .fa-plus {
+	font-size: 13px;
+	transform: translate3d(0, -1px, 0)
+}
+
+.structure-folder .fa-plus:hover {
+	color: #47b8e0
+}
+
+.fa-plus {
+	margin-right: 5px;
+}
