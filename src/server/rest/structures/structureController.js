@@ -25,7 +25,7 @@ export const deleteStructure = (req, res) => {
 
 	const result = cmsStructure.structure.editStructure(
 		'delete',
-		'structure' + req.body.folderPath
+		req.body.folderPath
 	)
 
 	console.log(result)
@@ -41,7 +41,7 @@ export const postStructure = (req, res) => {
 
 	const result = cmsStructure.structure.editStructure(
 		'add',
-		'structure/' + req.body.folderPath
+		req.body.folderPath
 	)
 
 	console.log(result)

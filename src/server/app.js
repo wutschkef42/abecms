@@ -326,12 +326,12 @@ import roleRoutes from './rest/roles/roleRoutes'
 import templateRoutes from './rest/templates/templateRoutes'
 import themeRoutes from './rest/theme/themeRoutes'
 import structureRoutes from './rest/structures/structureRoutes'
-app.use('/abe/restx/users', userRoutes)
-app.use('/abe/restx/pages', pageRoutes)
-app.use('/abe/restx/roles', roleRoutes)
-app.use('/abe/restx/templates', templateRoutes)
-app.use('/abe/restx/theme', themeRoutes)
-app.use('/abe/restx/structures', structureRoutes)
+app.use('/abe/api/users', userRoutes)
+app.use('/abe/api/pages', pageRoutes)
+app.use('/abe/api/roles', roleRoutes)
+app.use('/abe/api/templates', templateRoutes)
+app.use('/abe/api/theme', themeRoutes)
+app.use('/abe/api/structures', structureRoutes)
 
 // This static path is mandatory for relative path to statics in templates
 app.use('/abe/editor', express.static(publish))
