@@ -24,7 +24,7 @@ export const createPage = (req, res, next) => {
 	var user = User.utils.findSync(decoded.iss)
 	res.user = user
 
-	const postUrl = req.body.name;
+	const postUrl = req.params.filename;
 
 	const p = cmsOperations.create(
 		req.body.template,
@@ -158,7 +158,9 @@ export const unpublish = (req, res, next) => {
 	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var postUrl = req.body.url;
+	var postUrl = req.params.filename;
+
+	console.log(postUrl)
 
 	cmsOperations.post.unpublish(postUrl, res.user)
 
