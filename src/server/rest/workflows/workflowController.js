@@ -22,99 +22,103 @@ export const getFullWorkflows = async (router, req, res, next) => {
 			regex: route.route.path.replace(/\*$/, '') + '.*'
 		})
 	})
-/*
-	if (
-        typeof routes[workflow] !== 'undefined' &&
-        routes[workflow] !== null
-      ) {
-        Array.prototype.forEach.call(routes[workflow], route => {
-          var reg = new RegExp(route)
-          if (reg.test(currentRoute)) {
-            isAllowed = true
-          }
-        })
-	  }
-	  */
 
 	var workflowUrl = {}
 	var previous = ''
 	var nextWorkflow = ''
-	Array.prototype.forEach.call(config.users.workflow, flow => {
-		var current = false
-		if (flow != 'publish') {
-			Array.prototype.forEach.call(config.users.workflow, flowCheck => {
-				if (current) {
-					nextWorkflow = flowCheck
-					current = false
-				}
-				if (flow === flowCheck) {
-					current = true
-				}
-			})
-		} else {
-			nextWorkflow = 'draft'
-		}
-		workflowUrl[flow] = []
 
-		if (User.utils.isUserAllowedOnRoute(res.user.role.workflow, `/abe/operations/edit/${flow}`)) {
-			workflowUrl[flow].push({
-				url: `/abe/operations/edit/${flow}`,
-				action: 'edit',
-				workflow: flow,
-				previous: previous,
-				next: nextWorkflow
-			})
-		}
+	const roles = Object.keys(config.users.roles);
 
-		if (User.utils.isUserAllowedOnRoute(res.user.role.workflow, `/abe/operations/delete/${flow}`)) {
-			workflowUrl[flow].push({
-				url: `/abe/operations/delete/${flow}`,
-				action: 'delete',
-				workflow: flow,
-				previous: previous,
-				next: nextWorkflow
-			})
-		}
+	let workflowsFull = {}
 
-		if (User.utils.isUserAllowedOnRoute(res.user.role.workflow, `/abe/operations/submit/${flow}`)) {
-			workflowUrl[flow].push({
-				url: `/abe/operations/submit/${flow}`,
-				action: 'submit',
-				workflow: flow,
-				previous: previous,
-				next: nextWorkflow
-			})
-		}
+	Array.prototype.forEach.call(roles, role => {
 
+		workflowsFull[role] = {};
 
-		if (flow !== 'draft') {
-			if (User.utils.isUserAllowedOnRoute(res.user.role.workflow, `/abe/operations/reject/${flow}`)) {
-				workflowUrl[flow].push({
-					url: `/abe/operations/reject/${flow}`,
-					action: 'reject',
+		Array.prototype.forEach.call(config.users.workflow, flow => {
+
+			workflowsFull[role][flow] = []
+			var current = false
+			if (flow != 'publish') {
+				Array.prototype.forEach.call(config.users.workflow, flowCheck => {
+					if (current) {
+						nextWorkflow = flowCheck
+						current = false
+					}
+					if (flow === flowCheck) {
+						current = true
+					}
+				})
+			} else {
+				nextWorkflow = 'draft'
+			}
+			workflowUrl[flow] = []
+	
+	
+	
+			if (User.utils.isUserAllowedOnRoute(role, `/abe/operations/edit/${flow}`)) {
+				workflowsFull[role][flow].push({
+					url: `/abe/operations/edit/${flow}`,
+					action: 'edit',
 					workflow: flow,
 					previous: previous,
 					next: nextWorkflow
 				})
 			}
-
-			if (User.utils.isUserAllowedOnRoute(res.user.role.workflow, `/abe/api/pages/unpublish`)) {
-				workflowUrl[flow].push({
-					url: `/abe/api/pages/unpublish`,
-					action: 'unpublish',
+	
+			if (User.utils.isUserAllowedOnRoute(role, `/abe/operations/delete/${flow}`)) {
+				workflowsFull[role][flow].push({
+					url: `/abe/operations/delete/${flow}`,
+					action: 'delete',
 					workflow: flow,
 					previous: previous,
 					next: nextWorkflow
 				})
 			}
-		}
-		previous = flow
+	
+			if (User.utils.isUserAllowedOnRoute(role, `/abe/operations/submit/${flow}`)) {
+				workflowsFull[role][flow].push({
+					url: `/abe/operations/submit/${flow}`,
+					action: 'submit',
+					workflow: flow,
+					previous: previous,
+					next: nextWorkflow
+				})
+			}
+	
+	
+			if (flow !== 'draft') {
+				if (User.utils.isUserAllowedOnRoute(role, `/abe/operations/reject/${flow}`)) {
+					workflowsFull[role][flow].push({
+						url: `/abe/operations/reject/${flow}`,
+						action: 'reject',
+						workflow: flow,
+						previous: previous,
+						next: nextWorkflow
+					})
+				}
+	
+				if (User.utils.isUserAllowedOnRoute(role, `/abe/api/pages/unpublish`)) {
+					workflowsFull[role][flow].push({
+						url: `/abe/api/pages/unpublish`,
+						action: 'unpublish',
+						workflow: flow,
+						previous: previous,
+						next: nextWorkflow
+					})
+				}
+			}
+			previous = flow
+		})
+
 	})
+
+	
 
 	return res.json({
 		roles: config.users.roles,
 		workflows: config.users.workflow,
-		workflowsData: workflowUrl
+		full: workflowsFull
 	})
 	
 }

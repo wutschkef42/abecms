@@ -1,11 +1,11 @@
 var template = $('#hds-workflows').html();
 
 function mountWorkflows (data) {
-	for (var i in data.roles) {
-		let role = data.roles[i]
+	for (var i in data.full) {
+		let role = i
 
 		var divRoleWrapper = $('<div class="role-wrapper"></div>');
-		var divContentWorkflows = $(`<div class="role-name">${role.name}</div>`)
+		var divContentWorkflows = $(`<div class="role-name">${role}</div>`)
 		var divWorkflowFlex = $(`<div class="workflow-flex">`)
 
 		var divWorkflowWrapper = $(`<div class="workflow-wrapper"></div>`)
@@ -14,8 +14,8 @@ function mountWorkflows (data) {
 		var divWorkflowTitleDraft = $(`<div class="workflow-title">draft :</div>`)
 
 		var divWorkflowActifs = []
-		for (var i in data.workflowsData.draft) {
-			var wurl = data.workflowsData.draft[i]
+		for (var i in data.full[role].draft) {
+			var wurl = data.full[role].draft[i]
 			if (wurl.action == "edit") {
 				divWorkflowActifs.push($(`<div class="workflow-actif">edit in <b>${wurl.workflow}</b></div>`))
 			}
@@ -39,8 +39,8 @@ function mountWorkflows (data) {
 
 		var divWorkflowActifsPublish = []
 
-		for (var i in data.workflowsData.publish) {
-			var xurl = data.workflowsData.publish[i]
+		for (var i in data.full[role].publish) {
+			var xurl = data.full[role].publish[i]
 			if (xurl.action == "edit") {
 				divWorkflowActifsPublish.push($(`<div class="workflow-actif">edit in <b>${xurl.workflow}</b></div>`))
 			}
