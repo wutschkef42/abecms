@@ -258,9 +258,14 @@ export default class EditorSave {
   }
 
   _abeFormRequired() {
+    console.log('fgroups', document.getElementById('filtered-list-url').querySelectorAll('.form-group'))
     var formGroups = [].slice.call(
-      document.getElementById('abeForm').querySelectorAll('.form-group')
+      (document.getElementById('abeForm') ? document.getElementById('abeForm').querySelectorAll('.form-group') : document.getElementById('filtered-list-url').querySelectorAll('.form-group'))
     )
+    console.log('fgroups', formGroups)
+    if (!formGroups) {
+      return ;
+    }
     var valid = true
 
     Array.prototype.forEach.call(formGroups, formGroup => {

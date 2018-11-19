@@ -23,8 +23,8 @@
   <div class="manager-right tab">
 
     <div class="manager-tab">
-      <div class="manager-tab-content">
-        <form classs="form-inline" action="/abe/list-url/save" data-user-role="true" method="post" id="filtered-list-url">
+      <div class="manager-tab-content" id="form-roles">
+        <form classs="form-inline" data-action="/abe/list-url/save" data-user-role="true" method="post" id="filtered-list-url">
           <div class="form-group">
             <input class='btn btn-info btn-save pull-right' type="submit" value="save" data-save-user-role="true" />
             <br />
@@ -66,6 +66,14 @@
       </div>
     </div>
   </div>
+  {{/content}}
+
+  {{#content "bottom-scripts"}}
+    <script type="text/javascript" src="/abecms/libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/template-engine-compiled.js"></script>
+
   {{/content}}
 
 {{/extend}}
