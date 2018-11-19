@@ -14,8 +14,8 @@ function mountWorkflows (data) {
 		var divWorkflowTitleDraft = $(`<div class="workflow-title">draft :</div>`)
 
 		var divWorkflowActifs = []
-		for (var i in data.workflowUrl.draft) {
-			var wurl = data.workflowUrl.draft[i]
+		for (var i in data.workflowsData.draft) {
+			var wurl = data.workflowsData.draft[i]
 			if (wurl.action == "edit") {
 				divWorkflowActifs.push($(`<div class="workflow-actif">edit in <b>${wurl.workflow}</b></div>`))
 			}
@@ -28,6 +28,9 @@ function mountWorkflows (data) {
 			else if (wurl.action == "delete") {
 				divWorkflowActifs.push($(`<div class="workflow-actif">delete</div>`))
 			}
+			else {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">${wurl.action}</div>`))
+			}
 		}
 
 		var divWorkflowTitlePublish = $(`<div class="workflow-title">publish :</div>`)
@@ -36,8 +39,8 @@ function mountWorkflows (data) {
 
 		var divWorkflowActifsPublish = []
 
-		for (var i in data.workflowUrl.publish) {
-			var xurl = data.workflowUrl.publish[i]
+		for (var i in data.workflowsData.publish) {
+			var xurl = data.workflowsData.publish[i]
 			if (xurl.action == "edit") {
 				divWorkflowActifsPublish.push($(`<div class="workflow-actif">edit in <b>${xurl.workflow}</b></div>`))
 			}
@@ -50,10 +53,10 @@ function mountWorkflows (data) {
 			else if (xurl.action == "delete") {
 				divWorkflowActifsPublish.push($(`<div class="workflow-actif">delete</div>`))
 			}
+			else {
+				divWorkflowActifsPublish.push($(`<div class="workflow-actif">${xurl.action}</div>`))
+			}
 		}
-
-		divWorkflowActifsPublish.push($(`<div class="workflow-actif">unpublish</div>`))
-
 
 		// DRAFT
 		divWorkflowBoxDraft.append(divWorkflowTitleDraft, divWorkflowActifs)
@@ -75,6 +78,7 @@ $(document).ready(function() {
 		url: '/abe/api/workflows/full'	
 	})
 	.done(function(data) {
+		console.log(data)
 		mountWorkflows(data)
 	})
 	.fail(function(err) {
