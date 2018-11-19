@@ -24,6 +24,6 @@ router.delete('/', removePage)
 router.get('/paginate', paginate)
 
 router.put('/publish', publish)
-router.put('/unpublish', unpublish)
+router.get('/unpublish/:filename*', unpublish)
 
 export default router
