@@ -36,6 +36,7 @@ Here comes the version 4
 - Créer une vraie documentation "a la Gatsby"
 
 ## BUGS / Refactor
+- Refactor isUserAllowedOnRoute (cli users utils), RegEx are not sure, route verification
 - ~~Retirer openCV du core~~
 - ~~Retirer un max de dépendances du Core~~
 - Rendre la synchro form / content dans l'éditeur dynamique (à la react) => cf abecms4research

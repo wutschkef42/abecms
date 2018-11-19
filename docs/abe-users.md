@@ -2,6 +2,8 @@
 
 > Manage user roles to allow only some user to do some actions.
 
+> DEPRECATED doc to be updated
+
 ## Default user
 
 By default Abe only have one user, admin user that have full right over Abe.
@@ -68,6 +70,8 @@ This can be useful combined with Abe plugins, etc.
 
 Inside `abe.json` create a property `workflow` which is an array containing workflows like this:
 
+### TODO - More details
+
 ```json
 "workflow": ["review", "validate", "..."]
 ```
@@ -84,10 +88,10 @@ For example:
 {
   "actions": ["validate"],
   "roles": {
-    "user_1": {
+    "role_1": {
       "actions": ["read", "write"]
     },
-    "user_2": {
+    "role_2": {
       "actions": ["read", "validate"]
     }
   }
