@@ -248,6 +248,7 @@ export function isAbeRestrictedUrl(currentRoute) {
 export function isUserAllowedOnRoute(workflow, currentRoute) {
   var isAllowed = false
 
+  console.log(workflow, currentRoute)
   if (config.users.enable) {
     if (
       currentRoute.indexOf('/abe/users/forgot') > -1 ||
@@ -259,18 +260,27 @@ export function isUserAllowedOnRoute(workflow, currentRoute) {
 
     if (currentRoute.indexOf('/abe') === -1) {
       isAllowed = true
+      return true
     }
 
     if (workflow != null) {
-      var routes = config.users.routes
+      const routes = config.users.routes
       if (
         typeof routes[workflow] !== 'undefined' &&
         routes[workflow] !== null
       ) {
         Array.prototype.forEach.call(routes[workflow], route => {
-          var reg = new RegExp(route)
-          if (reg.test(currentRoute)) {
-            isAllowed = true
+          // si last letter === * alors regex sinon route === currentroute
+          if (route.substr(-1) === '*') {
+            const reg = new RegExp(route)
+            if (reg.test(currentRoute)) {
+              isAllowed = true
+            }
+          }
+          else {
+            if (route === currentRoute) {
+              isAllowed = true
+            }
           }
         })
       }
