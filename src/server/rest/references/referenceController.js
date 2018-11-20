@@ -11,8 +11,16 @@ import {
 export const getReferences = (req, res) => {
 	res.set('Content-Type', 'application/json')
 	res.send(JSON.stringify({
-		references: Manager.instance.getReferences()
+		references: Object.keys(Manager.instance.getReferences())
 	}))
+}
+
+export const getReference = (req, res) => {
+	const references = Manager.instance.getReferences()
+	if (references[req.params.name]) {
+		console.log(references[req.params.name])
+		return res.json(references[req.params.name])
+	}
 }
 
 export const saveReferences = (req, res, next) => {
@@ -44,5 +52,11 @@ export const saveReferences = (req, res, next) => {
 	res.set('Content-Type', 'application/json')
 	res.json({
 		success: 1
+	})
+}
+
+export const removeReference = (req, res) => {
+	res.status(500).json({
+		error: 'You cannot remove this file for the moment'
 	})
 }
