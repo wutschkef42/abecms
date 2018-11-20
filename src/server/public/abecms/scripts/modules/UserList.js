@@ -5,6 +5,7 @@ import qs from 'qs'
 
 var usersList = {
   init: function() {
+    
     var scope = document.querySelector('.user-list')
     if (scope != null) {
       this._ajax = Nanoajax.ajax
@@ -147,11 +148,11 @@ var usersList = {
         method: 'post'
       },
       () => {
-        var childGlyph = target.querySelector('.glyphicon')
-        childGlyph.classList.remove('glyphicon-eye-open', 'text-info')
-        childGlyph.classList.add('glyphicon-eye-close', 'text-danger')
-        target.classList.remove('glyphicon-eye-close', 'text-danger')
-        target.classList.add('glyphicon-eye-open', 'text-info')
+        var childGlyph = target.querySelector('.fas')
+        childGlyph.classList.remove('fa-eye', 'text-info')
+        childGlyph.classList.add('fa-eye-slash', 'text-danger')
+        target.classList.remove('fa-eye-slash', 'text-danger')
+        target.classList.add('fa-eye', 'text-info')
         target.removeEventListener('click', this._handleActivate)
         target.addEventListener('click', this._handleDeactivate)
       }
@@ -172,11 +173,11 @@ var usersList = {
         method: 'post'
       },
       () => {
-        var childGlyph = target.querySelector('.glyphicon')
-        childGlyph.classList.remove('glyphicon-eye-close', 'text-danger')
-        childGlyph.classList.add('glyphicon-eye-open', 'text-info')
-        target.classList.remove('glyphicon-eye-open', 'text-info')
-        target.classList.add('glyphicon-eye-close', 'text-danger')
+        var childGlyph = target.querySelector('.fas')
+        childGlyph.classList.remove('fa-eye-slash', 'text-danger')
+        childGlyph.classList.add('fa-eye', 'text-info')
+        target.classList.remove('fa-eye', 'text-info')
+        target.classList.add('fa-eye-slash', 'text-danger')
         target.removeEventListener('click', this._handleDeactivate)
         target.addEventListener('click', this._handleActivate)
       }

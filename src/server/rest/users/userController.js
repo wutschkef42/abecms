@@ -53,18 +53,20 @@ export const updateUser = async (req, res) => {
 		return res.status(400).json({ message: resultUpdate.message })
 	}
 
-	res.status(200).json({ message: resultUpdate.message })
+	res.status(200).json(resultUpdate)
 };
 
 
 
 export const removeUser = (req, res) => {
 
-	if (!req.body.id) {
+	if (!req.body.id && !req.params.id) {
 		return res.status(400).json({ message: 'id needed' })
-	}
+  } 
 
-	const removeResult = User.operations.remove(req.body.id)
+  const id = req.body.id ? req.body.id : req.params.id
+
+	const removeResult = User.operations.remove(id)
 
 	buildResponse(200, { success: true, userlist: removeResult }, res)
 };

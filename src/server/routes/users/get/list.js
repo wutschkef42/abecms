@@ -7,7 +7,8 @@ import {coreUtils, config, Handlebars, User} from '../../../../cli'
 var route = function route(req, res) {
   var resHtml = ''
 
-  var page = path.join(__dirname + '/../../../views/users/users-list.html')
+  // TODO-USERS
+  var page = path.join(__dirname + '/../../../views/users-list.html')
   if (coreUtils.file.exist(page)) {
     resHtml = fs.readFileSync(page, 'utf8')
   }

@@ -5,7 +5,7 @@ export const updateUserSchema = {
 	username: Joi.string().required(),
 	name: Joi.string().required(),
 	email: Joi.string().email().required(),
-	role: Joi.string().required(),
+	role: Joi.required(),
 };
 
 export const createUserSchema = {
@@ -13,7 +13,7 @@ export const createUserSchema = {
 	name: Joi.string().required(),
 	email: Joi.string().email().required(),
 	password: Joi.string().required(),
-	role: Joi.string().required(),
+	role: Joi.required(),
 }
 
 export const activeUserSchema = {
