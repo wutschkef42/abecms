@@ -13,6 +13,7 @@ import structureRoutes from './structures/structureRoutes'
 import workflowRoutes from './workflows/workflowRoutes'
 import referenceRoutes from './references/referenceRoutes'
 import urlsRoutes from './urls/urlRoutes'
+import statRoutes from './statistics/statRoutes'
 
 import { getFullWorkflows } from './workflows/workflowController'
 import { getRoles } from './roles/roleController'
@@ -26,6 +27,7 @@ router.use('/structures', structureRoutes)
 router.use('/workflows', workflowRoutes)
 router.use('/references', referenceRoutes)
 router.use('/urls', urlsRoutes)
+router.use('/stats', statRoutes)
 router.use('/activities', activitiesRoutes)
 
 router.get('/workflows/full',function(req, res, next) {
