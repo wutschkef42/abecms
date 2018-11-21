@@ -147,11 +147,16 @@ setTimeout(function () {
 
 if (!!window.EventSource) {
   var stream = document.querySelector('.stream')
-  var source = new EventSource('/abe/rest/activity-stream');
+  var source = new EventSource('/abe/api/activities');
   source.addEventListener('message', (e, data) => {
-    var json = JSON.parse(e.data)
-    if(json.user != null) streams.push(new StreamItem(json));
-    if(streams.length === 1) timer();
+    try {
+      var json = JSON.parse(e.data)
+      if(json.user != null) streams.push(new StreamItem(json));
+      if(streams.length === 1) timer();
+    }
+    catch (e) {
+      
+    }
   }, false);
 
   source.addEventListener('open', (e) => {

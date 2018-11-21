@@ -3,6 +3,7 @@ import store from './store'
 
 const router = express.Router();
 
+import activitiesRoutes from './activities/activitiesRoutes'
 import userRoutes from './users/userRoutes'
 import pageRoutes from './pages/pageRoutes'
 import roleRoutes from './roles/roleRoutes'
@@ -25,6 +26,7 @@ router.use('/structures', structureRoutes)
 router.use('/workflows', workflowRoutes)
 router.use('/references', referenceRoutes)
 router.use('/urls', urlsRoutes)
+router.use('/activities', activitiesRoutes)
 
 router.get('/workflows/full',function(req, res, next) {
 	getFullWorkflows(router, req, res, next)

@@ -6,6 +6,6 @@ import {
 
 const router = express.Router();
 
-router.get('/activities', getActivities)
+router.get('/', getActivities)
 
 export default router
