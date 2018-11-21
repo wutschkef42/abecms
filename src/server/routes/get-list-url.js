@@ -33,7 +33,7 @@ var route = function(router, req, res, next) {
     })
   })
 
-  var page = path.join(__dirname + '/../views/list-url.html')
+  var page = path.join(__dirname + '/../views/permissions.html')
   if (coreUtils.file.exist(page)) {
     html = fse.readFileSync(page, 'utf8')
   }

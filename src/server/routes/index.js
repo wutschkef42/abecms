@@ -25,14 +25,20 @@ import * as users from './users'
 import * as operations from './operations'
 import * as rest from './rest'
 
+import { getUrls } from '../rest/urls/urlController'
+
 import express from 'express'
 import * as abe from '../../cli'
+
+import userRoutes from '../rest/users/userRoutes'
 
 import {abeExtend, Handlebars, config} from '../../cli'
 
 var router = express.Router()
 abeExtend.hooks.instance.trigger('afterHandlebarsHelpers', Handlebars)
 abeExtend.hooks.instance.trigger('beforeAddRoute', router)
+
+router.use('/api/call/users', userRoutes);
 
 router.get('/abe/rest/posts*', rest.posts)
 router.get('/abe/rest/post*', rest.post)
@@ -81,6 +87,9 @@ router.get('/abe/list-workflow*', function(req, res, next) {
 })
 router.get('/abe/list-url*', function(req, res, next) {
   getListUrl(router, req, res, next)
+})
+router.get('/abe/api/urls',function(req, res, next) {
+	getUrls(router, req, res, next)
 })
 router.get('/abe/list-hooks*', getListHooks)
 
@@ -188,6 +197,10 @@ Array.prototype.forEach.call(routes, route => {
     })
   }
 })
+
+// TODO - DEBUG - Waiting solution for get the good router untill full refactoring
+import store from '../rest/store'
+store.fullRouter = router
 
 abeExtend.hooks.instance.trigger('afterAddRoute', router)
 

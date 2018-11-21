@@ -1,0 +1,143 @@
+{{#extend "layout"}}
+
+  {{#content "breadcrumbs"}}
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item">Admin</li>
+      <li class="breadcrumb-item active">routes</li>
+      <!-- Breadcrumb Menu-->
+      <li class="breadcrumb-menu d-md-down-none">
+          <div class="btn-group" role="group" aria-label="Button group">
+          <a class="btn" href="#">
+              <i class="icon-speech"></i>
+          </a>
+          <a class="btn" href="./">
+              <i class="icon-graph"></i>  Dashboard</a>
+          <a class="btn" href="#">
+              <i class="icon-settings"></i>  Settings</a>
+          </div>
+      </li>
+  </ol>
+  {{/content}}
+
+  {{#content "body"}}
+
+  <div class="container container-main user-list" id="permissions">
+	<div class="row" style="margin-bottom: 20px;">
+		<div class="col">
+			<button class="btn btn-success" @click="savePermissions"><span class="fas fa-save"></span>&nbsp;&nbsp;Save Permissions</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+
+			<table class="table table-bordered" id="permissions">
+
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Link</th>
+                        <th v-for="role in roles" align="center" class="text-center">${ role.name }</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(perm, url) in perms">
+                        <td>${ perm.method }</td>
+                        <td>${ url }</td>
+                        <td v-for="(role, name) in perm.roles">
+                            <div class="permission-box">
+                                <input class="permission-checkbox" type="checkbox" v-model="perms[url].roles[name]" :disabled="isDisabled(name)">
+                                ${ role }
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+		</div>
+    </div>
+    </div>
+    
+    {{#content "bottom-scripts"}}
+    <script type="text/javascript" src="/abecms/libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="/abecms/libs/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/template-engine-compiled.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/v4/v4-engine.js"></script>
+    <script type="text/javascript" src="/abecms/scripts/v4/permissions.js"></script>
+	<script>
+		var permissionsApp = new EngineV4({
+            el: '#permissions',
+            delimiters: ['${', '}'],
+            data: {
+                roles: [],
+                urls: [],
+                perms: {},
+                permissions: {},
+                showSuccessAlert: false,
+            },
+            methods: {
+                savePermissions () {
+                    // first thing is too prepare data for sending.
+                    // We only get checked things for non-admin roles
+                    var checks = {};
+                    var perms = this.perms;
+                    for(var url in perms) {
+                        var perm = perms[url]
+                        for (var role in perm.roles) {
+                            if (role != "admin" && perm.roles[role] == true) {
+                                if (!checks[role]) {
+                                    checks[role] = []
+                                }
+                                checks[role].push(perm.regex)
+                            }
+                        }
+                    }
+                    console.log(checks)
+                    var self = this;
+                    AjaX({
+                        url: '/abe/api/urls',
+                        method: 'POST',
+                        data: checks,
+                    }).then(function (res) {
+                        self.showSuccessAlert = true
+                        setTimeout(function() {
+                            self.showSuccessAlert = false;
+                        })
+                    }).catch(function (err) {
+                        console.log(err)
+                    })
+                },
+                isDisabled (role) {
+                    return (role == 'admin' ? true : false)
+                }
+            },
+            created () {
+                var self = this;
+                AjaX({
+                    url: '/abe/api/urls'
+                }).then(function (res) {
+                    console.log(res.data)
+                    self.perms = res.data.perms
+                    self.permissions = res.data.permissions
+                    self.urls = res.data.urls
+
+                }).catch(function (err) {
+                    console.log(err)
+                })
+                AjaX({
+                    url: '/abe/api/roles'
+                }).then(function (res) {
+                    console.log(res.data)
+                    self.roles = res.data.roles
+
+                }).catch(function (err) {
+                    console.log(err)
+                })
+            }
+        })
+	</script>
+  {{/content}}
+
+  {{/content}}
+
+
+
+{{/extend}}
