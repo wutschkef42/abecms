@@ -119,6 +119,9 @@
 					<div v-if="showSuccessAdd" class="alert alert-success" role="alert">
 						<strong>User added!</strong> <i>(auto close in 2 seconds)</i>
 					</div>
+					<div v-if="showErrorAdd" class="alert alert-danger" role="alert">
+						<strong>Error occured</strong> <p v-html="textErrorAdd"></p>
+					</div>
 					<form @submit="onAddUserSubmit" >
 						<div class="form-group">
 							<label for="inputAddEmail">Email address</label>

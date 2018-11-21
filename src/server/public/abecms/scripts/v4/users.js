@@ -26,6 +26,8 @@ var usersList = new Vue({
 			password: '',
 		},
 		showSuccessAdd: false,
+		showErrorAdd: false,
+		textErrorAdd: '',
 	},
 	computed: {
 		usersList() {
@@ -77,7 +79,7 @@ var usersList = new Vue({
 				console.log(res.data)
 			})
 			.catch (function (err) {
-				console.log(err)
+				self.handleErrorAdd(err)
 			})
 		},
 		onUpdateUserSubmit (evt) {
@@ -177,6 +179,14 @@ var usersList = new Vue({
 				}
 			}
 			$('#removeModal').modal('show')
+		},
+		handleErrorAdd (err) {
+			this.showErrorAdd = true
+			if (err.response) {
+				this.textErrorAdd = err.response.data.message
+			} else {
+				this.textErrorAdd = 'No connection ?'
+			}
 		},
 		tryRemoveUser (id) {
 			var self = this
