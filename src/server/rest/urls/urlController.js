@@ -1,18 +1,24 @@
 import path from 'path'
 
-
-import { Manager, config, User } from '../../../cli'
+import { config, User } from '../../../cli'
 const Joi = require('joi');
 
 export const getUrls = async (router, req, res, next) => {
-	const routes = router.stack;
+	let routes = router.stack;
+
+	/*
+	Array.prototype.forEach.call(store.routers, routr => {
+		routes = routes.concat(routr.stack)
+	})
+	*/
+
 	var urls = []
 	var permissions = {}
   
 	urls.push({
 	  url: '/abe',
 	  method: '/GET',
-	  regex: '/abe$'
+	  regex: '/abe'
 	})
 
 	console.log('start it')
@@ -26,15 +32,15 @@ export const getUrls = async (router, req, res, next) => {
 	  })
 	})
 
+
+
 	const roles = Object.keys(config.users.roles);
 
-	console.log(roles)
 
 	Array.prototype.forEach.call(roles, (role) => {
 		permissions[role] = {};
 
 		Array.prototype.forEach.call(urls, url => {
-			console.log(role, url.url)
 			if (User.utils.isUserAllowedOnRoute(role, url.regex)) {
 				permissions[role][url.url] = true
 			} else {
