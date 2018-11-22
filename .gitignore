@@ -10,6 +10,7 @@ draft/
 
 # admin compiled
 src/server/public/abecms/scripts/*-compiled.js
+src/server/public/abecms/scripts/v4/*-compiled.js
 src/server/public/abecms/css/styles.css
 
 # Local configs
