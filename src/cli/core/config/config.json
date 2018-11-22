@@ -141,12 +141,12 @@
       "max": 100
     },
     "manage": ["admin"],
-    "roles": [
-      {
+    "roles": {
+      "admin": {
         "workflow":"admin",
         "name":"Admin"
       }
-    ],
+    },
     "workflow": ["draft", "publish"],
     "routes": {
       "admin": [
