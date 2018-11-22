@@ -9,15 +9,21 @@
 
   {{#content "body"}}
   <div id="app">
-    <div class="container-fluid page-edit">
+    <div class="container-fluid page-edit" style="">
       <div class="side app-ui">
         <h1 class="logo">
-          <a href="http://localhost:3003/" class="logo-a">abecms.io</a>
-          <div class="btn-actions">
+          <a href="https://abecms.io" class="logo-a">abecms.io</a>
+          <div class="btn-actions btn-feedback">
             <a href="https://arainazhang.typeform.com/to/Khc2Zs" target="_blank" class="btn btn-sm btn-default">Leave Feedback</a>
           </div>
         </h1>
         <div class="types">
+            <div class="btn-actions save-template" style="">
+                <input type="text" name="name">
+                <div class="error-display"></div>
+                <input type="hidden" name="partials" id="partials">
+                <button class="generate btn btn-action btn-sm">Edit Content</button>
+            </div>
           <ul>
             <li class="type">
               <div class="type-label">Components</div>
@@ -35,25 +41,28 @@
           <i class="material-icons">close</i>
         </div>
       </div>
-      <div class="main">
-      <div class="title app-ui">
-        <h2>Build your own Abe template <span class="title-info">- See the documentation for more info</span></h2>
-        <div class="btn-actions save-template">
-            <input type="text" name="name">
-            <div class="error-display"></div>
-            <input type="hidden" name="partials" id="partials">
-            <button class="generate btn btn-action btn-sm">Edit Content</button>
+      <div class="row">
+        <div class="col app-ui">
+           
         </div>
       </div>
-      <div class="preview">
-        <ul class="preview-list app-ui ui-droppable ui-sortable">
-          <li class="preview-empty ui-sortable-handle">
-            <h3>Drag Blocks Here</h3>
-          </li>
-        </ul>
-        <div class="preview-html"></div>
+      <div class="row">
+        <div class="col" style="">
+          <div class="main">
+              <div class="title app-ui">
+                <h2>Build your own Abe template <span class="title-info">- See the documentation for more info</span></h2>
+              </div>
+              <div class="preview">
+                <ul class="preview-list app-ui ui-droppable ui-sortable">
+                  <li class="preview-empty ui-sortable-handle">
+                    <h3>Drag Blocks Here</h3>
+                  </li>
+                </ul>
+                <div class="preview-html"></div>
+              </div>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
   {{/content}}
 

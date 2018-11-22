@@ -114,12 +114,14 @@
                 AjaX({
                     url: '/abe/api/urls'
                 }).then(function (res) {
+                    console.log('well')
                     console.log(res.data)
                     self.perms = res.data.perms
                     self.permissions = res.data.permissions
                     self.urls = res.data.urls
 
                 }).catch(function (err) {
+                    console.log('error')
                     console.log(err)
                 })
                 AjaX({
