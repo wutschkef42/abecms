@@ -78,11 +78,11 @@ $(document).ready(function() {
 		url: '/abe/api/workflows/full'	
 	})
 	.done(function(data) {
-		console.log(data)
 		mountWorkflows(data)
 	})
 	.fail(function(err) {
 		console.log(err)
+		alert('Error occured during workflows loading. Are you authorized ?')
 	})
 
 })

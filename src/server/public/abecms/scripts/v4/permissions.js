@@ -25,7 +25,6 @@ var permissionsApp = new EngineV4({
 					}
 				}
 			}
-			console.log(checks)
 			var self = this;
 			AjaX({
 				url: '/abe/api/urls',
@@ -49,8 +48,6 @@ var permissionsApp = new EngineV4({
 		AjaX({
 			url: '/abe/api/urls'
 		}).then(function (res) {
-			console.log('well')
-			console.log(res.data)
 			self.perms = res.data.perms
 			self.permissions = res.data.permissions
 			self.urls = res.data.urls
@@ -62,7 +59,6 @@ var permissionsApp = new EngineV4({
 		AjaX({
 			url: '/abe/api/roles'
 		}).then(function (res) {
-			console.log(res.data)
 			self.roles = res.data.roles
 
 		}).catch(function (err) {
