@@ -540,7 +540,10 @@ ul.app-ui,
 }
 /* line 131, ../sass/site.sass */
 .page-edit .btn-actions {
-  position: absolute;
+  position: relative;
+}
+.btn-feedback {
+  position: absolute !important;
   right: 15px;
   top: 0.75rem;
   margin-top: -3px;
