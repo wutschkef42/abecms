@@ -1,7 +1,7 @@
 import path from 'path'
 import {cmsData, config, Page, cmsTemplates, coreUtils} from '../../cli'
 
-var page = function(req, res) {
+var page = function(req, res, next, bol, url) {
   var html = req.query.html ? true : false
   var json = null
   var editor = false
@@ -14,7 +14,7 @@ var page = function(req, res) {
     }
   }
 
-  var filepath = req.query.page
+  var filepath = url || req.query.page
   console.log(filepath)
   if (typeof filepath !== 'undefined' && filepath !== null) {
     var jsonPath = null

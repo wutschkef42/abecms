@@ -20,14 +20,16 @@ import pageHelper from '../../helpers/page-rest'
 
 export const createPage = (req, res, next) => {
 
+	console.log(req.body)
 	var decoded = User.utils.decodeUser(req, res)
 	var user = User.utils.findSync(decoded.iss)
 	res.user = user
 
-	const postUrl = req.params.filename;
+	const postUrl = '/' + req.body.postPath;
+	const toSave = req.body.toSave;
 
 	const p = cmsOperations.create(
-		req.body.template,
+		req.body.abe_meta.template,
 		postUrl,
 		req.body,
 		res.user
@@ -58,11 +60,47 @@ export const createPage = (req, res, next) => {
 	)
 }
 
-export const updatePage = (req, res, next) => {
-	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
+export const editPage = (req, res, next) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var operation = { workflow: 'draft', postUrl: req.body.json.name }
+	var operation = getWorkflowFromApiUrl(req.originalUrl)
+	
+	console.log(operation)
+
+  var p = cmsOperations.post.submit(
+    operation.postUrl,
+    req.body.json,
+    operation.workflow,
+    res.user
+  )
+
+  p
+    .then(
+      result => {
+        Manager.instance.events.activity.emit('activity', {
+          operation: operation.workflow,
+          post: operation.postUrl,
+          user: res.user
+        })
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      },
+      result => {
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      }
+    )
+    .catch(function(e) {
+      console.error('[ERROR] post-save.js', e)
+    })
+}
+
+export const draftPage = (req, res, next) => {
+	if (typeof res._header !== 'undefined' && res._header !== null) return
+
+	var operation = { workflow: 'draft', postUrl: req.body.name }
+
+	console.log(req.body)
 
 	var p = cmsOperations.post.submit(
 		operation.postUrl,
@@ -91,11 +129,62 @@ export const updatePage = (req, res, next) => {
 	})
 }
 
+export const updatePage = (req, res, next) => {
+
+	var filepath = req.originalUrl.replace('/abe/api/pages', '')
+	var folderName = filepath.split('/')
+	var postName = folderName.pop()
+	folderName = folderName.join('/')
+  
+	var oldFilePath = req.body.oldFilePath
+	delete req.body.oldFilePath
+
+	console.log(oldFilePath, folderName, postName, filepath, req.body.abe_meta.template)
+  
+	var p = cmsOperations.duplicate(
+	  oldFilePath,
+	  req.body.abe_meta.template,
+	  folderName,
+	  postName,
+	  req,
+	  true,
+	  res.user
+	)
+  
+	p
+	  .then(
+		resSave => {
+		  var result = {
+			success: 1,
+			json: resSave
+		  }
+  
+		  Manager.instance.events.activity.emit('activity', {
+			operation: 'update',
+			post: resSave.link,
+			user: res.user
+		  })
+		  res.set('Content-Type', 'application/json')
+		  res.send(JSON.stringify(result))
+		},
+		() => {
+		  var result = {
+			success: 0
+		  }
+		  res.set('Content-Type', 'application/json')
+		  res.send(JSON.stringify(result))
+		}
+	  )
+	  .catch(function(e) {
+		console.error(e.stack)
+	  })
+}
+
 export const publish = (req, res, next) => {
 	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var operation = { workflow: 'publish', postUrl: req.body.url }
+	var operation = { workflow: 'publish', postUrl: req.body.json.abe_meta.link }
 
 	var p = cmsOperations.post.submit(
 		operation.postUrl,
@@ -158,9 +247,7 @@ export const unpublish = (req, res, next) => {
 	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var postUrl = req.params.filename;
-
-	console.log(postUrl)
+	const postUrl = req.originalUrl.replace('/abe/api/pages/unpublish', '')
 
 	cmsOperations.post.unpublish(postUrl, res.user)
 
@@ -179,10 +266,15 @@ export const unpublish = (req, res, next) => {
 }
 
 export const removePage = (req, res, next) => {
-	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
 	if (typeof res._header !== 'undefined' && res._header !== null) return
+
+	const postUrl = req.originalUrl.replace('/abe/api/pages/', '')
+
+	const indexOfSlash = postUrl.indexOf('/');
+
+	const operation = { workflow: postUrl.slice(0, indexOfSlash), postUrl: postUrl.slice(indexOfSlash) }
   
-	cmsOperations.remove.remove(req.body.url)
+	cmsOperations.remove.remove(operation.postUrl)
   
 	var result = {
 		success: 1,
@@ -274,10 +366,39 @@ export const listAll = (req, res, next) => {
 	
 }
 
-export const savePage = (req, res) => {
+export const savePage = (req, res, next) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
+	
+	var operation = getWorkflowFromApiUrl(req.originalUrl, req.body)
+	
+	console.log(operation)
 
-	pageHelper(req, res, next, true)
+  var p = cmsOperations.post.submit(
+    operation.postUrl,
+    req.body.json,
+    operation.workflow,
+    res.user
+  )
+
+  p
+    .then(
+      result => {
+        Manager.instance.events.activity.emit('activity', {
+          operation: operation.workflow,
+          post: operation.postUrl,
+          user: res.user
+        })
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      },
+      result => {
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      }
+    )
+    .catch(function(e) {
+      console.error('[ERROR] post-save.js', e)
+    })
 }
 
 export const reject = (req, res) => {
@@ -327,4 +448,71 @@ export function getWorkflowFromOperationsUrl(str) {
 		workflow: workflow,
 		postUrl: postUrl
 	}
+}
+
+function getWorkflowFromApiUrl(str, body) {
+  let regUrl = /\/abe\/api\/pages\/(.*?)\//
+  var workflow = 'draft'
+  var match = str.match(regUrl)
+  if (match != null && match[2] != null) {
+    workflow = match[2]
+	}
+	if (body && body.json && body.json.abe_meta) {
+		if (body.json.abe_meta.status) {
+			workflow = body.json.abe_meta.status
+		}
+	}
+	var postUrl = '/' + str.replace(regUrl, '')
+  return {
+    workflow: workflow,
+    postUrl: postUrl
+  }
+}
+
+export const duplicatePage = (req, res) => {
+	var filepath = req.body.postPath;
+  var folderName = filepath.split('/')
+  var postName = folderName.pop()
+  folderName = folderName.join('/')
+
+  var oldFilePath = req.body.oldFilePath
+  delete req.body.oldFilePath
+
+  var p = cmsOperations.duplicate(
+    oldFilePath,
+    req.body.abe_meta.template,
+    folderName,
+    postName,
+    req,
+    false,
+    res.user
+  )
+
+  p
+    .then(
+      resSave => {
+        var result = {
+          success: 1,
+          json: resSave
+        }
+
+        Manager.instance.events.activity.emit('activity', {
+          operation: 'duplicate',
+          post: resSave.link,
+          user: res.user
+        })
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      },
+      () => {
+        var result = {
+          success: 0
+        }
+        res.set('Content-Type', 'application/json')
+        res.send(JSON.stringify(result))
+      }
+    )
+    .catch(function(e) {
+      console.error('[ERROR] get-duplicate.js', e)
+    })
 }
