@@ -24,22 +24,22 @@ import {
 
 const router = express.Router();
 
-router.get('/', getUsers)
-router.get('/me', getMe)
-router.post('/', createUser)
-router.put('/', updateUser)
-router.delete('/', removeUser)
-router.delete('/:id', removeUser)
-router.put('/activate', activateUser)
-router.put('/deactivate', deactivateUser)
-router.post('/login', tryLogin)
+router.get('/users', getUsers)
+router.get('/users/me', getMe)
+router.post('/users', createUser)
+router.put('/users', updateUser)
+router.delete('/users', removeUser)
+router.delete('/users/:id', removeUser)
+router.put('/users/activate', activateUser)
+router.put('/users/deactivate', deactivateUser)
+router.post('/users/login', tryLogin)
 
-router.get('/profile', getProfile)
-router.post('/profile', postProfile)
+router.get('/users/profile', getProfile)
+router.post('/users/profile', postProfile)
 
-router.get('/logout', logout)
+router.get('/users/logout', logout)
 
-router.post('/askreset', askPasswordReset)
-router.post('/reset', resetPassword)
+router.post('/users/askreset', askPasswordReset)
+router.post('/users/reset', resetPassword)
 
 export default router
