@@ -61,13 +61,13 @@ export default class EditorBuildTemplate {
     })
     this._ajax(
       {
-        url: '/abe/build-template/',
+        url: '/abe/api/templates',
         body: data,
         cors: true,
         method: 'post'
       },
       () => {
-        // this.textArea.classList.add('saved')
+        this.textArea.classList.add('saved')
         // setTimeout(() => {
         //   this.textArea.classList.remove('saved')
         // }, 400)

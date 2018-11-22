@@ -249,7 +249,9 @@ export default class EditorSave {
 
   _submitClick(e) {
     this._saveType = e.currentTarget.getAttribute('data-action')
+    console.log(this._saveType)
     if (this._saveType !== 'draft' && this._saveType !== 'reject') {
+      console.log('here')
       this._abeFormRequired()
     } else {
       this.savePage(this._saveType)
@@ -258,6 +260,67 @@ export default class EditorSave {
   }
 
   _abeFormRequired() {
+    console.log('ok form')
+    var formGroups = [].slice.call(
+      document.getElementById('abeForm').querySelectorAll('.form-group')
+    )
+    var valid = true
+
+    Array.prototype.forEach.call(formGroups, formGroup => {
+      var input = formGroup.querySelector('[data-required=true]')
+      if (typeof input !== 'undefined' && input !== null) {
+        var required = input.getAttribute('data-required')
+
+        var precontrib = formGroup.getAttribute('data-precontrib-templates')
+
+        if (precontrib != null && precontrib != '') {
+          if (precontrib != 'json.abe_meta.template') {
+            return
+          }
+        }
+
+        var autocomplete = input.getAttribute('data-autocomplete')
+        var multiple = input.getAttribute('data-multiple')
+        if (
+          (typeof autocomplete !== 'undefined' &&
+            autocomplete !== null &&
+            (autocomplete === 'true' || autocomplete === true)) ||
+          (multiple != null && multiple == 'multiple')
+        ) {
+          var countValue = input.parentNode.querySelectorAll(
+            '.autocomplete-result'
+          )
+          if (countValue.length <= 0) {
+            formGroup.classList.add('has-error')
+            valid = false
+          } else {
+            formGroup.classList.remove('has-error')
+          }
+        } else if (
+          typeof required !== 'undefined' &&
+          required !== null &&
+          (required === 'true' || required === true)
+        ) {
+          if (input.value === '') {
+            formGroup.classList.add('has-error')
+            valid = false
+          } else {
+            formGroup.classList.remove('has-error')
+          }
+        }
+      }
+    })
+
+    if (valid) {
+      this.savePage(this._saveType)
+      // this._abeFormSubmit.click()
+    } else {
+      alert('Required fields are missing')
+    }
+  }
+/*
+  _abeFormRequired() {
+    if (!document.getElementById('filtered-list-url')) { return ; }
     console.log('fgroups', document.getElementById('filtered-list-url').querySelectorAll('.form-group'))
     var formGroups = [].slice.call(
       (document.getElementById('abeForm') ? document.getElementById('abeForm').querySelectorAll('.form-group') : document.getElementById('filtered-list-url').querySelectorAll('.form-group'))
@@ -319,7 +382,7 @@ export default class EditorSave {
     } else {
       alert('Required fields are missing')
     }
-  }
+  }*/
 
   /**
    * populate all form and iframe html with json

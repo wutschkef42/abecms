@@ -30,7 +30,7 @@ export default class Json {
 
   save(
     type = 'draft',
-    url = '/abe/save/draft/submit',
+    url = '/abe/api/pages/draft',
     tplPath = null,
     filePath = null
   ) {
@@ -59,6 +59,13 @@ export default class Json {
       this.headersSaving._fire({url: document.location.origin + '/' + type})
 
       var ajaxUrl = document.location.origin + url + filePath
+      console.log(document.location.origin, url, filePath, toSave)
+
+      if (type === 'publish') {
+        ajaxUrl = '/abe/api/pages/publish'
+      } else {
+        ajaxUrl = '/abe/api/pages/' + type + filePath
+      }
 
       this._ajax(
         {

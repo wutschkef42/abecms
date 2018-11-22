@@ -103,7 +103,7 @@ class Engine {
           pageLength: 50,
           processing: true,
           serverSide: true,
-          ajax: '/abe/paginate',
+          ajax: '/abe/api/pages/paginate',
           columns: this.columns,
           order: [[3, 'desc']],
           stateSave: true,
@@ -126,8 +126,7 @@ class Engine {
           createdRow: function(row, data, index) {
             var actions = '<div class="row icons-action">'
             if (data.publish != null) {
-              actions += `<a href="/abe/operations/unpublish${data.abe_meta
-                .link}"
+              actions += `<a href="/abe/api/pages/unpublish${data.abe_meta.link}"
                    title="Unpublish"
                    class="icon" data-unpublish="true" data-text="Are you sure you want to unpublish : ${data
                      .abe_meta.link}"
@@ -136,8 +135,7 @@ class Engine {
                 </a>`
             }
 
-            actions += `<a href="/abe/operations/delete/${data.abe_meta
-              .status}${data.abe_meta.link}"
+            actions += `<a href="${data.abe_meta.status}${data.abe_meta.link}"
                  title="Delete"
                  class="icon"
                  data-delete="true"

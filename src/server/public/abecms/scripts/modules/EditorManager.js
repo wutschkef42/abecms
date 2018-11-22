@@ -109,10 +109,11 @@ export default class EditorManager {
     if (!confirmDelete) return
     let href = e.currentTarget.getAttribute('href')
     let target = e.currentTarget
+    console.log(href)
     this._ajax(
       {
-        url: href,
-        method: 'get'
+        url: '/abe/api/pages/' + href,
+        method: 'delete'
       },
       (e, responseText) => {
         var response = JSON.parse(responseText)

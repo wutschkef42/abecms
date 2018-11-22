@@ -329,9 +329,71 @@ export default class FormCreate {
   _submit(type) {
     var res = this._setSlug(true)
     var toSave = qs.stringify(res.values)
-
     if (res.isValid && !this._isSaving) {
       this._isSaving = true
+      if (type == 'create') {
+        res.values.postPath = res.postPath;
+        $.ajax({
+          url: '/abe/api/pages',
+          data: JSON.stringify(res.values),
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).done(function(res) {
+          this._isSaving = false
+          window.location.href =
+              window.location.origin +
+              '/abe/editor' +
+              res.json.abe_meta.link
+        }).fail(function(err) {
+          this._isSaving = false
+          console.log(err)
+          alert('error')
+        })
+      }
+      else if (type == 'update') {
+        console.log(res)
+        $.ajax({
+          url: '/abe/api/pages/' + res.postPath,
+          data: JSON.stringify(res.values),
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).done(function(res) {
+          console.log('done', res)
+          this._isSaving = false
+          window.location.href =
+              window.location.origin +
+              '/abe/editor' +
+              res.json.abe_meta.link
+        }).fail(function(err) {
+          this._isSaving = false
+          console.log(err)
+        })
+      }
+      else if (type == 'duplicate') {
+        res.values.postPath = res.postPath;
+        $.ajax({
+          url: '/abe/api/pages/duplicate',
+          data: JSON.stringify(res.values),
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).done(function(res) {
+          this._isSaving = false
+          window.location.href =
+              window.location.origin +
+              '/abe/editor' +
+              res.json.abe_meta.link
+        }).fail(function(err) {
+          this._isSaving = false
+          console.log(err)
+        })
+      } else {
+      
       this._ajax(
         {
           url:
@@ -362,6 +424,7 @@ export default class FormCreate {
           }
         }
       )
+      }
     }
   }
 
