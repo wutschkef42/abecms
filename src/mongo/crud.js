@@ -27,7 +27,7 @@ async function insert(tableName, documents) {
 		throw e;
 	}
 }
-
+/*
 async function saveOne (tableName, obj) {
 	
 	const db = mongo.getDb();
@@ -54,6 +54,7 @@ async function saveOne (tableName, obj) {
 		throw e;
 	}
 }
+*/
 
 async function findOne (tableName, query, projection) {
 	const db = mongo.getDb();
