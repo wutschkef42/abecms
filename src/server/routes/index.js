@@ -25,8 +25,6 @@ import * as users from './users'
 import * as operations from './operations'
 import * as rest from './rest'
 
-import { getUrls } from '../rest/urls/urlController'
-
 import express from 'express'
 import * as abe from '../../cli'
 
@@ -37,6 +35,116 @@ import {abeExtend, Handlebars, config} from '../../cli'
 var router = express.Router()
 abeExtend.hooks.instance.trigger('afterHandlebarsHelpers', Handlebars)
 abeExtend.hooks.instance.trigger('beforeAddRoute', router)
+
+// REST API routes
+import { controllers } from './../rest/indexRoutes'
+
+const {
+	workflowController,
+	statController,
+	userController,
+	urlController,
+	themeController,
+	templateController,
+	structureController,
+	roleController,
+	referenceController,
+	pageController,
+	imageController,
+	hookController,
+	configController,
+	activitiesController,
+} = controllers
+
+/* REST /users */
+router.get('/abe/api/users', userController.getUsers)
+router.get('/abe/api/users/me', userController.getMe)
+router.post('/abe/api/users', userController.createUser)
+router.put('/abe/api/users', userController.updateUser)
+router.delete('/abe/api/users', userController.removeUser)
+router.delete('/abe/api/users/:id', userController.removeUser)
+router.put('/abe/api/users/activate', userController.activateUser)
+router.put('/abe/api/users/deactivate', userController.deactivateUser)
+router.post('/abe/api/users/login', userController.tryLogin)
+router.get('/abe/api/users/profile', userController.getProfile)
+router.post('/abe/api/users/profile', userController.postProfile)
+router.get('/abe/api/users/logout', userController.logout)
+router.post('/abe/api/users/askreset', userController.askPasswordReset)
+router.post('/abe/api/users/reset', userController.resetPassword)
+
+/* REST /workflows */
+router.get('/abe/api/workflows', workflowController.getWorkflows)
+router.get('/abe/api/workflows/full', function(req, res, next) {
+	workflowController.getFullWorkflows(router, req, res, next)
+})
+/* REST /urls    #permissions */
+router.get('/abe/api/urls', function(req, res, next) {
+	urlController.getUrls(router, req, res, next)
+})
+router.post('/abe/api/urls', urlController.saveUrls)
+
+/* REST /theme */
+router.get('/abe/api/theme', themeController.getThemes)
+router.post('/abe/api/theme', themeController.postThemes)
+router.delete('/abe/api/theme', themeController.deleteTheme)
+
+/* REST /stats */
+router.get('/abe/api/stats/users/total', statController.getTotalUsers)
+router.get('/abe/api/stats/users/connected', statController.getConnectedUsers)
+router.get('/abe/api/stats/pages/total', statController.getTotalPages)
+router.get('/abe/api/stats/pages/published', statController.getPublishedPage)
+
+/* REST /templates */
+router.get('/abe/api/templates/', templateController.getTemplatesList)
+router.get('/abe/api/templates/:name', templateController.getTemplate)
+router.post('/abe/api/templates/', templateController.buildTemplate)
+
+/* REST /structures */
+router.get('/abe/api/structures', structureController.getStructures)
+router.post('/abe/api/structures', structureController.postStructure)
+router.delete('/abe/api/structures', structureController.deleteStructure)
+
+/* REST /roles */
+router.get('/abe/api/roles', roleController.getRoles)
+
+/* REST /references */
+router.get('/abe/api/references', referenceController.getReferences)
+router.get('/abe/api/references/:name', referenceController.getReference)
+router.delete('/abe/api/references/:name', referenceController.removeReference)
+router.post('/abe/api/references', referenceController.saveReferences)
+
+/* REST /pages */
+router.get('/abe/api/pages', pageController.getPage)
+router.post('/abe/api/pages', pageController.createPage)
+router.post('/abe/api/pages/save*', pageController.savePage)
+router.put('/abe/api/pages/*', pageController.updatePage) 
+router.post('/abe/api/pages/draft*', pageController.draftPage)
+router.post('/abe/api/pages/edit*', pageController.editPage)
+router.delete('/abe/api/pages/*', pageController.removePage)
+router.post('/abe/api/pages/duplicate', pageController.duplicatePage)
+router.get('/abe/api/pages/paginate', pageController.paginate)
+router.post('/abe/api/pages/publish', pageController.publish)
+router.get('/abe/api/pages/unpublish/*', pageController.unpublish)
+
+/* REST /images */
+router.get('/abe/api/images', imageController.getImage)
+router.get('/abe/api/images/thumbs', imageController.getThumbs)
+router.post('/abe/api/images', imageController.uploadImage)
+
+/* REST /activities */
+router.get('/abe/api/activities', activitiesController.getActivities)
+
+/* REST /hooks */
+router.get('/abe/api/hooks', hookController.getHooks)
+
+/* REST /config */
+router.get('/abe/api/config', configController.getConfig)
+router.post('/abe/api/config', configController.saveConfig)
+
+/* END OF REST API ROUTES */
+
+
+
 
 router.use('/api/call/users', userRoutes);
 
@@ -88,9 +196,6 @@ router.get('/abe/list-workflow*', function(req, res, next) {
 router.get('/abe/list-url*', function(req, res, next) {
   getListUrl(router, req, res, next)
 })
-router.get('/abe/api/urls',function(req, res, next) {
-	getUrls(router, req, res, next)
-})
 router.get('/abe/list-hooks*', getListHooks)
 
 /**
@@ -122,6 +227,18 @@ Array.prototype.forEach.call(workflows, workflow => {
   router.post(`/abe/operations/submit/${workflow}*`, operations.postSubmit)
   router.post(`/abe/operations/edit/${workflow}*`, operations.postEdit)
 })
+
+/*
+Question importantes :
+où placer les routes
+
+système de plugins ci-dessous ? j'intègre ?
+si oui (for sure) : 
+- placer le systeme dans chaque fichier de routes, ou charger toutes les routes ici,
+- ou tout dupliquer le système dans indexRoutes de l'api REST (< premier choix)
+- ok
+
+*/
 
 var routes = abeExtend.plugins.instance.getRoutes()
 Array.prototype.forEach.call(routes, route => {
@@ -200,7 +317,7 @@ Array.prototype.forEach.call(routes, route => {
 
 // TODO - DEBUG - Waiting solution for get the good router untill full refactoring
 import store from '../rest/store'
-store.fullRouter = router
+store.routers.push(router)
 
 abeExtend.hooks.instance.trigger('afterAddRoute', router)
 
