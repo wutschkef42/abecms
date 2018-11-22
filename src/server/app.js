@@ -320,8 +320,7 @@ process.on('SIGTERM', cleanup)
 var routes = require('./routes')
 app.use(routes.default)
 
-import apiRoutes from './rest/indexRoutes'
-app.use('/abe/api', apiRoutes)
+
 /* V4 ROUTES
 import userRoutes from './rest/users/userRoutes'
 import pageRoutes from './rest/pages/pageRoutes'
@@ -343,5 +342,8 @@ app.use('/abe/api/workflows', workflowRoutes)
 app.use('/abe/editor', express.static(publish))
 app.use('/abe/page', express.static(publish))
 app.get('/abe*', getHome)
+
+import store from './rest/store'
+store.app = app
 
 
