@@ -36,7 +36,6 @@ var usersList = new Vue({
 	},
 	methods: {
 		openModifyModal (id) {
-			console.log(id)
 			for (var i in this.users) {
 				if (this.users[i].id === id) {
 					this.currentIndex = i;
@@ -45,7 +44,6 @@ var usersList = new Vue({
 					this.userForm = JSON.parse(JSON.stringify(this.currentUser))
 					this.userForm.password = null
 					this.userForm.role = this.currentUser.role.name;
-					console.log(this.currentUser.role)
 					break ;
 				}
 			}
@@ -76,7 +74,6 @@ var usersList = new Vue({
 			})
 			.then(function (res) {
 				self.users.push(res.data.user)
-				console.log(res.data)
 			})
 			.catch (function (err) {
 				self.handleErrorAdd(err)
@@ -85,7 +82,6 @@ var usersList = new Vue({
 		onUpdateUserSubmit (evt) {
 			evt.preventDefault();
 			var self = this
-			console.log(this.userForm.role)
 			var { username, name, email, role, id } = this.userForm
 			if (typeof role === 'string') {
 				for (var i in this.roles) {
@@ -112,7 +108,6 @@ var usersList = new Vue({
 				setTimeout(function () {
 					self.showSuccessUpdate = false
 				}, 3000)
-				console.log(res.data)
 			}).catch(function(err) {
 				console.log(err)
 			})
@@ -128,7 +123,6 @@ var usersList = new Vue({
 			})
 			.then(function(res) {
 				self.updateUsers(id, 'actif', 0)
-				console.log(res.data)
 			})
 			.catch(function(err) {
 				console.log(err)
@@ -145,7 +139,6 @@ var usersList = new Vue({
 			})
 			.then(function(res) {
 				self.updateUsers(id, 'actif', 1)
-				console.log(res.data)
 			})
 			.catch(function(err) {
 				console.log(err)
@@ -190,14 +183,12 @@ var usersList = new Vue({
 		},
 		tryRemoveUser (id) {
 			var self = this
-			console.log('request for remove user', id)
 			axios({
 				url: '/abe/api/users/' + id,
 				method: 'DELETE'
 			})
 			.then(function(res) {
 				self.removeUser(id)
-				console.log(res.data)
 			})
 			.catch(function(err) {
 				console.log(err)

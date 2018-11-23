@@ -29,10 +29,12 @@ export const createUser = async (req, res) => {
 		return res.status(400).json({ message: 'validation', details: validation.error.details })
 	}
 
-	const resultCreate = User.operations.add(req.body)
+  const resultCreate = User.operations.add(req.body)
+  
 
-	if (resultCreate.success === 0) {
-		return res.status(400).json({ message: resultCreate.message })
+
+	if (resultCreate.success === false) {
+		return res.status(400).json({ message: resultCreate[resultCreate.error].message })
 	}
 
 	res.json(resultCreate)
