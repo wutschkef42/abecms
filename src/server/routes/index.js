@@ -4,7 +4,6 @@ import getListWorkflow from './get-list-workflow'
 import getListHooks from './get-list-hooks'
 import getPage from './get-page'
 import getGeneratePost from './get-generate-posts'
-import postUpload from './post-upload'
 import postSqlRequest from './post-sql-request'
 import getReference from './get-reference'
 import getStructure from './get-structure'
@@ -172,8 +171,6 @@ router.get('/abe/list-hooks*', getListHooks)
 
 router.get('/abe/page/*', getPage)
 
-router.post('/abe/upload/*', postUpload)
-
 /*
 30 + les routes générées pour chaque workflow
 router.get('/abe/rest/posts*', rest.posts)
@@ -205,7 +202,7 @@ router.post('/abe/reference/*', postReference)
 router.post('/abe/structure/*', postStructure)
 
 router.post('/abe/list-url/save*', postListUrlSave)
-router.post('/abe/themes', postThemes)
+
 router.post('/abe/build-template', postBuildTemplate)
 router.post('/abe/operations/create*', operations.postCreate)
 router.post('/abe/operations/duplicate*', operations.postDuplicate)

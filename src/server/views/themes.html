@@ -93,6 +93,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js"></script>
     <script>
+      var error = document.querySelector('.error')
+      inputTheme = document.querySelector('.upload-theme')
+      btnTheme = document.querySelector('.btn-upload-theme')
+      btnDeleteTheme = document.querySelector('.delete-theme')
+
       function getImages(arg1, arg2) {
         var elems = $('.grid').masonry('getItemElements');
         $.each(elems, function(index,elem) {
@@ -104,9 +109,10 @@
           type:'GET',
           dataType:'json',
           success: function(data) {
+            
             var html = "";
             $.each(data.data, function(index,item) {
-              html += "<div class='image grid-item'><img width=400 style='z-index:100;' src='" + item.publish.thumbnail + "' alt='' /><h3>"+item.publish.title+"  <a href='"+item.publish.demo +"' target='_blank'>Live demo</a> <a href='"+item.publish.download +"' target='_blank'>Install</a></h3></div>";
+              html += "<div class='image grid-item'><img width=400 style='z-index:100;' src='" + item.publish.thumbnail + "' alt='' /><h3>"+item.publish.title+"  <a href='"+item.publish.demo +"' target='_blank'>Live demo</a> <a href='#' onclick='postTheme(this, \""+item.publish.download+"\")'>Install</a></h3></div>";
             });
 
             var $moreBlocks = jQuery( html ).filter('div.grid-item');
@@ -118,6 +124,28 @@
             });
           }
         })
+      }
+
+      function postTheme (inpt, uri) {
+        console.log(uri)
+        $.ajax(
+          {
+            url: '/abe/api/theme',
+            data: {zipUrl: uri},
+            cors: true,
+            method: 'post'
+          },
+          (e, responseText) => {
+            var res = JSON.parse(responseText)
+            if (res.success != null) this.success(res.theme)
+            if (res.error != null)
+              console.log(res)
+              this.addError(
+                'error: something went wrong while uploading your theme'
+              )
+            this.btnTheme.classList.remove('active')
+          }
+        )
       }
 
       $(document).ready(function(){

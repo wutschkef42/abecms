@@ -45,6 +45,10 @@ export function deleteTheme() {
 }
 
 export function downloadTheme(url, name) {
+  if (!name) {
+    const splits = url.split('/')
+    name = splits[splits.length - 1].slice(0, -4)
+  }
   const pathToThemes = path.join(config.root, config.themes.path)
   const PathToTmpTheme = path.join(pathToThemes, 'tmp-download')
   mkdirp.sync(PathToTmpTheme)

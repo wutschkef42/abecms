@@ -45,10 +45,10 @@ export default class EditorReferences {
     this.btnDeleteTheme.addEventListener('click', () => {
       this._ajax(
         {
-          url: '/abe/themes/',
+          url: '/abe/api/theme',
           body: qs.stringify({delete: 1}),
           cors: true,
-          method: 'post'
+          method: 'delete'
         },
         (e, responseText) => {
           document.querySelector('.current-theme').classList.add('hidden')
@@ -62,7 +62,7 @@ export default class EditorReferences {
     this.removeError()
     this._ajax(
       {
-        url: '/abe/themes/',
+        url: '/abe/api/theme',
         body: qs.stringify({zipUrl: val}),
         cors: true,
         method: 'post'
