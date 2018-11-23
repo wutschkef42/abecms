@@ -49,7 +49,7 @@ export default class EditorFiles {
     var xhr = new XMLHttpRequest()
     xhr.open(
       'post',
-      '/abe/upload/?baseUrl=' + window.CONFIG.FILEPATH + '&input=' + target.outerHTML,
+      '/abe/api/medias/?baseUrl=' + window.CONFIG.FILEPATH + '&input=' + target.outerHTML,
       true
     )
     xhr.upload.onprogress = e => {

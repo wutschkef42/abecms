@@ -1,28 +1,20 @@
 import getMain from './get-main'
-import postListUrlSave from './post-list-url-save'
 import getListUrl from './get-list-url'
 import getListWorkflow from './get-list-workflow'
 import getListHooks from './get-list-hooks'
 import getPage from './get-page'
-import postPage from './post-page'
 import getGeneratePost from './get-generate-posts'
-import getSaveConfig from './get-save-config'
 import postUpload from './post-upload'
 import postSqlRequest from './post-sql-request'
-import postReference from './post-reference'
 import getReference from './get-reference'
-import postStructure from './post-structure'
 import getStructure from './get-structure'
-import getPaginate from './get-paginate'
 import getThumbs from './get-thumbs'
 import getImage from './get-image'
 import getHome from './get-home'
 import getThemes from './get-themes'
 import getBuildTemplate from './get-build-template'
-import postBuildTemplate from './post-build-template'
 import postThemes from './post-themes'
 import * as users from './users'
-import * as operations from './operations'
 import * as rest from './rest'
 
 import express from 'express'
@@ -50,7 +42,7 @@ const {
 	roleController,
 	referenceController,
 	pageController,
-	imageController,
+	mediaController,
 	hookController,
 	configController,
   activitiesController,
@@ -130,9 +122,9 @@ router.get('/abe/api/pages/unpublish/*', pageController.unpublish)
 router.post('/abe/api/pages/reject*', pageController.reject)
 
 /* REST /images */
-router.get('/abe/api/images', imageController.getImage)
-router.get('/abe/api/images/thumbs', imageController.getThumbs)
-router.post('/abe/api/images', imageController.uploadImage)
+router.get('/abe/api/medias/image', mediaController.getImage)
+router.post('/abe/api/medias', mediaController.uploadFile)
+router.get('/abe/api/medias/thumbs', mediaController.getThumbs)
 
 /* REST /activities */
 router.get('/abe/api/activities', activitiesController.getActivities)
@@ -178,13 +170,16 @@ router.get('/abe/permissions', function(req, res, next) {
 })
 router.get('/abe/list-hooks*', getListHooks)
 
+router.get('/abe/page/*', getPage)
+
+router.post('/abe/upload/*', postUpload)
+
 /*
+30 + les routes générées pour chaque workflow
 router.get('/abe/rest/posts*', rest.posts)
 router.get('/abe/rest/post*', rest.post)
 router.get('/abe/rest/activity-stream', rest.activityStream)
-*/
 
-/*
 router.post('/abe/users/activate', users.postActivate)
 router.post('/abe/users/add', users.postAdd)
 router.post('/abe/users/deactivate', users.postDeactivate)
@@ -195,8 +190,7 @@ router.post('/abe/users/update', users.postUpdate)
 router.post('/abe/users/profile', users.postProfile)
 router.post('/abe/users/save-search', users.postSaveSearch)
 router.post('/abe/users/remove-search', users.postRemoveSearch)
-*/
-/*
+
 router.get('/abe/paginate', getPaginate)
 router.post('/abe/sql-request*', postSqlRequest)
 router.post('/abe/page/*', postPage)
@@ -206,34 +200,20 @@ router.get('/abe/save-config', getSaveConfig)
 
 router.get('/abe/thumbs/*', getThumbs)
 router.get('/abe/image/*', getImage)
-router.post('/abe/upload/*', postUpload)
+
 router.post('/abe/reference/*', postReference)
 router.post('/abe/structure/*', postStructure)
 
 router.post('/abe/list-url/save*', postListUrlSave)
-
 router.post('/abe/themes', postThemes)
-
 router.post('/abe/build-template', postBuildTemplate)
-*/
-
-
-/**
- * Operations
- * - create : create a post
- * - update : update a post, changing its name (or path or template)
- * - delete : delete a post
- * - duplicate : duplicate a revision
- * - reject : reject a workflow step (else but the publish)
- * - unpublish : unpublish a published post (=== reject a published post)
- * - submit : submit a workflow step (including draft and publish)
- * - edit : save a post keeping it in its status
- */
-
- /*
 router.post('/abe/operations/create*', operations.postCreate)
 router.post('/abe/operations/duplicate*', operations.postDuplicate)
 router.post('/abe/operations/update*', operations.postUpdate)
+*/
+
+ /*
+
 
 var workflows = config.users.workflow
 Array.prototype.forEach.call(workflows, workflow => {
@@ -250,17 +230,18 @@ Array.prototype.forEach.call(workflows, workflow => {
 })
 */
 
-/*
-Question importantes :
-où placer les routes
 
-système de plugins ci-dessous ? j'intègre ?
-si oui (for sure) : 
-- placer le systeme dans chaque fichier de routes, ou charger toutes les routes ici,
-- ou tout dupliquer le système dans indexRoutes de l'api REST (< premier choix)
-- ok
-
-*/
+/**
+ * Operations
+ * - create : create a post
+ * - update : update a post, changing its name (or path or template)
+ * - delete : delete a post
+ * - duplicate : duplicate a revision
+ * - reject : reject a workflow step (else but the publish)
+ * - unpublish : unpublish a published post (=== reject a published post)
+ * - submit : submit a workflow step (including draft and publish)
+ * - edit : save a post keeping it in its status
+ */
 
 var routes = abeExtend.plugins.instance.getRoutes()
 Array.prototype.forEach.call(routes, route => {

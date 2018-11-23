@@ -27,7 +27,7 @@ import * as structureController from './structures/structureController'
 import * as roleController from './roles/roleController'
 import * as referenceController from './references/referenceController'
 import * as pageController from './pages/pageController'
-import * as imageController from './images/imageController'
+import * as mediaController from './medias/mediaController'
 import * as hookController from './hooks/hooksController'
 import * as configController from './config/configController'
 import * as activitiesController from './activities/activitiesController'
@@ -44,7 +44,7 @@ export const controllers = {
 	roleController,
 	referenceController,
 	pageController,
-	imageController,
+	mediaController,
 	hookController,
 	configController,
 	activitiesController,

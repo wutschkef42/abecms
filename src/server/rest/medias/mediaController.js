@@ -13,8 +13,7 @@ export const getImage = (req, res) => {
 	})
 }
 
-export const uploadImage = (req, res) => {
-	abeExtend.hooks.instance.trigger('beforeRoute', req, res, next)
+export const uploadFile = (req, res) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
   
 	var image = cmsMedia.image.saveFile(req)
