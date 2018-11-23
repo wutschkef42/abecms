@@ -46,7 +46,7 @@ window.ImagePickerUpload = {
       var xhr = new XMLHttpRequest()
       xhr.open(
         'post',
-        '/abe/upload/?baseUrl=' +
+        '/abe/api/medias/?baseUrl=' +
           window.CONFIG.FILEPATH +
           '&input=' +
           target.outerHTML,
