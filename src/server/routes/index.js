@@ -126,6 +126,7 @@ router.post('/abe/api/pages/duplicate', pageController.duplicatePage)
 router.get('/abe/api/pages/paginate', pageController.paginate)
 router.post('/abe/api/pages/publish', pageController.publish)
 router.get('/abe/api/pages/unpublish/*', pageController.unpublish)
+router.post('/abe/api/pages/reject*', pageController.reject)
 
 /* REST /images */
 router.get('/abe/api/images', imageController.getImage)

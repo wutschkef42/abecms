@@ -30,7 +30,7 @@ export default class Json {
 
   save(
     type = 'draft',
-    url = '/abe/api/pages/draft',
+    url = '/abe/api/pages/save/',
     tplPath = null,
     filePath = null
   ) {
@@ -53,18 +53,27 @@ export default class Json {
       filePath = filePath != null ? filePath : window.CONFIG.FILEPATH
 
       var toSave = qs.stringify({
-        json: jsonSave
+        json: jsonSave,
+        type: type,
       })
 
       this.headersSaving._fire({url: document.location.origin + '/' + type})
 
-      var ajaxUrl = document.location.origin + url + filePath
+      var ajaxUrl = document.location.origin + url + type + filePath
       console.log(document.location.origin, url, filePath, toSave)
 
       if (type === 'publish') {
         ajaxUrl = '/abe/api/pages/publish'
-      } else {
-        ajaxUrl = '/abe/api/pages/' + type + filePath
+      }
+      else if (type == 'reject') {
+        ajaxUrl = '/abe/api/pages/reject' + filePath
+      }
+      else if (type == 'save') {
+        var realType = jsonSave.abe_meta.status || 'draft'
+        ajaxUrl = '/abe/api/pages/save/' + realType + filePath
+      }
+      else {
+        ajaxUrl = '/abe/api/pages/save/' + type + filePath
       }
 
       this._ajax(

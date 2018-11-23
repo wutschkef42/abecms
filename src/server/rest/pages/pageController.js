@@ -63,9 +63,10 @@ export const createPage = (req, res, next) => {
 export const editPage = (req, res, next) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var operation = getWorkflowFromApiUrl(req.originalUrl)
+	var operation = getWorkflowFromApiUrlSave(req.originalUrl)
+	operation.workflow = req.body.json.abe_meta.status
 	
-	console.log(operation)
+	console.log('edit', operation)
 
   var p = cmsOperations.post.submit(
     operation.postUrl,
@@ -98,7 +99,8 @@ export const editPage = (req, res, next) => {
 export const draftPage = (req, res, next) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
-	var operation = { workflow: 'draft', postUrl: req.body.name }
+	let workflow = req.body.type || 'draft'
+	var operation = { workflow: workflow, postUrl: req.body.name }
 
 	console.log(req.body)
 
@@ -369,9 +371,9 @@ export const listAll = (req, res, next) => {
 export const savePage = (req, res, next) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 	
-	var operation = getWorkflowFromApiUrl(req.originalUrl, req.body)
+	var operation = getWorkflowFromApiUrlSave(req.originalUrl, req.body)
 	
-	console.log(operation)
+	console.log('save',operation)
 
   var p = cmsOperations.post.submit(
     operation.postUrl,
@@ -405,9 +407,12 @@ export const reject = (req, res) => {
 	if (typeof res._header !== 'undefined' && res._header !== null) return
 
 	var operation = {
-		workflow: 'draft',
-		postUrl: req.body.url,
+		workflow: req.body.json.abe_meta.status,
+		postUrl: req.body.json.abe_meta.link,
 	}
+	
+
+	console.log(operation)
 
 	var p = cmsOperations.post.reject(
 		operation.postUrl,
@@ -450,10 +455,39 @@ export function getWorkflowFromOperationsUrl(str) {
 	}
 }
 
+function getWorkflowFromApiUrlReject(str) {
+  let regUrl = /\/abe\/api\/pages\/reject\/(.*?)\//
+  var workflow = 'draft'
+	var match = str.match(regUrl)
+  if (match != null && match[1] != null) {
+    workflow = match[1]
+	}
+	var postUrl = str.replace(regUrl, '')
+	console.log(match)
+  return {
+    workflow: workflow,
+    postUrl: postUrl
+  }
+}
+
+function getWorkflowFromApiUrlSave(str, body) {
+  let regUrl = /\/abe\/api\/pages\/save\/(.*?)\//
+  var workflow = 'draft'
+	var match = str.match(regUrl)
+  if (match != null && match[1] != null) {
+    workflow = match[1]
+	}
+	var postUrl = str.replace(regUrl, '')
+  return {
+    workflow: workflow,
+    postUrl: postUrl
+  }
+}
+
 function getWorkflowFromApiUrl(str, body) {
   let regUrl = /\/abe\/api\/pages\/(.*?)\//
   var workflow = 'draft'
-  var match = str.match(regUrl)
+	var match = str.match(regUrl)
   if (match != null && match[2] != null) {
     workflow = match[2]
 	}
