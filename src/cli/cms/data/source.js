@@ -284,9 +284,7 @@ export function getSourceData(text, jsonPage) {
   var p = new Promise(resolve => {
     var promises = []
     var matches = cmsData.regex.getTagAbeWithSource(text)
-    console.log('matches', matches)
     Array.prototype.forEach.call(matches, match => {
-      console.log('match', match)
       promises.push(nextSourceData(jsonPage, match))
     })
 
