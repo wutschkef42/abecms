@@ -48,7 +48,7 @@
   {{/isAuthorized}}
   {{#isAuthorized '/abe/users/list' @root.user.role.workflow}}
   <li class="nav-item">
-    <a class="nav-link{{#if isRoles}} active{{/if}}" href="/abe/list-url">
+    <a class="nav-link{{#if isRoles}} active{{/if}}" href="/abe/permissions">
       <i class="nav-icon icon-graduation"></i> Roles</a>
   </li>
   {{/isAuthorized}}
