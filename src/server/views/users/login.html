@@ -4,12 +4,9 @@
     <div class="col-md-8">
       <div class="card-group">
         <div class="card p-4">
-          <form action="/abe/users/login" method="POST">
+          <form action="/abe/users/login" id="loginForm" method="POST">
             <div class="card-body">
-              {{#if info}}
-                <span class="text-danger">{{@root.info}}</span>
-                <br /><br />
-              {{/if}}
+              <span class="text-danger" id="error-message" style="display: none;"></span>
               <h1>Login</h1>
               <p class="text-muted">Sign In to your account</p>
               <div class="input-group mb-3">
@@ -18,7 +15,7 @@
                     <i class="icon-user"></i>
                   </span>
                 </div>
-                <input class="form-control" type="text" name="username" placeholder="Username">
+                <input class="form-control" type="text" name="username" id="loginUsername" placeholder="Username">
               </div>
               <div class="input-group mb-4">
                 <div class="input-group-prepend">
@@ -26,11 +23,11 @@
                     <i class="icon-lock"></i>
                   </span>
                 </div>
-                <input class="form-control" type="password" name="password" placeholder="Password">
+                <input class="form-control" type="password" name="password" id="loginPassword" placeholder="Password">
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button class="btn btn-primary px-4" type="submit">Login</button>
+                  <button class="btn btn-primary px-4" id="loginButton" type="submit">Login</button>
                 </div>
                 <div class="col-6 text-right">
                   <button class="btn btn-link px-0" type="button" onclick="location.href='/abe/users/forgot'">Forgot password?</button>

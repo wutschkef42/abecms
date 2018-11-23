@@ -235,6 +235,8 @@ export function isAbeRestrictedUrl(currentRoute) {
   if (
     currentRoute.indexOf('/abe/users/forgot') > -1 ||
     currentRoute.indexOf('/abe/users/login') > -1 ||
+    currentRoute.indexOf('/abe/api/users/login') > -1 ||
+    currentRoute.indexOf('/abe/api/users/forgot') > -1 ||
     currentRoute.indexOf('/abe/users/reset') > -1 ||
     currentRoute.indexOf('/abe/rest/') > -1 ||
     !/^\/abe\//.test(currentRoute + '/')
@@ -248,7 +250,6 @@ export function isAbeRestrictedUrl(currentRoute) {
 export function isUserAllowedOnRoute(workflow, currentRoute) {
   var isAllowed = false
 
-  console.log(workflow, currentRoute)
   if (config.users.enable) {
     if (
       currentRoute.indexOf('/abe/users/forgot') > -1 ||

@@ -2,6 +2,7 @@
 
 import FormCreate from './modules/FormCreate'
 import FormList from './modules/FormList'
+import LoginForm from './modules/LoginForm'
 
 class Admin {
   constructor() {

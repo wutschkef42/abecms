@@ -1,7 +1,9 @@
-import { User, config, Manager } from '../../../cli'
+import { User, config, Manager, Handlebars, coreUtils } from '../../../cli'
 
 const Joi = require('joi');
 
+import crypto from 'crypto'
+import Cookies from 'cookies'
 import passport from 'passport'
 import jwt from 'jwt-simple'
 import moment from 'moment'
@@ -139,6 +141,11 @@ export const tryLogin = (req, res, next) => {
         secret
       )
 
+      var cookies = new Cookies(req, res, {
+        secure: config.cookie.secure
+      })
+      cookies.set('x-access-token', token)
+
       var username = ''
       if (user && user.username) {
         username = user.username
@@ -151,6 +158,72 @@ export const tryLogin = (req, res, next) => {
       res.status(200).json({ token })
     })(req, res, next)
   })
+}
+
+export const forgotPassword = (req, res) => {
+  if (typeof req.body.email !== 'undefined' && req.body.email !== null) {
+    User.utils.findByEmail(req.body.email, function(err, user) {
+      if (err) {
+        return res.status(500).json({success: 0, error: 'server', message: 'Server error', err: err })
+      }
+
+      if (!user) {
+        return res.status(400).json({success: 0, error: 'nouser', message: 'No user found'})
+      }
+
+      crypto.randomBytes(20, function(err, buf) {
+        var resetPasswordToken = buf.toString('hex')
+        var forgotExpire = config.forgotExpire
+
+        User.operations.update({
+          id: user.id,
+          resetPasswordToken: resetPasswordToken,
+          resetPasswordExpires: Date.now() + forgotExpire * 60 * 1000
+        })
+
+        var requestedUrl =
+          req.protocol +
+          '://' +
+          req.get('Host') +
+          '/abe/users/reset?token=' +
+          resetPasswordToken
+
+        var emailConf = config.users.email
+        html = emailConf.html || ''
+
+        if (
+          typeof emailConf.templateHtml !== 'undefined' &&
+          emailConf.templateHtml !== null
+        ) {
+          var fileHtml = path.join(config.root, emailConf.templateHtml)
+          if (coreUtils.file.exist(fileHtml)) {
+            html = fs.readFileSync(fileHtml, 'utf8')
+          }
+        }
+
+        var template = Handlebars.compile(html, {noEscape: true})
+
+        html = template({
+          express: {
+            req: req,
+            res: res
+          },
+          forgotUrl: requestedUrl,
+          siteUrl: req.protocol + '://' + req.get('Host'),
+          user: user
+        })
+
+        var from = emailConf.from
+        var to = user.email
+        var subject = emailConf.subject
+        var text = emailConf.text.replace(/\{\{forgotUrl\}\}/g, requestedUrl)
+        var html = html.replace(/\{\{forgotUrl\}\}/g, requestedUrl)
+
+        coreUtils.mail.send(from, to, subject, text, html)
+        return res.status(200).json({success: 1, message: 'Check your inbox'})
+      })
+    })
+  }
 }
 
 

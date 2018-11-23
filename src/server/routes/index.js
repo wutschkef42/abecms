@@ -71,6 +71,7 @@ router.post('/abe/api/users/profile', userController.postProfile)
 router.get('/abe/api/users/logout', userController.logout)
 router.post('/abe/api/users/askreset', userController.askPasswordReset)
 router.post('/abe/api/users/reset', userController.resetPassword)
+router.post('/abe/api/users/forgot', userController.forgotPassword)
 
 /* REST /workflows */
 router.get('/abe/api/workflows', workflowController.getWorkflows)
