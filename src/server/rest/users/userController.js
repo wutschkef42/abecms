@@ -35,8 +35,8 @@ export const createUser = async (req, res) => {
   
 
 
-	if (resultCreate.success === false) {
-		return res.status(400).json({ message: resultCreate[resultCreate.error].message })
+	if (!resultCreate.success) {
+		return res.status(400).json({ message: resultCreate.message })
 	}
 
 	res.json(resultCreate)
