@@ -68,7 +68,7 @@ export default class Json {
       else if (type == 'reject') {
         ajaxUrl = '/abe/api/pages/reject' + filePath
       }
-      else if (type == 'save') {
+      else if (type == 'save' || type == 'edit') {
         var realType = jsonSave.abe_meta.status || 'draft'
         ajaxUrl = '/abe/api/pages/save/' + realType + filePath
       }
