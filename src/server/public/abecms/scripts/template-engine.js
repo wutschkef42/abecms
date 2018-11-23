@@ -324,10 +324,10 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     Nanoajax.ajax(
       {
-        url: '/abe/users/remove-search',
+        url: '/abe/api/search',
         body: `title=${$(this).data('title')}&id=${$(this).data('id')}&search=${$(this).data('search')}`,
         cors: true,
-        method: 'POST'
+        method: 'DELETE'
       },
       (code, responseText) => {
         var res = JSON.parse(responseText)

@@ -53,7 +53,8 @@ const {
 	imageController,
 	hookController,
 	configController,
-	activitiesController,
+  activitiesController,
+  searchController,
 } = controllers
 
 /* REST /users */
@@ -142,6 +143,10 @@ router.get('/abe/api/hooks', hookController.getHooks)
 /* REST /config */
 router.get('/abe/api/config', configController.getConfig)
 router.post('/abe/api/config', configController.saveConfig)
+
+/* REST /search */
+router.post('/abe/api/search', searchController.saveSearch)
+router.delete('/abe/api/search', searchController.removeSearch)
 
 /* END OF REST API ROUTES */
 

@@ -31,6 +31,7 @@ import * as imageController from './images/imageController'
 import * as hookController from './hooks/hooksController'
 import * as configController from './config/configController'
 import * as activitiesController from './activities/activitiesController'
+import * as searchController from './search/searchController'
 
 export const controllers = {
 	workflowController,
@@ -47,6 +48,7 @@ export const controllers = {
 	hookController,
 	configController,
 	activitiesController,
+	searchController,
 }
 
 const apiRoutes = {
