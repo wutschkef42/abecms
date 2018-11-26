@@ -31,7 +31,6 @@ function createCheckboxesHTML (roles, url) {
 	var htmlStuff = ``
 	for (var name in roles) {
 		var role = roles[name]
-		console.log(name, role, url)
 		htmlStuff = `${htmlStuff}<td>
 		<div class="permission-box">
 			<input class="permission-checkbox" onclick="checkChange('${name}','${url}', this)" ${ role ? 'checked' : ''} type="checkbox" ${ name == 'admin' ? 'disabled="true"' : '' }>
@@ -75,7 +74,6 @@ function savePermissions () {
 function initData () {
 	urls = Object.keys(perms)
 	roles = Object.keys(perms[urls[0]].roles)
-	console.log(urls, roles)
 }
 
 function createTable () {

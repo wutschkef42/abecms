@@ -133,8 +133,6 @@ function onUpdateUserSubmit () {
 		}
 	}
 
-	console.log(role, email, id)
-
 	$.ajax({
 		url: '/abe/api/users',
 		method: 'PUT',
@@ -188,7 +186,6 @@ function initUsersList() {
 	$.ajax({
 		url: '/abe/api/users'
 	}).done(function (res) {
-		console.log(res)
 		users = res.users
 		generateList()
 	}).fail(function (err) {
