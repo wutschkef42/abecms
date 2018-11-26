@@ -4,7 +4,7 @@
 <div class="container container-main user-list" id="users-list">
 	<div class="row" style="margin-bottom: 20px;">
 		<div class="col">
-			<button class="btn btn-success" @click="openAddUser"><span class="fas fa-user-plus"></span>&nbsp;&nbsp;Add user</button>
+			<button class="btn btn-success" onclick="openAddUser()"><span class="fas fa-user-plus"></span>&nbsp;&nbsp;Add user</button>
 		</div>
 	</div>
 	<div class="row">
@@ -22,22 +22,7 @@
 					<th scope="col">Actions</th>
 				</tr>
 				</thead>
-				<tbody>
-				<tr v-for="(user, index) in usersList" :key="user.id" :id="user.id">
-					<td><profile-img :avatar="user.avatar"/></td>
-					<td class="cell-user">${ user.username }</td>
-					<td class="cell-user">${ user.name }</td>
-					<td class="cell-user">${ user.email }</td>
-					<td class="cell-user">${ user.role.name }</td>
-					<td class="cell-user">
-						<span v-if="!user.actif" class="fas fa-eye icon-activate text-info" @click="activateUser(user.id)" data-toggle="tooltip" data-placement="top" title="Activate the user"></span>
-						<span v-if="user.actif" class="fas fa-eye-slash icon-deactivate text-danger" @click="deactivateUser(user.id)" data-toggle="tooltip" data-placement="top" title="Deactivate the user"></span>
-					</td>
-					<td class="cell-user">
-						<span class="fas fa-pencil-alt text-primary icon-action"  @click="openModifyModal(user.id)"></span>&nbsp;&nbsp;
-						<span class="fas fa-trash text-danger icon-action" @click="askRemoveUser(user.id)"></span>
-					</td>
-				</tr>
+				<tbody id="list-body">
 				</tbody>
 			</table>
 
@@ -48,32 +33,32 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Update user ${ currentUser.username } </h4>
+					<h4 class="modal-title">Update user <span id="inputStringUsername">username</span> </h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
-					<div v-if="showSuccessUpdate" class="alert alert-success" role="alert">
-						<strong>User updated!</strong> <i>(auto close in 2 seconds)</i>
+					<div id="alertModifyError" class="alert alert-danger" role="alert">
+						<strong>Error occured</strong> <p id="textErrorModify"></p>
 					</div>
-					<form @submit="onUpdateUserSubmit" >
+					<form id="formUserUpdate" >
 						<div class="form-group">
 							<label for="inputModifyEmail">Email address</label>
-							<input type="email" class="form-control" id="inputModifyEmail" v-model="userForm.email">
+							<input type="email" class="form-control" id="inputModifyEmail">
 						</div>
 						<div class="form-group">
 							<label for="inputModifyUsername">Username</label>
-							<input type="text" class="form-control" id="inputModifyUsername" v-model="userForm.username">
+							<input type="text" class="form-control" id="inputModifyUsername">
 						</div>
 						<div class="form-group">
 							<label for="inputModifyName">Name</label>
-							<input type="text" class="form-control" id="inputModifyName" v-model="userForm.name">
+							<input type="text" class="form-control" id="inputModifyName">
 						</div>
 						<div class="form-group">
-							<label for="inputModifyRole">Role (Current : ${ currentRole })</label>
-							<select class="form-control" id="inputModifyRole" v-model="userForm.role">
-								<option v-for="role in roles" :value="role.name" :key="role.name">${ role.name }</option>
+							<label for="inputModifyRole">Role (Current : <span id="inputStringRole">role</span>)</label>
+							<select class="form-control" id="inputModifyRole" >
 							</select>
 						</div>
+						<input id="inputModifyId" value="-1" type="hidden" />
 						<button type="submit" class="btn btn-primary btn-block">Save changes</button>
 					</form>
 				</div>
@@ -88,20 +73,20 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Do you want to remove user ${ removeUserData.username } </h4>
+					<h4 class="modal-title">Do you want to remove user <span id="mr-username"></span> </h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
 					<p>User details:<br />
 						<ul>
-							<li>Email: <strong>${ removeUserData.email }</strong></li>
-							<li>Name: <strong>${ removeUserData.name }</strong></li>
-							<li>Username: <strong>${ removeUserData.username }</strong></li>
+							<li>Email: <strong id="mr-email">email</strong></li>
+							<li>Name: <strong id="mr-name">name</strong></li>
+							<li>Username: <strong id="mr-username2">username</strong></li>
 						</ul>
 					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-warning btn-block" @click="tryRemoveUser(removeUserData.id)">Delete this user !</button>
+					<button type="button" class="btn btn-warning btn-block" id="removeUserConfirmButton">Delete this user !</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -116,33 +101,32 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
-					<div v-if="showSuccessAdd" class="alert alert-success" role="alert">
+					<div id="alertAddSuccess" class="alert alert-success" role="alert">
 						<strong>User added!</strong> <i>(auto close in 2 seconds)</i>
 					</div>
-					<div v-if="showErrorAdd" class="alert alert-danger" role="alert">
-						<strong>Error occured</strong> <p v-html="textErrorAdd"></p>
+					<div id="alertAddError" class="alert alert-danger" role="alert">
+						<strong>Error occured</strong> <p id="textErrorAdd"></p>
 					</div>
-					<form @submit="onAddUserSubmit" >
+					<form id="addUserForm" >
 						<div class="form-group">
 							<label for="inputAddEmail">Email address</label>
-							<input type="email" class="form-control" id="inputAddEmail" v-model="newUser.email">
+							<input type="email" class="form-control" id="inputAddEmail" >
 						</div>
 						<div class="form-group">
 							<label for="inputAddUsername">Username</label>
-							<input type="text" class="form-control" id="inputAddUsername" v-model="newUser.username">
+							<input type="text" class="form-control" id="inputAddUsername" >
 						</div>
 						<div class="form-group">
 							<label for="inputAddName">Name</label>
-							<input type="text" class="form-control" id="inputAddName" v-model="newUser.name">
+							<input type="text" class="form-control" id="inputAddName" >
 						</div>
 						<div class="form-group">
 							<label for="inputAddPassword">Password</label>
-							<input type="password" class="form-control" id="inputAddPassword" v-model="newUser.password">
+							<input type="password" class="form-control" id="inputAddPassword" >
 						</div>
 						<div class="form-group">
 							<label for="inputAddRole">Role </label>
-							<select class="form-control" id="inputAddRole" v-model="newUser.roleString">
-								<option v-for="role in roles" :value="role.name" :key="role.name">${ role.name }</option>
+							<select class="form-control" id="inputAddRole">
 							</select>
 						</div>
 						<button type="submit" class="btn btn-success btn-block">Create user</button>
