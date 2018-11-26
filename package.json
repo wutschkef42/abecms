@@ -35,8 +35,7 @@
     "js:pages": "browserify -t [ babelify --presets [ env ] ] src/server/public/abecms/scripts/v4/pages.js -o src/server/public/abecms/scripts/v4/pages-compiled.js",
     "js:activities": "browserify -t [ babelify --presets [ env ] ] src/server/public/abecms/scripts/v4/activities.js -o src/server/public/abecms/scripts/v4/activities-compiled.js",
     "js:homestat": "browserify -t [ babelify --presets [ env ] ] src/server/public/abecms/scripts/v4/home.js -o src/server/public/abecms/scripts/v4/home-compiled.js",
-    "js:enginev4": "browserify -t [ babelify --presets [ env ] ] src/server/public/abecms/scripts/v4/v4-engine.js -o src/server/public/abecms/scripts/v4/v4-engine-compiled.js",
-    "js:allnewv4": "npm run js:permissions && npm run js:references && npm run js:structures && npm run js:usersv4 && npm run js:workflows && npm run js:pages && npm run js:activities && npm run js:homestat && npm run js:enginev4",
+    "js:allnewv4": "npm run js:permissions && npm run js:references && npm run js:structures && npm run js:usersv4 && npm run js:workflows && npm run js:pages && npm run js:activities && npm run js:homestat",
     
     "sass": "node ./src/tasks/sass.js",
     "mvasset": "mkdirp dist/server/public/abecms && cp -r src/server/locale dist/server && cp -r src/server/views dist/server && cp -r src/server/public/abecms/css dist/server/public/abecms && cp -r src/server/public/abecms/libs dist/server/public/abecms && cp -r src/server/public/abecms/fonts dist/server/public/abecms && cp -r src/server/public/abecms/image dist/server/public/abecms && cp -r src/cli/core/config/config.json dist/cli/core/config/config.json",
