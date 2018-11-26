@@ -69,12 +69,15 @@ function deactivateUser (id) {
 	})
 }
 
+document.findIndexWithId = findIndexWithId
+
 function findIndexWithId (id) {
 	for (var i in users) {
-		if (users[i].id === id) {
+		if (parseInt(users[i].id) === parseInt(id)) {
 			return i
 		}
 	}
+	return -1
 }
 
 function onAddUserSubmit () {
@@ -175,7 +178,7 @@ function activateUser (id) {
 function updateUsers (id, prop, val) {
 	const users = this.users;
 	for (var i in users) {
-		if (users[i].id === id) {
+		if (parseInt(users[i].id) === parseInt(id)) {
 			users[i][prop] = val;
 		}
 	}
@@ -204,7 +207,7 @@ function initUsersList() {
 
 function askRemoveUser (id) {
 	for (var i in users) {
-		if (users[i].id === id) {
+		if (parseInt(users[i].id) === parseInt(id)) {
 			removeUserIndex = i;
 			removeUserId = users[i].id
 			generateDeleteModal (i, users[i])
