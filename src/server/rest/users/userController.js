@@ -24,7 +24,7 @@ const buildResponse = (statusCode, data, res) => {
   }
 }
 
-export const createUser = async (req, res) => {
+export const createUser = (req, res) => {
 	const validation = Joi.validate(req.body, createUserSchema);
 
 	if (validation.error !== null) {
@@ -42,7 +42,7 @@ export const createUser = async (req, res) => {
 	res.json(resultCreate)
 }
 
-export const updateUser = async (req, res) => {
+export const updateUser = (req, res) => {
 	const validation = Joi.validate(req.body, updateUserSchema);
 
 	if (validation.error !== null) {
