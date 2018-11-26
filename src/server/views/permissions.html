@@ -24,32 +24,26 @@
   <div class="container container-main user-list" id="permissions">
 	<div class="row" style="margin-bottom: 20px;">
 		<div class="col">
-			<button class="btn btn-success" @click="savePermissions"><span class="fas fa-save"></span>&nbsp;&nbsp;Save Permissions</button>
+			<button class="btn btn-success" onclick="savePermissions()"><span class="fas fa-save"></span>&nbsp;&nbsp;Save Permissions</button>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col">
 
+            <div class="alert alert-success" id="success-alert" role="alert">
+                Permissions saved!
+            </div>
+
 			<table class="table table-bordered" id="permissions">
 
                 <thead>
-                    <tr>
+                    <tr id="headlist">
                         <th>Method</th>
                         <th>Link</th>
-                        <th v-for="role in roles" align="center" class="text-center">${ role.name }</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="(perm, url) in perms">
-                        <td>${ perm.method }</td>
-                        <td>${ url }</td>
-                        <td v-for="(role, name) in perm.roles">
-                            <div class="permission-box">
-                                <input class="permission-checkbox" type="checkbox" v-model="perms[url].roles[name]" :disabled="isDisabled(name)">
-                                ${ role }
-                            </div>
-                        </td>
-                    </tr>
+                <tbody id="permissions-list">
+                    
                 </tbody>
             </table>
 		</div>
