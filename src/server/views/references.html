@@ -7,29 +7,27 @@
 		<div class="col-sm-12 col-md-4 col-lg-3">
 			<div class="row mb-3">
 				<div class="input-group mb-3">
-					<input type="text" class="form-control" v-model="newReference" placeholder="filename.json" aria-label="Filename" aria-describedby="basic-addon1">
+					<input type="text" class="form-control" id="ref-filename" placeholder="filename.json" aria-label="Filename" aria-describedby="basic-addon1">
 				</div>
-				<button type="button" class="btn btn-primary" @click="addReference">Add reference</button>
+				<button type="button" class="btn btn-primary" onclick="addReference()">Add reference</button>
 			</div>
 			<div class="row">
 				<div class="col">
 					<h4>References list</h4>
 					<br />
-					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action" v-for="(refer, key) in references" :key="key" @click="loadReference(refer)">
-							${ refer }
-						</a>
+					<div class="list-group" id="refs-list">
+						
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col">
-			<div v-if="showSaveSuccess" class="alert alert-success" role="alert">
-				<strong>File ${ jsonName } saved!</strong> <i>(auto close in 2 seconds)</i>
+		<div class="col" id="editorcol">
+			<div class="alert alert-success" id="successalert" role="alert">
+				<strong>File <span id="filename">${ jsonName }</span> saved!</strong> <i>(auto close in 2 seconds)</i>
 			</div>
-			<p v-if="showing">You are editing : ${ jsonName } &nbsp;&nbsp;<button v-if="showing" @click="saveReference" type="button" class="btn btn-warning">Save Editor</button>&nbsp;&nbsp;<button v-if="showing" type="button" class="btn btn-default" @click="closeEditor">Close ${ jsonName }</button><br /><br /></p>
-			<textarea v-if="showing" v-model="jsonToShow" rows="20" cols="60"></textarea>
+			<p>You are editing : <span id="filename2">${ jsonName }</span> &nbsp;&nbsp;<button v-if="showing" onclick="saveReference()" type="button" class="btn btn-warning">Save Editor</button>&nbsp;&nbsp;<button v-if="showing" type="button" class="btn btn-default" onclick="closeEditor()">Close Editor</button><br /><br /></p>
+			<textarea id="jsonToShow" rows="20" cols="60"></textarea>
 		</div>
 	</div>
 </div>
