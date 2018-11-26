@@ -114,3 +114,8 @@ function initReferences () {
 }
 
 initReferences()
+
+function closeEditor () {
+	editorcol.hide()
+}
+document.closeEditor = closeEditor
